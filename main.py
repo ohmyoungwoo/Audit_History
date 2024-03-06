@@ -1,11 +1,10 @@
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
-
 app = FastAPI()
 
 origins = [
-    "http://localhost:45343"
+    "http://localhost:36869",    # 또는 "http://localhost:5173"
 ]
 
 app.add_middleware(
@@ -15,6 +14,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 @app.get("/hello")
 def hello():
