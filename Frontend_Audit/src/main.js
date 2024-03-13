@@ -10,7 +10,7 @@ const app = new App({
 	props: {
 		name: 'world'
 	}
-//	target: document.getElementById('app')   // 작동 안됨. 이유를 모름
+//	target: document.getElementById('app')  // 작동 안됨. 이유를 모름
 });
 
 export default app;

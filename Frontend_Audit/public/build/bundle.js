@@ -823,7 +823,7 @@ var app = (function () {
     }
 
     // (239:0) {#if componentParams}
-    function create_if_block$1(ctx) {
+    function create_if_block$2(ctx) {
     	let switch_instance;
     	let switch_instance_anchor;
     	let current;
@@ -908,7 +908,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$1.name,
+    		id: create_if_block$2.name,
     		type: "if",
     		source: "(239:0) {#if componentParams}",
     		ctx
@@ -922,7 +922,7 @@ var app = (function () {
     	let if_block;
     	let if_block_anchor;
     	let current;
-    	const if_block_creators = [create_if_block$1, create_else_block];
+    	const if_block_creators = [create_if_block$2, create_else_block];
     	const if_blocks = [];
 
     	function select_block_type(ctx, dirty) {
@@ -1689,26 +1689,33 @@ var app = (function () {
 
     function get_each_context$1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[2] = list[i];
-    	child_ctx[4] = i;
+    	child_ctx[9] = list[i];
+    	child_ctx[11] = i;
     	return child_ctx;
     }
 
-    // (34:8) {#each question_list as question, i}
-    function create_each_block$1(ctx) {
+    function get_each_context_1(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[12] = list[i];
+    	child_ctx[14] = i;
+    	return child_ctx;
+    }
+
+    // (39:8) {#each question_list as question, i}
+    function create_each_block_1(ctx) {
     	let tr;
     	let td0;
-    	let t0_value = /*i*/ ctx[4] + 1 + "";
+    	let t0_value = /*i*/ ctx[14] + 1 + "";
     	let t0;
     	let t1;
     	let td1;
     	let a;
-    	let t2_value = /*question*/ ctx[2].subject + "";
+    	let t2_value = /*question*/ ctx[12].subject + "";
     	let t2;
     	let a_href_value;
     	let t3;
     	let td2;
-    	let t4_value = /*question*/ ctx[2].create_date + "";
+    	let t4_value = /*question*/ ctx[12].create_date + "";
     	let t4;
     	let t5;
     	let mounted;
@@ -1727,12 +1734,12 @@ var app = (function () {
     			td2 = element("td");
     			t4 = text(t4_value);
     			t5 = space();
-    			add_location(td0, file$4, 35, 12, 748);
-    			attr_dev(a, "href", a_href_value = "/detail/" + /*question*/ ctx[2].id);
-    			add_location(a, file$4, 37, 16, 796);
-    			add_location(td1, file$4, 36, 12, 775);
-    			add_location(td2, file$4, 39, 12, 890);
-    			add_location(tr, file$4, 34, 8, 731);
+    			add_location(td0, file$4, 40, 12, 1059);
+    			attr_dev(a, "href", a_href_value = "/detail/" + /*question*/ ctx[12].id);
+    			add_location(a, file$4, 42, 16, 1107);
+    			add_location(td1, file$4, 41, 12, 1086);
+    			add_location(td2, file$4, 44, 12, 1201);
+    			add_location(tr, file$4, 39, 8, 1042);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, tr, anchor);
@@ -1753,13 +1760,13 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*question_list*/ 1 && t2_value !== (t2_value = /*question*/ ctx[2].subject + "")) set_data_dev(t2, t2_value);
+    			if (dirty & /*question_list*/ 1 && t2_value !== (t2_value = /*question*/ ctx[12].subject + "")) set_data_dev(t2, t2_value);
 
-    			if (dirty & /*question_list*/ 1 && a_href_value !== (a_href_value = "/detail/" + /*question*/ ctx[2].id)) {
+    			if (dirty & /*question_list*/ 1 && a_href_value !== (a_href_value = "/detail/" + /*question*/ ctx[12].id)) {
     				attr_dev(a, "href", a_href_value);
     			}
 
-    			if (dirty & /*question_list*/ 1 && t4_value !== (t4_value = /*question*/ ctx[2].create_date + "")) set_data_dev(t4, t4_value);
+    			if (dirty & /*question_list*/ 1 && t4_value !== (t4_value = /*question*/ ctx[12].create_date + "")) set_data_dev(t4, t4_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(tr);
@@ -1770,9 +1777,116 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
+    		id: create_each_block_1.name,
+    		type: "each",
+    		source: "(39:8) {#each question_list as question, i}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (59:8) {#if loop_page >= page-5 && loop_page <= page+5}
+    function create_if_block$1(ctx) {
+    	let li;
+    	let button;
+    	let t0_value = /*loop_page*/ ctx[11] + 1 + "";
+    	let t0;
+    	let t1;
+    	let li_class_value;
+    	let mounted;
+    	let dispose;
+
+    	function click_handler_1() {
+    		return /*click_handler_1*/ ctx[6](/*loop_page*/ ctx[11]);
+    	}
+
+    	const block = {
+    		c: function create() {
+    			li = element("li");
+    			button = element("button");
+    			t0 = text(t0_value);
+    			t1 = space();
+    			attr_dev(button, "class", "page-link");
+    			add_location(button, file$4, 60, 12, 1763);
+    			attr_dev(li, "class", li_class_value = "page-item " + (/*loop_page*/ ctx[11] === /*page*/ ctx[1] && 'active'));
+    			add_location(li, file$4, 59, 8, 1695);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, li, anchor);
+    			append_dev(li, button);
+    			append_dev(button, t0);
+    			append_dev(li, t1);
+
+    			if (!mounted) {
+    				dispose = listen_dev(button, "click", click_handler_1, false, false, false, false);
+    				mounted = true;
+    			}
+    		},
+    		p: function update(new_ctx, dirty) {
+    			ctx = new_ctx;
+
+    			if (dirty & /*page*/ 2 && li_class_value !== (li_class_value = "page-item " + (/*loop_page*/ ctx[11] === /*page*/ ctx[1] && 'active'))) {
+    				attr_dev(li, "class", li_class_value);
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(li);
+    			mounted = false;
+    			dispose();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$1.name,
+    		type: "if",
+    		source: "(59:8) {#if loop_page >= page-5 && loop_page <= page+5}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (58:8) {#each Array(total_page) as _, loop_page}
+    function create_each_block$1(ctx) {
+    	let if_block_anchor;
+    	let if_block = /*loop_page*/ ctx[11] >= /*page*/ ctx[1] - 5 && /*loop_page*/ ctx[11] <= /*page*/ ctx[1] + 5 && create_if_block$1(ctx);
+
+    	const block = {
+    		c: function create() {
+    			if (if_block) if_block.c();
+    			if_block_anchor = empty();
+    		},
+    		m: function mount(target, anchor) {
+    			if (if_block) if_block.m(target, anchor);
+    			insert_dev(target, if_block_anchor, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (/*loop_page*/ ctx[11] >= /*page*/ ctx[1] - 5 && /*loop_page*/ ctx[11] <= /*page*/ ctx[1] + 5) {
+    				if (if_block) {
+    					if_block.p(ctx, dirty);
+    				} else {
+    					if_block = create_if_block$1(ctx);
+    					if_block.c();
+    					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+    				}
+    			} else if (if_block) {
+    				if_block.d(1);
+    				if_block = null;
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (if_block) if_block.d(detaching);
+    			if (detaching) detach_dev(if_block_anchor);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(34:8) {#each question_list as question, i}",
+    		source: "(58:8) {#each Array(total_page) as _, loop_page}",
     		ctx
     	});
 
@@ -1790,12 +1904,34 @@ var app = (function () {
     	let t3;
     	let th2;
     	let t5;
+    	let th3;
+    	let t7;
+    	let th4;
+    	let t9;
     	let tbody;
-    	let t6;
+    	let t10;
+    	let ul;
+    	let li0;
+    	let button0;
+    	let li0_class_value;
+    	let t12;
+    	let t13;
+    	let li1;
+    	let button1;
+    	let li1_class_value;
+    	let t15;
     	let a;
     	let mounted;
     	let dispose;
-    	let each_value = /*question_list*/ ctx[0];
+    	let each_value_1 = /*question_list*/ ctx[0];
+    	validate_each_argument(each_value_1);
+    	let each_blocks_1 = [];
+
+    	for (let i = 0; i < each_value_1.length; i += 1) {
+    		each_blocks_1[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
+    	}
+
+    	let each_value = Array(/*total_page*/ ctx[2]);
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -1813,34 +1949,67 @@ var app = (function () {
     			th0.textContent = "번호";
     			t1 = space();
     			th1 = element("th");
-    			th1.textContent = "제목";
+    			th1.textContent = "진단 제목";
     			t3 = space();
     			th2 = element("th");
     			th2.textContent = "작성일시";
     			t5 = space();
+    			th3 = element("th");
+    			th3.textContent = "작성자";
+    			t7 = space();
+    			th4 = element("th");
+    			th4.textContent = "진단보고서";
+    			t9 = space();
     			tbody = element("tbody");
+
+    			for (let i = 0; i < each_blocks_1.length; i += 1) {
+    				each_blocks_1[i].c();
+    			}
+
+    			t10 = space();
+    			ul = element("ul");
+    			li0 = element("li");
+    			button0 = element("button");
+    			button0.textContent = "이전";
+    			t12 = space();
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
-    			t6 = space();
+    			t13 = space();
+    			li1 = element("li");
+    			button1 = element("button");
+    			button1.textContent = "다음";
+    			t15 = space();
     			a = element("a");
-    			a.textContent = "질문 등록하기";
-    			add_location(th0, file$4, 27, 12, 569);
-    			add_location(th1, file$4, 28, 12, 593);
-    			add_location(th2, file$4, 29, 12, 617);
+    			a.textContent = "진단 결과 등록하기";
+    			add_location(th0, file$4, 30, 12, 825);
+    			add_location(th1, file$4, 31, 12, 849);
+    			add_location(th2, file$4, 32, 12, 876);
+    			add_location(th3, file$4, 33, 12, 902);
+    			add_location(th4, file$4, 34, 12, 927);
     			attr_dev(tr, "class", "table-dark");
-    			add_location(tr, file$4, 26, 8, 533);
-    			add_location(thead, file$4, 25, 8, 517);
-    			add_location(tbody, file$4, 32, 8, 670);
+    			add_location(tr, file$4, 29, 8, 789);
+    			add_location(thead, file$4, 28, 8, 773);
+    			add_location(tbody, file$4, 37, 8, 981);
     			attr_dev(table, "class", "table");
-    			add_location(table, file$4, 24, 4, 487);
+    			add_location(table, file$4, 27, 4, 743);
+    			attr_dev(button0, "class", "page-link");
+    			add_location(button0, file$4, 54, 12, 1459);
+    			attr_dev(li0, "class", li0_class_value = "page-item " + (/*page*/ ctx[1] <= 0 && 'disabled'));
+    			add_location(li0, file$4, 53, 8, 1398);
+    			attr_dev(button1, "class", "page-link");
+    			add_location(button1, file$4, 66, 12, 2007);
+    			attr_dev(li1, "class", li1_class_value = "page-item " + (/*page*/ ctx[1] >= /*total_page*/ ctx[2] - 1 && 'disabled'));
+    			add_location(li1, file$4, 65, 8, 1935);
+    			attr_dev(ul, "class", "pagination justify-content-center");
+    			add_location(ul, file$4, 51, 4, 1320);
     			attr_dev(a, "href", "/question-create");
     			attr_dev(a, "class", "btn btn-primary");
-    			add_location(a, file$4, 44, 4, 986);
+    			add_location(a, file$4, 71, 4, 2140);
     			attr_dev(div, "class", "container my-3");
-    			add_location(div, file$4, 23, 0, 454);
+    			add_location(div, file$4, 26, 0, 710);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1855,26 +2024,78 @@ var app = (function () {
     			append_dev(tr, th1);
     			append_dev(tr, t3);
     			append_dev(tr, th2);
-    			append_dev(table, t5);
+    			append_dev(tr, t5);
+    			append_dev(tr, th3);
+    			append_dev(tr, t7);
+    			append_dev(tr, th4);
+    			append_dev(table, t9);
     			append_dev(table, tbody);
 
-    			for (let i = 0; i < each_blocks.length; i += 1) {
-    				if (each_blocks[i]) {
-    					each_blocks[i].m(tbody, null);
+    			for (let i = 0; i < each_blocks_1.length; i += 1) {
+    				if (each_blocks_1[i]) {
+    					each_blocks_1[i].m(tbody, null);
     				}
     			}
 
-    			append_dev(div, t6);
+    			append_dev(div, t10);
+    			append_dev(div, ul);
+    			append_dev(ul, li0);
+    			append_dev(li0, button0);
+    			append_dev(ul, t12);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				if (each_blocks[i]) {
+    					each_blocks[i].m(ul, null);
+    				}
+    			}
+
+    			append_dev(ul, t13);
+    			append_dev(ul, li1);
+    			append_dev(li1, button1);
+    			append_dev(div, t15);
     			append_dev(div, a);
 
     			if (!mounted) {
-    				dispose = action_destroyer(link.call(null, a));
+    				dispose = [
+    					listen_dev(button0, "click", /*click_handler*/ ctx[5], false, false, false, false),
+    					listen_dev(button1, "click", /*click_handler_2*/ ctx[7], false, false, false, false),
+    					action_destroyer(link.call(null, a))
+    				];
+
     				mounted = true;
     			}
     		},
     		p: function update(ctx, [dirty]) {
     			if (dirty & /*question_list*/ 1) {
-    				each_value = /*question_list*/ ctx[0];
+    				each_value_1 = /*question_list*/ ctx[0];
+    				validate_each_argument(each_value_1);
+    				let i;
+
+    				for (i = 0; i < each_value_1.length; i += 1) {
+    					const child_ctx = get_each_context_1(ctx, each_value_1, i);
+
+    					if (each_blocks_1[i]) {
+    						each_blocks_1[i].p(child_ctx, dirty);
+    					} else {
+    						each_blocks_1[i] = create_each_block_1(child_ctx);
+    						each_blocks_1[i].c();
+    						each_blocks_1[i].m(tbody, null);
+    					}
+    				}
+
+    				for (; i < each_blocks_1.length; i += 1) {
+    					each_blocks_1[i].d(1);
+    				}
+
+    				each_blocks_1.length = each_value_1.length;
+    			}
+
+    			if (dirty & /*page*/ 2 && li0_class_value !== (li0_class_value = "page-item " + (/*page*/ ctx[1] <= 0 && 'disabled'))) {
+    				attr_dev(li0, "class", li0_class_value);
+    			}
+
+    			if (dirty & /*page, get_question_list, total_page*/ 14) {
+    				each_value = Array(/*total_page*/ ctx[2]);
     				validate_each_argument(each_value);
     				let i;
 
@@ -1886,7 +2107,7 @@ var app = (function () {
     					} else {
     						each_blocks[i] = create_each_block$1(child_ctx);
     						each_blocks[i].c();
-    						each_blocks[i].m(tbody, null);
+    						each_blocks[i].m(ul, t13);
     					}
     				}
 
@@ -1896,14 +2117,19 @@ var app = (function () {
 
     				each_blocks.length = each_value.length;
     			}
+
+    			if (dirty & /*page, total_page*/ 6 && li1_class_value !== (li1_class_value = "page-item " + (/*page*/ ctx[1] >= /*total_page*/ ctx[2] - 1 && 'disabled'))) {
+    				attr_dev(li1, "class", li1_class_value);
+    			}
     		},
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div);
+    			destroy_each(each_blocks_1, detaching);
     			destroy_each(each_blocks, detaching);
     			mounted = false;
-    			dispose();
+    			run_all(dispose);
     		}
     	};
 
@@ -1919,39 +2145,75 @@ var app = (function () {
     }
 
     function instance$5($$self, $$props, $$invalidate) {
+    	let total_page;
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Home', slots, []);
     	let question_list = [];
+    	let size = 10;
+    	let page = 0;
+    	let total = 0;
 
-    	function get_question_list() {
-    		fastapi('get', '/api/question/list', {}, json => {
-    			$$invalidate(0, question_list = json);
+    	// total 변수의 값이 API 호출로 인해 그 값이 변하면 total_page 변수의 값도 실시간으로 재 계산된다
+    	function get_question_list(_page) {
+    		let params = { page: _page, size };
+
+    		fastapi('get', '/api/question/list', params, json => {
+    			$$invalidate(0, question_list = json.question_list);
+    			$$invalidate(1, page = _page);
+    			$$invalidate(4, total = json.total);
     		});
     	}
 
-    	get_question_list();
+    	get_question_list(0);
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Home> was created with unknown prop '${key}'`);
     	});
 
+    	const click_handler = () => get_question_list(page - 1);
+    	const click_handler_1 = loop_page => get_question_list(loop_page);
+    	const click_handler_2 = () => get_question_list(page + 1);
+
     	$$self.$capture_state = () => ({
     		fastapi,
     		link,
     		question_list,
-    		get_question_list
+    		size,
+    		page,
+    		total,
+    		get_question_list,
+    		total_page
     	});
 
     	$$self.$inject_state = $$props => {
     		if ('question_list' in $$props) $$invalidate(0, question_list = $$props.question_list);
+    		if ('size' in $$props) $$invalidate(8, size = $$props.size);
+    		if ('page' in $$props) $$invalidate(1, page = $$props.page);
+    		if ('total' in $$props) $$invalidate(4, total = $$props.total);
+    		if ('total_page' in $$props) $$invalidate(2, total_page = $$props.total_page);
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [question_list];
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty & /*total*/ 16) {
+    			$$invalidate(2, total_page = Math.ceil(total / size)); // 스벨트에서 변수앞에 $: 기호를 붙이면 해당 변수는 반응형 변수, 
+    		}
+    	};
+
+    	return [
+    		question_list,
+    		page,
+    		total_page,
+    		get_question_list,
+    		total,
+    		click_handler,
+    		click_handler_1,
+    		click_handler_2
+    	];
     }
 
     class Home extends SvelteComponentDev {
@@ -2794,7 +3056,7 @@ var app = (function () {
     			nav = element("nav");
     			div1 = element("div");
     			a0 = element("a");
-    			a0.textContent = "진단 이력 관리 시스템";
+    			a0.textContent = "품질진단 이력관리 시스템";
     			t1 = space();
     			button = element("button");
     			span = element("span");
@@ -2812,7 +3074,7 @@ var app = (function () {
     			attr_dev(a0, "href", "/");
     			add_location(a0, file, 7, 8, 208);
     			attr_dev(span, "class", "navbar-toggler-icon");
-    			add_location(span, file, 16, 12, 576);
+    			add_location(span, file, 16, 12, 577);
     			attr_dev(button, "class", "navbar-toggler");
     			attr_dev(button, "type", "button");
     			attr_dev(button, "data-bs-toggle", "collapse");
@@ -2820,22 +3082,22 @@ var app = (function () {
     			attr_dev(button, "aria-controls", "navbarSupportedContent");
     			attr_dev(button, "aria-expanded", "false");
     			attr_dev(button, "aria-label", "Toggle navigation");
-    			add_location(button, file, 8, 8, 275);
+    			add_location(button, file, 8, 8, 276);
     			attr_dev(a1, "class", "nav-link");
     			attr_dev(a1, "href", "/user-create");
-    			add_location(a1, file, 21, 20, 821);
+    			add_location(a1, file, 21, 20, 822);
     			attr_dev(li0, "class", "nav-item");
-    			add_location(li0, file, 20, 16, 779);
+    			add_location(li0, file, 20, 16, 780);
     			attr_dev(a2, "class", "nav-link");
     			attr_dev(a2, "href", "/user-login");
-    			add_location(a2, file, 24, 20, 959);
+    			add_location(a2, file, 24, 20, 960);
     			attr_dev(li1, "class", "nav-item");
-    			add_location(li1, file, 23, 16, 917);
+    			add_location(li1, file, 23, 16, 918);
     			attr_dev(ul, "class", "navbar-nav me-auto mb-2 mb-lg-0");
-    			add_location(ul, file, 19, 12, 718);
+    			add_location(ul, file, 19, 12, 719);
     			attr_dev(div0, "class", "collapse navbar-collapse");
     			attr_dev(div0, "id", "navbarSupportedContent");
-    			add_location(div0, file, 18, 8, 639);
+    			add_location(div0, file, 18, 8, 640);
     			attr_dev(div1, "class", "container-fluid");
     			add_location(div1, file, 6, 4, 170);
     			attr_dev(nav, "class", "navbar navbar-expand-lg navbar-light bg-light border-bottom");
@@ -3024,7 +3286,7 @@ var app = (function () {
     	props: {
     		name: 'world'
     	}
-    //	target: document.getElementById('app')   // 작동 안됨. 이유를 모름
+    //	target: document.getElementById('app')  // 작동 안됨. 이유를 모름
     });
 
     return app;

@@ -5,7 +5,7 @@
 <!-- 네이게이션 바 (화면 상단 바) -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
     <div class="container-fluid">
-        <a use:link class="navbar-brand" href="/">진단 이력 관리 시스템</a>
+        <a use:link class="navbar-brand" href="/">품질진단 이력관리 시스템</a>
         <button
             class="navbar-toggler"
             type="button"
