@@ -1,6 +1,6 @@
 import { writable } from "svelte/store";
 
-const persisi_storage = (key, initValue) => {
+const persist_storage = (key, initValue) => {
     const storeedValueStr = localStorage.getItem(key)
     const store = writable(storeedValueStr != null ? JSON.parse(storeedValueStr) : initValue)
     store.subscribe((val) => {
@@ -9,4 +9,7 @@ const persisi_storage = (key, initValue) => {
     return store
 }
 
-export const page = persisi_storage("page", 0)
+export const page = persist_storage("page", 0)
+export const access_token = persist_storage("access_token", "")
+export const username = persist_storage("username", "")
+export const is_login = persist_storage("is_login", false)
