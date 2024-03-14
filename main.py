@@ -7,7 +7,7 @@ from domain.answer import answer_router
 app = FastAPI()
 
 origins = [
-    "http://localhost:44247",    # Svelte Frontend 서버 주소 업데이트 해야 정상 작동함
+    "http://localhost:8089",    # Svelte Frontend 서버 주소 업데이트 해야 정상 작동함
 ]
 
 app.add_middleware(
