@@ -1,6 +1,7 @@
 <script>
     import fastapi from "../lib/api"   //JS로 작성한 공통된 CRUD 함수 ???
     import Error from "../components/Error.svelte"  //오류에 대한 처리
+    import { push } from "svelte-spa-router"
 
     export let params = {}
     let question_id = params.question_id
@@ -45,6 +46,10 @@
                 <div class="badge bg-light text-dark p-2">{question.create_date}</div>
         </div>
     </div>
+
+    <button class="btn btn-secondary" on:click="{()=>{
+        push('/')
+    }}">목록으로 이동</button>
 
     <!-- 답변 등록 -->
     <Error error={error} />
