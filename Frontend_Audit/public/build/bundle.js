@@ -20215,7 +20215,7 @@ var app = (function () {
     function create_each_block_1(ctx) {
     	let tr;
     	let td0;
-    	let t0_value = /*i*/ ctx[14] + 1 + "";
+    	let t0_value = /*total*/ ctx[0] - /*$page*/ ctx[1] * /*size*/ ctx[4] - /*i*/ ctx[14] + "";
     	let t0;
     	let t1;
     	let td1;
@@ -20246,9 +20246,9 @@ var app = (function () {
     			t5 = space();
     			add_location(td0, file$4, 44, 12, 1222);
     			attr_dev(a, "href", a_href_value = "/detail/" + /*question*/ ctx[12].id);
-    			add_location(a, file$4, 46, 16, 1270);
-    			add_location(td1, file$4, 45, 12, 1249);
-    			add_location(td2, file$4, 48, 12, 1364);
+    			add_location(a, file$4, 46, 16, 1297);
+    			add_location(td1, file$4, 45, 12, 1276);
+    			add_location(td2, file$4, 48, 12, 1391);
     			add_location(tr, file$4, 43, 8, 1205);
     		},
     		m: function mount(target, anchor) {
@@ -20270,13 +20270,14 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*question_list*/ 2 && t2_value !== (t2_value = /*question*/ ctx[12].subject + "")) set_data_dev(t2, t2_value);
+    			if (dirty & /*total, $page*/ 3 && t0_value !== (t0_value = /*total*/ ctx[0] - /*$page*/ ctx[1] * /*size*/ ctx[4] - /*i*/ ctx[14] + "")) set_data_dev(t0, t0_value);
+    			if (dirty & /*question_list*/ 4 && t2_value !== (t2_value = /*question*/ ctx[12].subject + "")) set_data_dev(t2, t2_value);
 
-    			if (dirty & /*question_list*/ 2 && a_href_value !== (a_href_value = "/detail/" + /*question*/ ctx[12].id)) {
+    			if (dirty & /*question_list*/ 4 && a_href_value !== (a_href_value = "/detail/" + /*question*/ ctx[12].id)) {
     				attr_dev(a, "href", a_href_value);
     			}
 
-    			if (dirty & /*question_list*/ 2 && t4_value !== (t4_value = moment(/*question*/ ctx[12].create_date).format("YYYY년 MM월 DD일") + "")) set_data_dev(t4, t4_value);
+    			if (dirty & /*question_list*/ 4 && t4_value !== (t4_value = moment(/*question*/ ctx[12].create_date).format("YYYY년 MM월 DD일") + "")) set_data_dev(t4, t4_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(tr);
@@ -20308,7 +20309,7 @@ var app = (function () {
     	let dispose;
 
     	function click_handler_1() {
-    		return /*click_handler_1*/ ctx[6](/*loop_page*/ ctx[11]);
+    		return /*click_handler_1*/ ctx[7](/*loop_page*/ ctx[11]);
     	}
 
     	const block = {
@@ -20318,9 +20319,9 @@ var app = (function () {
     			t0 = text(t0_value);
     			t1 = space();
     			attr_dev(button, "class", "page-link");
-    			add_location(button, file$4, 64, 12, 2000);
-    			attr_dev(li, "class", li_class_value = "page-item " + (/*loop_page*/ ctx[11] === /*$page*/ ctx[0] && 'active'));
-    			add_location(li, file$4, 63, 8, 1931);
+    			add_location(button, file$4, 64, 12, 2027);
+    			attr_dev(li, "class", li_class_value = "page-item " + (/*loop_page*/ ctx[11] === /*$page*/ ctx[1] && 'active'));
+    			add_location(li, file$4, 63, 8, 1958);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -20336,7 +20337,7 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty & /*$page*/ 1 && li_class_value !== (li_class_value = "page-item " + (/*loop_page*/ ctx[11] === /*$page*/ ctx[0] && 'active'))) {
+    			if (dirty & /*$page*/ 2 && li_class_value !== (li_class_value = "page-item " + (/*loop_page*/ ctx[11] === /*$page*/ ctx[1] && 'active'))) {
     				attr_dev(li, "class", li_class_value);
     			}
     		},
@@ -20361,7 +20362,7 @@ var app = (function () {
     // (62:8) {#each Array(total_page) as _, loop_page}
     function create_each_block$1(ctx) {
     	let if_block_anchor;
-    	let if_block = /*loop_page*/ ctx[11] >= /*$page*/ ctx[0] - 5 && /*loop_page*/ ctx[11] <= /*$page*/ ctx[0] + 5 && create_if_block$1(ctx);
+    	let if_block = /*loop_page*/ ctx[11] >= /*$page*/ ctx[1] - 5 && /*loop_page*/ ctx[11] <= /*$page*/ ctx[1] + 5 && create_if_block$1(ctx);
 
     	const block = {
     		c: function create() {
@@ -20373,7 +20374,7 @@ var app = (function () {
     			insert_dev(target, if_block_anchor, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (/*loop_page*/ ctx[11] >= /*$page*/ ctx[0] - 5 && /*loop_page*/ ctx[11] <= /*$page*/ ctx[0] + 5) {
+    			if (/*loop_page*/ ctx[11] >= /*$page*/ ctx[1] - 5 && /*loop_page*/ ctx[11] <= /*$page*/ ctx[1] + 5) {
     				if (if_block) {
     					if_block.p(ctx, dirty);
     				} else {
@@ -20433,7 +20434,7 @@ var app = (function () {
     	let a;
     	let mounted;
     	let dispose;
-    	let each_value_1 = /*question_list*/ ctx[1];
+    	let each_value_1 = /*question_list*/ ctx[2];
     	validate_each_argument(each_value_1);
     	let each_blocks_1 = [];
 
@@ -20441,7 +20442,7 @@ var app = (function () {
     		each_blocks_1[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
     	}
 
-    	let each_value = Array(/*total_page*/ ctx[2]);
+    	let each_value = Array(/*total_page*/ ctx[3]);
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -20506,18 +20507,18 @@ var app = (function () {
     			attr_dev(table, "class", "table");
     			add_location(table, file$4, 31, 4, 906);
     			attr_dev(button0, "class", "page-link");
-    			add_location(button0, file$4, 58, 12, 1692);
-    			attr_dev(li0, "class", li0_class_value = "page-item " + (/*$page*/ ctx[0] <= 0 && 'disabled'));
-    			add_location(li0, file$4, 57, 8, 1630);
+    			add_location(button0, file$4, 58, 12, 1719);
+    			attr_dev(li0, "class", li0_class_value = "page-item " + (/*$page*/ ctx[1] <= 0 && 'disabled'));
+    			add_location(li0, file$4, 57, 8, 1657);
     			attr_dev(button1, "class", "page-link");
-    			add_location(button1, file$4, 70, 12, 2245);
-    			attr_dev(li1, "class", li1_class_value = "page-item " + (/*$page*/ ctx[0] >= /*total_page*/ ctx[2] - 1 && 'disabled'));
-    			add_location(li1, file$4, 69, 8, 2172);
+    			add_location(button1, file$4, 70, 12, 2272);
+    			attr_dev(li1, "class", li1_class_value = "page-item " + (/*$page*/ ctx[1] >= /*total_page*/ ctx[3] - 1 && 'disabled'));
+    			add_location(li1, file$4, 69, 8, 2199);
     			attr_dev(ul, "class", "pagination justify-content-center");
-    			add_location(ul, file$4, 55, 4, 1552);
+    			add_location(ul, file$4, 55, 4, 1579);
     			attr_dev(a, "href", "/question-create");
     			attr_dev(a, "class", "btn btn-primary");
-    			add_location(a, file$4, 75, 4, 2379);
+    			add_location(a, file$4, 75, 4, 2406);
     			attr_dev(div, "class", "container my-3");
     			add_location(div, file$4, 30, 0, 873);
     		},
@@ -20567,8 +20568,8 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(button0, "click", /*click_handler*/ ctx[5], false, false, false, false),
-    					listen_dev(button1, "click", /*click_handler_2*/ ctx[7], false, false, false, false),
+    					listen_dev(button0, "click", /*click_handler*/ ctx[6], false, false, false, false),
+    					listen_dev(button1, "click", /*click_handler_2*/ ctx[8], false, false, false, false),
     					action_destroyer(link.call(null, a))
     				];
 
@@ -20576,8 +20577,8 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*moment, question_list*/ 2) {
-    				each_value_1 = /*question_list*/ ctx[1];
+    			if (dirty & /*moment, question_list, total, $page, size*/ 23) {
+    				each_value_1 = /*question_list*/ ctx[2];
     				validate_each_argument(each_value_1);
     				let i;
 
@@ -20600,12 +20601,12 @@ var app = (function () {
     				each_blocks_1.length = each_value_1.length;
     			}
 
-    			if (dirty & /*$page*/ 1 && li0_class_value !== (li0_class_value = "page-item " + (/*$page*/ ctx[0] <= 0 && 'disabled'))) {
+    			if (dirty & /*$page*/ 2 && li0_class_value !== (li0_class_value = "page-item " + (/*$page*/ ctx[1] <= 0 && 'disabled'))) {
     				attr_dev(li0, "class", li0_class_value);
     			}
 
-    			if (dirty & /*$page, get_question_list, total_page*/ 13) {
-    				each_value = Array(/*total_page*/ ctx[2]);
+    			if (dirty & /*$page, get_question_list, total_page*/ 42) {
+    				each_value = Array(/*total_page*/ ctx[3]);
     				validate_each_argument(each_value);
     				let i;
 
@@ -20628,7 +20629,7 @@ var app = (function () {
     				each_blocks.length = each_value.length;
     			}
 
-    			if (dirty & /*$page, total_page*/ 5 && li1_class_value !== (li1_class_value = "page-item " + (/*$page*/ ctx[0] >= /*total_page*/ ctx[2] - 1 && 'disabled'))) {
+    			if (dirty & /*$page, total_page*/ 10 && li1_class_value !== (li1_class_value = "page-item " + (/*$page*/ ctx[1] >= /*total_page*/ ctx[3] - 1 && 'disabled'))) {
     				attr_dev(li1, "class", li1_class_value);
     			}
     		},
@@ -20658,7 +20659,7 @@ var app = (function () {
     	let total_page;
     	let $page;
     	validate_store(page, 'page');
-    	component_subscribe($$self, page, $$value => $$invalidate(0, $page = $$value));
+    	component_subscribe($$self, page, $$value => $$invalidate(1, $page = $$value));
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Home', slots, []);
     	moment.locale('ko');
@@ -20671,9 +20672,9 @@ var app = (function () {
     		let params = { page: _page, size };
 
     		fastapi('get', '/api/question/list', params, json => {
-    			$$invalidate(1, question_list = json.question_list);
+    			$$invalidate(2, question_list = json.question_list);
     			set_store_value(page, $page = _page, $page);
-    			$$invalidate(4, total = json.total);
+    			$$invalidate(0, total = json.total);
     		});
     	}
 
@@ -20701,10 +20702,10 @@ var app = (function () {
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ('question_list' in $$props) $$invalidate(1, question_list = $$props.question_list);
-    		if ('size' in $$props) $$invalidate(8, size = $$props.size);
-    		if ('total' in $$props) $$invalidate(4, total = $$props.total);
-    		if ('total_page' in $$props) $$invalidate(2, total_page = $$props.total_page);
+    		if ('question_list' in $$props) $$invalidate(2, question_list = $$props.question_list);
+    		if ('size' in $$props) $$invalidate(4, size = $$props.size);
+    		if ('total' in $$props) $$invalidate(0, total = $$props.total);
+    		if ('total_page' in $$props) $$invalidate(3, total_page = $$props.total_page);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -20712,21 +20713,22 @@ var app = (function () {
     	}
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*total*/ 16) {
-    			$$invalidate(2, total_page = Math.ceil(total / size)); // 스벨트에서 변수앞에 $: 기호를 붙이면 해당 변수는 반응형 변수, 
+    		if ($$self.$$.dirty & /*total*/ 1) {
+    			$$invalidate(3, total_page = Math.ceil(total / size)); // 스벨트에서 변수앞에 $: 기호를 붙이면 해당 변수는 반응형 변수, 
     		}
 
-    		if ($$self.$$.dirty & /*$page*/ 1) {
+    		if ($$self.$$.dirty & /*$page*/ 2) {
     			get_question_list($page); // 함수 앞의 $: 는 $page가 변경되면 함수도 다시 호출하라는 의미임
     		}
     	};
 
     	return [
+    		total,
     		$page,
     		question_list,
     		total_page,
+    		size,
     		get_question_list,
-    		total,
     		click_handler,
     		click_handler_1,
     		click_handler_2

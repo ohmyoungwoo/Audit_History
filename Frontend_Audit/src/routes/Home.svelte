@@ -42,7 +42,7 @@
         <tbody>
         {#each question_list as question, i}
         <tr>
-            <td>{i+1}</td>
+            <td>{ total - ( $page * size ) - i }</td>
             <td>
                 <a use:link href="/detail/{question.id}">{question.subject}</a>
             </td>
