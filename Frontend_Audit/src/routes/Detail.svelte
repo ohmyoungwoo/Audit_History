@@ -59,10 +59,12 @@
     <!-- 답변 등록 -->
 
     <Error error={error} />
+    <!--
     <form method="post" class="my-3">
         <div class="mb-3">
             <textarea rows="10" bind:value={content} class="form-control" />
         </div>
-        <input type="submit" value="답변등록" class="btn btn-primary" on:click="{post_answer}" />  <!-- 버튼 -->
+        <input type="submit" value="답변등록" class="btn btn-primary" on:click="{post_answer}" />  
     </form>
+    -->
 </div>

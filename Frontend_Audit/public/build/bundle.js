@@ -23418,7 +23418,7 @@ var app = (function () {
     const file$4 = "src/routes/Detail.svelte";
 
     function create_fragment$5(ctx) {
-    	let div6;
+    	let div5;
     	let h2;
     	let t0_value = /*question*/ ctx[0].subject + "";
     	let t0;
@@ -23438,24 +23438,18 @@ var app = (function () {
     	let button;
     	let t8;
     	let error_1;
-    	let t9;
-    	let form;
-    	let div5;
-    	let textarea;
-    	let t10;
-    	let input;
     	let current;
     	let mounted;
     	let dispose;
 
     	error_1 = new Error$1({
-    			props: { error: /*error*/ ctx[2] },
+    			props: { error: /*error*/ ctx[1] },
     			$$inline: true
     		});
 
     	const block = {
     		c: function create() {
-    			div6 = element("div");
+    			div5 = element("div");
     			h2 = element("h2");
     			t0 = text(t0_value);
     			t1 = space();
@@ -23473,12 +23467,6 @@ var app = (function () {
     			button.textContent = "목록으로 이동";
     			t8 = space();
     			create_component(error_1.$$.fragment);
-    			t9 = space();
-    			form = element("form");
-    			div5 = element("div");
-    			textarea = element("textarea");
-    			t10 = space();
-    			input = element("input");
     			attr_dev(h2, "class", "border-bottom py-2");
     			add_location(h2, file$4, 44, 4, 1218);
     			attr_dev(div0, "class", "card-text");
@@ -23494,30 +23482,18 @@ var app = (function () {
     			add_location(div4, file$4, 45, 4, 1277);
     			attr_dev(button, "class", "btn btn-secondary");
     			add_location(button, file$4, 54, 4, 1654);
-    			attr_dev(textarea, "rows", "10");
-    			attr_dev(textarea, "class", "form-control");
-    			add_location(textarea, file$4, 63, 12, 1874);
-    			attr_dev(div5, "class", "mb-3");
-    			add_location(div5, file$4, 62, 8, 1843);
-    			attr_dev(input, "type", "submit");
-    			input.value = "답변등록";
-    			attr_dev(input, "class", "btn btn-primary");
-    			add_location(input, file$4, 65, 8, 1962);
-    			attr_dev(form, "method", "post");
-    			attr_dev(form, "class", "my-3");
-    			add_location(form, file$4, 61, 4, 1801);
-    			attr_dev(div6, "vlass", "container my-3");
-    			add_location(div6, file$4, 42, 0, 1171);
+    			attr_dev(div5, "vlass", "container my-3");
+    			add_location(div5, file$4, 42, 0, 1171);
     		},
     		l: function claim(nodes) {
     			throw new Error_1$3("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div6, anchor);
-    			append_dev(div6, h2);
+    			insert_dev(target, div5, anchor);
+    			append_dev(div5, h2);
     			append_dev(h2, t0);
-    			append_dev(div6, t1);
-    			append_dev(div6, div4);
+    			append_dev(div5, t1);
+    			append_dev(div5, div4);
     			append_dev(div4, div3);
     			append_dev(div3, div0);
     			append_dev(div0, t2);
@@ -23526,26 +23502,14 @@ var app = (function () {
     			append_dev(div3, t4);
     			append_dev(div3, div2);
     			append_dev(div2, t5);
-    			append_dev(div6, t6);
-    			append_dev(div6, button);
-    			append_dev(div6, t8);
-    			mount_component(error_1, div6, null);
-    			append_dev(div6, t9);
-    			append_dev(div6, form);
-    			append_dev(form, div5);
-    			append_dev(div5, textarea);
-    			set_input_value(textarea, /*content*/ ctx[1]);
-    			append_dev(form, t10);
-    			append_dev(form, input);
+    			append_dev(div5, t6);
+    			append_dev(div5, button);
+    			append_dev(div5, t8);
+    			mount_component(error_1, div5, null);
     			current = true;
 
     			if (!mounted) {
-    				dispose = [
-    					listen_dev(button, "click", /*click_handler*/ ctx[5], false, false, false, false),
-    					listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[6]),
-    					listen_dev(input, "click", /*post_answer*/ ctx[3], false, false, false, false)
-    				];
-
+    				dispose = listen_dev(button, "click", /*click_handler*/ ctx[3], false, false, false, false);
     				mounted = true;
     			}
     		},
@@ -23554,12 +23518,8 @@ var app = (function () {
     			if ((!current || dirty & /*question*/ 1) && t2_value !== (t2_value = /*question*/ ctx[0].content + "")) set_data_dev(t2, t2_value);
     			if ((!current || dirty & /*question*/ 1) && t5_value !== (t5_value = moment(/*question*/ ctx[0].create_date).format("YYYY년 MM월 DD일") + "")) set_data_dev(t5, t5_value);
     			const error_1_changes = {};
-    			if (dirty & /*error*/ 4) error_1_changes.error = /*error*/ ctx[2];
+    			if (dirty & /*error*/ 2) error_1_changes.error = /*error*/ ctx[1];
     			error_1.$set(error_1_changes);
-
-    			if (dirty & /*content*/ 2) {
-    				set_input_value(textarea, /*content*/ ctx[1]);
-    			}
     		},
     		i: function intro(local) {
     			if (current) return;
@@ -23571,10 +23531,10 @@ var app = (function () {
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div6);
+    			if (detaching) detach_dev(div5);
     			destroy_component(error_1);
     			mounted = false;
-    			run_all(dispose);
+    			dispose();
     		}
     	};
 
@@ -23617,13 +23577,13 @@ var app = (function () {
     			url,
     			params,
     			json => {
-    				$$invalidate(1, content = '');
-    				$$invalidate(2, error = { detail: [] }); // 오류 발행 후 다시 입력값을 조정하여 성공하면 오류 메시지를 없애기 위해
+    				content = '';
+    				$$invalidate(1, error = { detail: [] }); // 오류 발행 후 다시 입력값을 조정하여 성공하면 오류 메시지를 없애기 위해
     				get_question();
     			},
     			err_json => {
     				// Error 발생하면 failure_callback에 의해 err_json 이 {detail: ...} 형태로 전달됨
-    				$$invalidate(2, error = err_json);
+    				$$invalidate(1, error = err_json);
     			}
     		);
     	}
@@ -23638,13 +23598,8 @@ var app = (function () {
     		push$1('/');
     	};
 
-    	function textarea_input_handler() {
-    		content = this.value;
-    		$$invalidate(1, content);
-    	}
-
     	$$self.$$set = $$props => {
-    		if ('params' in $$props) $$invalidate(4, params = $$props.params);
+    		if ('params' in $$props) $$invalidate(2, params = $$props.params);
     	};
 
     	$$self.$capture_state = () => ({
@@ -23662,32 +23617,24 @@ var app = (function () {
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ('params' in $$props) $$invalidate(4, params = $$props.params);
+    		if ('params' in $$props) $$invalidate(2, params = $$props.params);
     		if ('question_id' in $$props) question_id = $$props.question_id;
     		if ('question' in $$props) $$invalidate(0, question = $$props.question);
-    		if ('content' in $$props) $$invalidate(1, content = $$props.content);
-    		if ('error' in $$props) $$invalidate(2, error = $$props.error);
+    		if ('content' in $$props) content = $$props.content;
+    		if ('error' in $$props) $$invalidate(1, error = $$props.error);
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [
-    		question,
-    		content,
-    		error,
-    		post_answer,
-    		params,
-    		click_handler,
-    		textarea_input_handler
-    	];
+    	return [question, error, params, click_handler];
     }
 
     class Detail extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$5, create_fragment$5, safe_not_equal, { params: 4 });
+    		init(this, options, instance$5, create_fragment$5, safe_not_equal, { params: 2 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
