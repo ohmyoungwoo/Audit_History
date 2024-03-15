@@ -1,8 +1,8 @@
 <script>
     import fastapi from "../lib/api"   //JS로 작성한 공통된 CRUD 함수 ???
     import Error from "../components/Error.svelte"  //오류에 대한 처리
-    import { push } from "svelte-spa-router"
-    import { is_login } from "../lib/store"
+    import { link, push } from "svelte-spa-router"
+    import { is_login, username } from "../lib/store"
 
     import moment from "moment/min/moment-with-locales"
 
@@ -47,11 +47,18 @@
     <div class="card my-3">
         <div class="card-body">
             <div class="card-text" style="white-space: pre-line;">{question.content}</div>
-            <div class="d-flex justify-content-end"></div>
+            <div class="d-flex justify-content-end">
                 <div class="badge bg-light text-dark p-2 text-start">
                     <div>{moment(question.create_date).format("YYYY년 MM월 DD일")}</div>
                     <div class="mb-2">{ question.user ? question.user.username : ""}</div>
                 </div>
+            </div>
+            <div class="my-3">
+                {#if question.user && $username === question.user.username }
+                <a use:link href="/question-modify/{question.id}" 
+                    class="btn btn-sm btn-outline-secondary">진단내용 수정</a>
+                {/if}
+            </div>
         </div>
     </div>
 
