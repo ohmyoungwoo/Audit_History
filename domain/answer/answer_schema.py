@@ -17,4 +17,6 @@ class Answer(BaseModel):
     content: str
     create_date: datetime.datetime
     user: User | None
+    question_id: int
+    modify_date: datetime.datetime | None = None
     

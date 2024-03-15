@@ -23185,7 +23185,7 @@ var app = (function () {
     }
 
     // (12:70) 
-    function create_if_block_1(ctx) {
+    function create_if_block_1$1(ctx) {
     	let div;
     	let each_value = /*error*/ ctx[0].detail;
     	validate_each_argument(each_value);
@@ -23249,7 +23249,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_1.name,
+    		id: create_if_block_1$1.name,
     		type: "if",
     		source: "(12:70) ",
     		ctx
@@ -23354,7 +23354,7 @@ var app = (function () {
 
     	function select_block_type(ctx, dirty) {
     		if (typeof /*error*/ ctx[0].detail === 'string') return create_if_block$2;
-    		if (typeof /*error*/ ctx[0].detail === 'object' && /*error*/ ctx[0].detail.length > 0) return create_if_block_1;
+    		if (typeof /*error*/ ctx[0].detail === 'object' && /*error*/ ctx[0].detail.length > 0) return create_if_block_1$1;
     	}
 
     	let current_block_type = select_block_type(ctx);
@@ -23468,28 +23468,90 @@ var app = (function () {
     const { Error: Error_1$4 } = globals;
     const file$5 = "src/routes/Detail.svelte";
 
-    // (57:16) {#if question.user && $username === question.user.username }
+    // (68:16) {#if question.modify_date }
+    function create_if_block_1(ctx) {
+    	let div2;
+    	let div0;
+    	let t1;
+    	let div1;
+    	let t2_value = moment(/*question*/ ctx[0].modify_date).format("YYYY년 MM월 DD일 hh:mm a") + "";
+    	let t2;
+
+    	const block = {
+    		c: function create() {
+    			div2 = element("div");
+    			div0 = element("div");
+    			div0.textContent = "modified at";
+    			t1 = space();
+    			div1 = element("div");
+    			t2 = text(t2_value);
+    			attr_dev(div0, "class", "mb-2");
+    			add_location(div0, file$5, 69, 20, 2134);
+    			add_location(div1, file$5, 70, 20, 2190);
+    			attr_dev(div2, "class", "badge bg-light text-dark p-2 text-start mx-3");
+    			add_location(div2, file$5, 68, 16, 2055);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div2, anchor);
+    			append_dev(div2, div0);
+    			append_dev(div2, t1);
+    			append_dev(div2, div1);
+    			append_dev(div1, t2);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*question*/ 1 && t2_value !== (t2_value = moment(/*question*/ ctx[0].modify_date).format("YYYY년 MM월 DD일 hh:mm a") + "")) set_data_dev(t2, t2_value);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div2);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_1.name,
+    		type: "if",
+    		source: "(68:16) {#if question.modify_date }",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (81:16) {#if question.user && $username === question.user.username }
     function create_if_block$1(ctx) {
     	let a;
-    	let t;
+    	let t0;
     	let a_href_value;
+    	let t1;
+    	let button;
     	let mounted;
     	let dispose;
 
     	const block = {
     		c: function create() {
     			a = element("a");
-    			t = text("진단내용 수정");
+    			t0 = text("진단내용 수정");
+    			t1 = space();
+    			button = element("button");
+    			button.textContent = "진단내용 삭제";
     			attr_dev(a, "href", a_href_value = "/question-modify/" + /*question*/ ctx[0].id);
     			attr_dev(a, "class", "btn btn-sm btn-outline-secondary");
-    			add_location(a, file$5, 57, 16, 1950);
+    			add_location(a, file$5, 81, 16, 2739);
+    			attr_dev(button, "class", "btn btn-sm btn-outline-secondary");
+    			add_location(button, file$5, 83, 16, 2879);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, a, anchor);
-    			append_dev(a, t);
+    			append_dev(a, t0);
+    			insert_dev(target, t1, anchor);
+    			insert_dev(target, button, anchor);
 
     			if (!mounted) {
-    				dispose = action_destroyer(link.call(null, a));
+    				dispose = [
+    					action_destroyer(link.call(null, a)),
+    					listen_dev(button, "click", /*click_handler*/ ctx[5], false, false, false, false)
+    				];
+
     				mounted = true;
     			}
     		},
@@ -23500,8 +23562,10 @@ var app = (function () {
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(a);
+    			if (detaching) detach_dev(t1);
+    			if (detaching) detach_dev(button);
     			mounted = false;
-    			dispose();
+    			run_all(dispose);
     		}
     	};
 
@@ -23509,7 +23573,7 @@ var app = (function () {
     		block,
     		id: create_if_block$1.name,
     		type: "if",
-    		source: "(57:16) {#if question.user && $username === question.user.username }",
+    		source: "(81:16) {#if question.user && $username === question.user.username }",
     		ctx
     	});
 
@@ -23529,28 +23593,30 @@ var app = (function () {
     	let t2;
     	let t3;
     	let div4;
+    	let t4;
     	let div3;
     	let div1;
-    	let t4_value = moment(/*question*/ ctx[0].create_date).format("YYYY년 MM월 DD일") + "";
-    	let t4;
+    	let t5_value = moment(/*question*/ ctx[0].create_date).format("YYYY년 MM월 DD일") + "";
     	let t5;
+    	let t6;
     	let div2;
 
-    	let t6_value = (/*question*/ ctx[0].user
+    	let t7_value = (/*question*/ ctx[0].user
     	? /*question*/ ctx[0].user.username
     	: "") + "";
 
-    	let t6;
     	let t7;
-    	let div5;
     	let t8;
+    	let div5;
+    	let t9;
     	let button;
-    	let t10;
+    	let t11;
     	let error_1;
     	let current;
     	let mounted;
     	let dispose;
-    	let if_block = /*question*/ ctx[0].user && /*$username*/ ctx[2] === /*question*/ ctx[0].user.username && create_if_block$1(ctx);
+    	let if_block0 = /*question*/ ctx[0].modify_date && create_if_block_1(ctx);
+    	let if_block1 = /*question*/ ctx[0].user && /*$username*/ ctx[2] === /*question*/ ctx[0].user.username && create_if_block$1(ctx);
 
     	error_1 = new Error$1({
     			props: { error: /*error*/ ctx[1] },
@@ -23569,42 +23635,44 @@ var app = (function () {
     			t2 = text(t2_value);
     			t3 = space();
     			div4 = element("div");
+    			if (if_block0) if_block0.c();
+    			t4 = space();
     			div3 = element("div");
     			div1 = element("div");
-    			t4 = text(t4_value);
-    			t5 = space();
+    			t5 = text(t5_value);
+    			t6 = space();
     			div2 = element("div");
-    			t6 = text(t6_value);
-    			t7 = space();
-    			div5 = element("div");
-    			if (if_block) if_block.c();
+    			t7 = text(t7_value);
     			t8 = space();
+    			div5 = element("div");
+    			if (if_block1) if_block1.c();
+    			t9 = space();
     			button = element("button");
     			button.textContent = "목록으로 이동";
-    			t10 = text("``\n\n    \n\n    ");
+    			t11 = text("``\n\n    \n\n    ");
     			create_component(error_1.$$.fragment);
     			attr_dev(h2, "class", "border-bottom py-2");
-    			add_location(h2, file$5, 45, 4, 1278);
+    			add_location(h2, file$5, 62, 4, 1736);
     			attr_dev(div0, "class", "card-text");
     			set_style(div0, "white-space", "pre-line");
-    			add_location(div0, file$5, 48, 12, 1405);
-    			add_location(div1, file$5, 51, 20, 1627);
+    			add_location(div0, file$5, 65, 12, 1863);
+    			add_location(div1, file$5, 75, 20, 2416);
     			attr_dev(div2, "class", "mb-2");
-    			add_location(div2, file$5, 52, 20, 1713);
+    			add_location(div2, file$5, 76, 20, 2502);
     			attr_dev(div3, "class", "badge bg-light text-dark p-2 text-start");
-    			add_location(div3, file$5, 50, 16, 1553);
+    			add_location(div3, file$5, 74, 16, 2342);
     			attr_dev(div4, "class", "d-flex justify-content-end");
-    			add_location(div4, file$5, 49, 12, 1496);
+    			add_location(div4, file$5, 66, 12, 1954);
     			attr_dev(div5, "class", "my-3");
-    			add_location(div5, file$5, 55, 12, 1838);
+    			add_location(div5, file$5, 79, 12, 2627);
     			attr_dev(div6, "class", "card-body");
-    			add_location(div6, file$5, 47, 8, 1369);
+    			add_location(div6, file$5, 64, 8, 1827);
     			attr_dev(div7, "class", "card my-3");
-    			add_location(div7, file$5, 46, 4, 1337);
+    			add_location(div7, file$5, 63, 4, 1795);
     			attr_dev(button, "class", "btn btn-secondary");
-    			add_location(button, file$5, 64, 4, 2146);
+    			add_location(button, file$5, 90, 4, 3083);
     			attr_dev(div8, "vlass", "container my-3");
-    			add_location(div8, file$5, 43, 0, 1231);
+    			add_location(div8, file$5, 60, 0, 1689);
     		},
     		l: function claim(nodes) {
     			throw new Error_1$4("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -23620,46 +23688,62 @@ var app = (function () {
     			append_dev(div0, t2);
     			append_dev(div6, t3);
     			append_dev(div6, div4);
+    			if (if_block0) if_block0.m(div4, null);
+    			append_dev(div4, t4);
     			append_dev(div4, div3);
     			append_dev(div3, div1);
-    			append_dev(div1, t4);
-    			append_dev(div3, t5);
+    			append_dev(div1, t5);
+    			append_dev(div3, t6);
     			append_dev(div3, div2);
-    			append_dev(div2, t6);
-    			append_dev(div6, t7);
+    			append_dev(div2, t7);
+    			append_dev(div6, t8);
     			append_dev(div6, div5);
-    			if (if_block) if_block.m(div5, null);
-    			append_dev(div8, t8);
+    			if (if_block1) if_block1.m(div5, null);
+    			append_dev(div8, t9);
     			append_dev(div8, button);
-    			append_dev(div8, t10);
+    			append_dev(div8, t11);
     			mount_component(error_1, div8, null);
     			current = true;
 
     			if (!mounted) {
-    				dispose = listen_dev(button, "click", /*click_handler*/ ctx[4], false, false, false, false);
+    				dispose = listen_dev(button, "click", /*click_handler_1*/ ctx[6], false, false, false, false);
     				mounted = true;
     			}
     		},
     		p: function update(ctx, [dirty]) {
     			if ((!current || dirty & /*question*/ 1) && t0_value !== (t0_value = /*question*/ ctx[0].subject + "")) set_data_dev(t0, t0_value);
     			if ((!current || dirty & /*question*/ 1) && t2_value !== (t2_value = /*question*/ ctx[0].content + "")) set_data_dev(t2, t2_value);
-    			if ((!current || dirty & /*question*/ 1) && t4_value !== (t4_value = moment(/*question*/ ctx[0].create_date).format("YYYY년 MM월 DD일") + "")) set_data_dev(t4, t4_value);
 
-    			if ((!current || dirty & /*question*/ 1) && t6_value !== (t6_value = (/*question*/ ctx[0].user
+    			if (/*question*/ ctx[0].modify_date) {
+    				if (if_block0) {
+    					if_block0.p(ctx, dirty);
+    				} else {
+    					if_block0 = create_if_block_1(ctx);
+    					if_block0.c();
+    					if_block0.m(div4, t4);
+    				}
+    			} else if (if_block0) {
+    				if_block0.d(1);
+    				if_block0 = null;
+    			}
+
+    			if ((!current || dirty & /*question*/ 1) && t5_value !== (t5_value = moment(/*question*/ ctx[0].create_date).format("YYYY년 MM월 DD일") + "")) set_data_dev(t5, t5_value);
+
+    			if ((!current || dirty & /*question*/ 1) && t7_value !== (t7_value = (/*question*/ ctx[0].user
     			? /*question*/ ctx[0].user.username
-    			: "") + "")) set_data_dev(t6, t6_value);
+    			: "") + "")) set_data_dev(t7, t7_value);
 
     			if (/*question*/ ctx[0].user && /*$username*/ ctx[2] === /*question*/ ctx[0].user.username) {
-    				if (if_block) {
-    					if_block.p(ctx, dirty);
+    				if (if_block1) {
+    					if_block1.p(ctx, dirty);
     				} else {
-    					if_block = create_if_block$1(ctx);
-    					if_block.c();
-    					if_block.m(div5, null);
+    					if_block1 = create_if_block$1(ctx);
+    					if_block1.c();
+    					if_block1.m(div5, null);
     				}
-    			} else if (if_block) {
-    				if_block.d(1);
-    				if_block = null;
+    			} else if (if_block1) {
+    				if_block1.d(1);
+    				if_block1 = null;
     			}
 
     			const error_1_changes = {};
@@ -23677,7 +23761,8 @@ var app = (function () {
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div8);
-    			if (if_block) if_block.d();
+    			if (if_block0) if_block0.d();
+    			if (if_block1) if_block1.d();
     			destroy_component(error_1);
     			mounted = false;
     			dispose();
@@ -23737,18 +23822,39 @@ var app = (function () {
     		);
     	}
 
+    	function delete_question(_question_id) {
+    		if (window.confirm('정말로 삭제하시겠습니까?')) {
+    			let url = "/api/question/delete";
+    			let params = { question_id: _question_id };
+
+    			fastapi(
+    				'delete',
+    				url,
+    				params,
+    				json => {
+    					push$1('/');
+    				},
+    				err_json => {
+    					$$invalidate(1, error = err_json);
+    				}
+    			);
+    		}
+    	}
+
     	const writable_props = ['params'];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Detail> was created with unknown prop '${key}'`);
     	});
 
-    	const click_handler = () => {
+    	const click_handler = () => delete_question(question.id);
+
+    	const click_handler_1 = () => {
     		push$1('/');
     	};
 
     	$$self.$$set = $$props => {
-    		if ('params' in $$props) $$invalidate(3, params = $$props.params);
+    		if ('params' in $$props) $$invalidate(4, params = $$props.params);
     	};
 
     	$$self.$capture_state = () => ({
@@ -23766,11 +23872,12 @@ var app = (function () {
     		error,
     		get_question,
     		post_answer,
+    		delete_question,
     		$username
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ('params' in $$props) $$invalidate(3, params = $$props.params);
+    		if ('params' in $$props) $$invalidate(4, params = $$props.params);
     		if ('question_id' in $$props) question_id = $$props.question_id;
     		if ('question' in $$props) $$invalidate(0, question = $$props.question);
     		if ('content' in $$props) content = $$props.content;
@@ -23781,13 +23888,21 @@ var app = (function () {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [question, error, $username, params, click_handler];
+    	return [
+    		question,
+    		error,
+    		$username,
+    		delete_question,
+    		params,
+    		click_handler,
+    		click_handler_1
+    	];
     }
 
     class Detail extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$6, create_fragment$6, safe_not_equal, { params: 3 });
+    		init(this, options, instance$6, create_fragment$6, safe_not_equal, { params: 4 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
