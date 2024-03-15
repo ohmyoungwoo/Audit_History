@@ -29,4 +29,4 @@ app.mount("/build", StaticFiles(directory="Frontend_Audit/public/build"))
 
 @app.get("/")
 def index():
-    return FileResponse("./Frontend_Audit/public/index.html")
+    return FileResponse("Frontend_Audit/public/index.html")
