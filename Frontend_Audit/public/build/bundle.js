@@ -23484,15 +23484,15 @@ var app = (function () {
     	let t4;
     	let div4;
     	let div2;
-
-    	let t5_value = (/*question*/ ctx[0].user
-    	? /*question*/ ctx[0].user.username
-    	: "") + "";
-
+    	let t5_value = moment(/*question*/ ctx[0].create_date).format("YYYY년 MM월 DD일") + "";
     	let t5;
     	let t6;
     	let div3;
-    	let t7_value = moment(/*question*/ ctx[0].create_date).format("YYYY년 MM월 DD일") + "";
+
+    	let t7_value = (/*question*/ ctx[0].user
+    	? /*question*/ ctx[0].user.username
+    	: "") + "";
+
     	let t7;
     	let t8;
     	let button;
@@ -23529,7 +23529,7 @@ var app = (function () {
     			t8 = space();
     			button = element("button");
     			button.textContent = "목록으로 이동";
-    			t10 = space();
+    			t10 = text("``\n\n    \n\n    ");
     			create_component(error_1.$$.fragment);
     			attr_dev(h2, "class", "border-bottom py-2");
     			add_location(h2, file$4, 45, 4, 1262);
@@ -23538,9 +23538,9 @@ var app = (function () {
     			add_location(div0, file$4, 48, 12, 1389);
     			attr_dev(div1, "class", "d-flex justify-content-end");
     			add_location(div1, file$4, 49, 12, 1480);
-    			attr_dev(div2, "class", "mb-2");
     			add_location(div2, file$4, 51, 20, 1617);
-    			add_location(div3, file$4, 52, 20, 1708);
+    			attr_dev(div3, "class", "mb-2");
+    			add_location(div3, file$4, 52, 20, 1703);
     			attr_dev(div4, "class", "badge bg-light text-dark p-2 text-start");
     			add_location(div4, file$4, 50, 16, 1543);
     			attr_dev(div5, "class", "card-body");
@@ -23548,7 +23548,7 @@ var app = (function () {
     			attr_dev(div6, "class", "card my-3");
     			add_location(div6, file$4, 46, 4, 1321);
     			attr_dev(button, "class", "btn btn-secondary");
-    			add_location(button, file$4, 56, 4, 1812);
+    			add_location(button, file$4, 57, 4, 1828);
     			attr_dev(div7, "vlass", "container my-3");
     			add_location(div7, file$4, 43, 0, 1215);
     		},
@@ -23572,7 +23572,7 @@ var app = (function () {
     			append_dev(div2, t5);
     			append_dev(div4, t6);
     			append_dev(div4, div3);
-    			append_dev(div4, t7);
+    			append_dev(div3, t7);
     			append_dev(div7, t8);
     			append_dev(div7, button);
     			append_dev(div7, t10);
@@ -23587,12 +23587,12 @@ var app = (function () {
     		p: function update(ctx, [dirty]) {
     			if ((!current || dirty & /*question*/ 1) && t0_value !== (t0_value = /*question*/ ctx[0].subject + "")) set_data_dev(t0, t0_value);
     			if ((!current || dirty & /*question*/ 1) && t2_value !== (t2_value = /*question*/ ctx[0].content + "")) set_data_dev(t2, t2_value);
+    			if ((!current || dirty & /*question*/ 1) && t5_value !== (t5_value = moment(/*question*/ ctx[0].create_date).format("YYYY년 MM월 DD일") + "")) set_data_dev(t5, t5_value);
 
-    			if ((!current || dirty & /*question*/ 1) && t5_value !== (t5_value = (/*question*/ ctx[0].user
+    			if ((!current || dirty & /*question*/ 1) && t7_value !== (t7_value = (/*question*/ ctx[0].user
     			? /*question*/ ctx[0].user.username
-    			: "") + "")) set_data_dev(t5, t5_value);
+    			: "") + "")) set_data_dev(t7, t7_value);
 
-    			if ((!current || dirty & /*question*/ 1) && t7_value !== (t7_value = moment(/*question*/ ctx[0].create_date).format("YYYY년 MM월 DD일") + "")) set_data_dev(t7, t7_value);
     			const error_1_changes = {};
     			if (dirty & /*error*/ 2) error_1_changes.error = /*error*/ ctx[1];
     			error_1.$set(error_1_changes);

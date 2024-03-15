@@ -51,12 +51,13 @@
                 <div class="badge bg-light text-dark p-2 text-start">
                     <div>{moment(question.create_date).format("YYYY년 MM월 DD일")}</div>
                     <div class="mb-2">{ question.user ? question.user.username : ""}</div>
+                </div>
         </div>
     </div>
 
     <button class="btn btn-secondary" on:click="{()=>{
         push('/')
-    }}">목록으로 이동</button>
+    }}">목록으로 이동</button>``
 
     <!-- 답변 등록 -->
 
