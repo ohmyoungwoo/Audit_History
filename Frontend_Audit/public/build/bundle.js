@@ -22616,6 +22616,14 @@ var app = (function () {
     	let t4_value = moment(/*question*/ ctx[13].create_date).format("YYYY년 MM월 DD일") + "";
     	let t4;
     	let t5;
+    	let td3;
+
+    	let t6_value = (/*question*/ ctx[13].user
+    	? /*question*/ ctx[13].user.username
+    	: "") + "";
+
+    	let t6;
+    	let t7;
     	let mounted;
     	let dispose;
 
@@ -22632,12 +22640,18 @@ var app = (function () {
     			td2 = element("td");
     			t4 = text(t4_value);
     			t5 = space();
-    			add_location(td0, file$6, 44, 12, 1232);
+    			td3 = element("td");
+    			t6 = text(t6_value);
+    			t7 = space();
+    			add_location(td0, file$6, 44, 12, 1282);
     			attr_dev(a, "href", a_href_value = "/detail/" + /*question*/ ctx[13].id);
-    			add_location(a, file$6, 46, 16, 1307);
-    			add_location(td1, file$6, 45, 12, 1286);
-    			add_location(td2, file$6, 48, 12, 1401);
-    			add_location(tr, file$6, 43, 8, 1215);
+    			add_location(a, file$6, 46, 16, 1376);
+    			attr_dev(td1, "class", "text-start");
+    			add_location(td1, file$6, 45, 12, 1336);
+    			add_location(td2, file$6, 48, 12, 1470);
+    			add_location(td3, file$6, 49, 12, 1583);
+    			attr_dev(tr, "class", "text-center");
+    			add_location(tr, file$6, 43, 8, 1245);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, tr, anchor);
@@ -22651,6 +22665,9 @@ var app = (function () {
     			append_dev(tr, td2);
     			append_dev(td2, t4);
     			append_dev(tr, t5);
+    			append_dev(tr, td3);
+    			append_dev(td3, t6);
+    			append_dev(tr, t7);
 
     			if (!mounted) {
     				dispose = action_destroyer(link.call(null, a));
@@ -22666,6 +22683,10 @@ var app = (function () {
     			}
 
     			if (dirty & /*question_list*/ 4 && t4_value !== (t4_value = moment(/*question*/ ctx[13].create_date).format("YYYY년 MM월 DD일") + "")) set_data_dev(t4, t4_value);
+
+    			if (dirty & /*question_list*/ 4 && t6_value !== (t6_value = (/*question*/ ctx[13].user
+    			? /*question*/ ctx[13].user.username
+    			: "") + "")) set_data_dev(t6, t6_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(tr);
@@ -22685,7 +22706,7 @@ var app = (function () {
     	return block;
     }
 
-    // (63:8) {#if loop_page >= $page-5 && loop_page <= $page+5}
+    // (64:8) {#if loop_page >= $page-5 && loop_page <= $page+5}
     function create_if_block$2(ctx) {
     	let li;
     	let button;
@@ -22707,9 +22728,9 @@ var app = (function () {
     			t0 = text(t0_value);
     			t1 = space();
     			attr_dev(button, "class", "page-link");
-    			add_location(button, file$6, 64, 12, 2037);
+    			add_location(button, file$6, 65, 12, 2175);
     			attr_dev(li, "class", li_class_value = "page-item " + (/*loop_page*/ ctx[12] === /*$page*/ ctx[1] && 'active'));
-    			add_location(li, file$6, 63, 8, 1968);
+    			add_location(li, file$6, 64, 8, 2106);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -22740,14 +22761,14 @@ var app = (function () {
     		block,
     		id: create_if_block$2.name,
     		type: "if",
-    		source: "(63:8) {#if loop_page >= $page-5 && loop_page <= $page+5}",
+    		source: "(64:8) {#if loop_page >= $page-5 && loop_page <= $page+5}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (62:8) {#each Array(total_page) as _, loop_page}
+    // (63:8) {#each Array(total_page) as _, loop_page}
     function create_each_block$1(ctx) {
     	let if_block_anchor;
     	let if_block = /*loop_page*/ ctx[12] >= /*$page*/ ctx[1] - 5 && /*loop_page*/ ctx[12] <= /*$page*/ ctx[1] + 5 && create_if_block$2(ctx);
@@ -22785,7 +22806,7 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(62:8) {#each Array(total_page) as _, loop_page}",
+    		source: "(63:8) {#each Array(total_page) as _, loop_page}",
     		ctx
     	});
 
@@ -22885,30 +22906,31 @@ var app = (function () {
     			t15 = space();
     			a = element("a");
     			t16 = text("진단 결과 등록하기");
-    			add_location(th0, file$6, 34, 12, 998);
-    			add_location(th1, file$6, 35, 12, 1022);
-    			add_location(th2, file$6, 36, 12, 1049);
-    			add_location(th3, file$6, 37, 12, 1075);
-    			add_location(th4, file$6, 38, 12, 1100);
-    			attr_dev(tr, "class", "table-dark");
+    			add_location(th0, file$6, 34, 12, 1010);
+    			set_style(th1, "width", "50%");
+    			add_location(th1, file$6, 35, 12, 1034);
+    			add_location(th2, file$6, 36, 12, 1079);
+    			add_location(th3, file$6, 37, 12, 1105);
+    			add_location(th4, file$6, 38, 12, 1130);
+    			attr_dev(tr, "class", "text-center table-dark");
     			add_location(tr, file$6, 33, 8, 962);
     			add_location(thead, file$6, 32, 8, 946);
-    			add_location(tbody, file$6, 41, 8, 1154);
+    			add_location(tbody, file$6, 41, 8, 1184);
     			attr_dev(table, "class", "table");
     			add_location(table, file$6, 31, 4, 916);
     			attr_dev(button0, "class", "page-link");
-    			add_location(button0, file$6, 58, 12, 1729);
+    			add_location(button0, file$6, 59, 12, 1867);
     			attr_dev(li0, "class", li0_class_value = "page-item " + (/*$page*/ ctx[1] <= 0 && 'disabled'));
-    			add_location(li0, file$6, 57, 8, 1667);
+    			add_location(li0, file$6, 58, 8, 1805);
     			attr_dev(button1, "class", "page-link");
-    			add_location(button1, file$6, 70, 12, 2282);
+    			add_location(button1, file$6, 71, 12, 2420);
     			attr_dev(li1, "class", li1_class_value = "page-item " + (/*$page*/ ctx[1] >= /*total_page*/ ctx[3] - 1 && 'disabled'));
-    			add_location(li1, file$6, 69, 8, 2209);
+    			add_location(li1, file$6, 70, 8, 2347);
     			attr_dev(ul, "class", "pagination justify-content-center");
-    			add_location(ul, file$6, 55, 4, 1589);
+    			add_location(ul, file$6, 56, 4, 1727);
     			attr_dev(a, "href", "/question-create");
     			attr_dev(a, "class", a_class_value = "btn btn-primary " + (/*$is_login*/ ctx[4] ? '' : 'disabled'));
-    			add_location(a, file$6, 75, 4, 2416);
+    			add_location(a, file$6, 76, 4, 2554);
     			attr_dev(div, "class", "container my-3");
     			add_location(div, file$6, 30, 0, 883);
     		},
@@ -22968,7 +22990,7 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*moment, question_list, total, $page, size*/ 39) {
+    			if (dirty & /*question_list, moment, total, $page, size*/ 39) {
     				each_value_1 = /*question_list*/ ctx[2];
     				validate_each_argument(each_value_1);
     				let i;
@@ -23447,25 +23469,34 @@ var app = (function () {
     const file$4 = "src/routes/Detail.svelte";
 
     function create_fragment$5(ctx) {
-    	let div5;
+    	let div7;
     	let h2;
     	let t0_value = /*question*/ ctx[0].subject + "";
     	let t0;
     	let t1;
-    	let div4;
-    	let div3;
+    	let div6;
+    	let div5;
     	let div0;
     	let t2_value = /*question*/ ctx[0].content + "";
     	let t2;
     	let t3;
     	let div1;
     	let t4;
+    	let div4;
     	let div2;
-    	let t5_value = moment(/*question*/ ctx[0].create_date).format("YYYY년 MM월 DD일") + "";
+
+    	let t5_value = (/*question*/ ctx[0].user
+    	? /*question*/ ctx[0].user.username
+    	: "") + "";
+
     	let t5;
     	let t6;
-    	let button;
+    	let div3;
+    	let t7_value = moment(/*question*/ ctx[0].create_date).format("YYYY년 MM월 DD일") + "";
+    	let t7;
     	let t8;
+    	let button;
+    	let t10;
     	let error_1;
     	let current;
     	let mounted;
@@ -23478,23 +23509,27 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
-    			div5 = element("div");
+    			div7 = element("div");
     			h2 = element("h2");
     			t0 = text(t0_value);
     			t1 = space();
-    			div4 = element("div");
-    			div3 = element("div");
+    			div6 = element("div");
+    			div5 = element("div");
     			div0 = element("div");
     			t2 = text(t2_value);
     			t3 = space();
     			div1 = element("div");
     			t4 = space();
+    			div4 = element("div");
     			div2 = element("div");
     			t5 = text(t5_value);
     			t6 = space();
+    			div3 = element("div");
+    			t7 = text(t7_value);
+    			t8 = space();
     			button = element("button");
     			button.textContent = "목록으로 이동";
-    			t8 = space();
+    			t10 = space();
     			create_component(error_1.$$.fragment);
     			attr_dev(h2, "class", "border-bottom py-2");
     			add_location(h2, file$4, 45, 4, 1262);
@@ -23503,38 +23538,45 @@ var app = (function () {
     			add_location(div0, file$4, 48, 12, 1389);
     			attr_dev(div1, "class", "d-flex justify-content-end");
     			add_location(div1, file$4, 49, 12, 1480);
-    			attr_dev(div2, "class", "badge bg-light text-dark p-2");
-    			add_location(div2, file$4, 50, 16, 1543);
-    			attr_dev(div3, "class", "card-body");
-    			add_location(div3, file$4, 47, 8, 1353);
-    			attr_dev(div4, "class", "card my-3");
-    			add_location(div4, file$4, 46, 4, 1321);
+    			attr_dev(div2, "class", "mb-2");
+    			add_location(div2, file$4, 51, 20, 1617);
+    			add_location(div3, file$4, 52, 20, 1708);
+    			attr_dev(div4, "class", "badge bg-light text-dark p-2 text-start");
+    			add_location(div4, file$4, 50, 16, 1543);
+    			attr_dev(div5, "class", "card-body");
+    			add_location(div5, file$4, 47, 8, 1353);
+    			attr_dev(div6, "class", "card my-3");
+    			add_location(div6, file$4, 46, 4, 1321);
     			attr_dev(button, "class", "btn btn-secondary");
-    			add_location(button, file$4, 55, 4, 1698);
-    			attr_dev(div5, "vlass", "container my-3");
-    			add_location(div5, file$4, 43, 0, 1215);
+    			add_location(button, file$4, 56, 4, 1812);
+    			attr_dev(div7, "vlass", "container my-3");
+    			add_location(div7, file$4, 43, 0, 1215);
     		},
     		l: function claim(nodes) {
     			throw new Error_1$3("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div5, anchor);
-    			append_dev(div5, h2);
+    			insert_dev(target, div7, anchor);
+    			append_dev(div7, h2);
     			append_dev(h2, t0);
-    			append_dev(div5, t1);
-    			append_dev(div5, div4);
-    			append_dev(div4, div3);
-    			append_dev(div3, div0);
+    			append_dev(div7, t1);
+    			append_dev(div7, div6);
+    			append_dev(div6, div5);
+    			append_dev(div5, div0);
     			append_dev(div0, t2);
-    			append_dev(div3, t3);
-    			append_dev(div3, div1);
-    			append_dev(div3, t4);
-    			append_dev(div3, div2);
+    			append_dev(div5, t3);
+    			append_dev(div5, div1);
+    			append_dev(div5, t4);
+    			append_dev(div5, div4);
+    			append_dev(div4, div2);
     			append_dev(div2, t5);
-    			append_dev(div5, t6);
-    			append_dev(div5, button);
-    			append_dev(div5, t8);
-    			mount_component(error_1, div5, null);
+    			append_dev(div4, t6);
+    			append_dev(div4, div3);
+    			append_dev(div4, t7);
+    			append_dev(div7, t8);
+    			append_dev(div7, button);
+    			append_dev(div7, t10);
+    			mount_component(error_1, div7, null);
     			current = true;
 
     			if (!mounted) {
@@ -23545,7 +23587,12 @@ var app = (function () {
     		p: function update(ctx, [dirty]) {
     			if ((!current || dirty & /*question*/ 1) && t0_value !== (t0_value = /*question*/ ctx[0].subject + "")) set_data_dev(t0, t0_value);
     			if ((!current || dirty & /*question*/ 1) && t2_value !== (t2_value = /*question*/ ctx[0].content + "")) set_data_dev(t2, t2_value);
-    			if ((!current || dirty & /*question*/ 1) && t5_value !== (t5_value = moment(/*question*/ ctx[0].create_date).format("YYYY년 MM월 DD일") + "")) set_data_dev(t5, t5_value);
+
+    			if ((!current || dirty & /*question*/ 1) && t5_value !== (t5_value = (/*question*/ ctx[0].user
+    			? /*question*/ ctx[0].user.username
+    			: "") + "")) set_data_dev(t5, t5_value);
+
+    			if ((!current || dirty & /*question*/ 1) && t7_value !== (t7_value = moment(/*question*/ ctx[0].create_date).format("YYYY년 MM월 DD일") + "")) set_data_dev(t7, t7_value);
     			const error_1_changes = {};
     			if (dirty & /*error*/ 2) error_1_changes.error = /*error*/ ctx[1];
     			error_1.$set(error_1_changes);
@@ -23560,7 +23607,7 @@ var app = (function () {
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div5);
+    			if (detaching) detach_dev(div7);
     			destroy_component(error_1);
     			mounted = false;
     			dispose();

@@ -31,9 +31,9 @@
 <div class="container my-3">
     <table class="table">
         <thead>
-        <tr class="table-dark">
+        <tr class="text-center table-dark">
             <th>번호</th>
-            <th>진단 제목</th>
+            <th style="width:50%">진단 제목</th>
             <th>작성일시</th>
             <th>작성자</th>
             <th>진단보고서</th>
@@ -41,12 +41,13 @@
         </thead>
         <tbody>
         {#each question_list as question, i}
-        <tr>
+        <tr class="text-center">
             <td>{ total - ( $page * size ) - i }</td>
-            <td>
+            <td class="text-start">
                 <a use:link href="/detail/{question.id}">{question.subject}</a>
             </td>
             <td>{moment(question.create_date).format("YYYY년 MM월 DD일")}</td>  <!-- 시간표시: hh:mm a : 시간:분 오전/오후 -->
+            <td>{ question.user ? question.user.username : "" }</td>
         </tr>
         {/each}
         </tbody>
