@@ -2,6 +2,7 @@
     import fastapi from "../lib/api"   //JS로 작성한 공통된 CRUD 함수 ???
     import Error from "../components/Error.svelte"  //오류에 대한 처리
     import { push } from "svelte-spa-router"
+    import { is_login } from "../lib/store"
 
     import moment from "moment/min/moment-with-locales"
 
@@ -62,9 +63,13 @@
     <!--
     <form method="post" class="my-3">
         <div class="mb-3">
-            <textarea rows="10" bind:value={content} class="form-control" />
+            <textarea rows="10" bind:value={content} 
+                disabled={$is_login ? "" : "disabled"}
+                class="form-control" />
         </div>
-        <input type="submit" value="답변등록" class="btn btn-primary" on:click="{post_answer}" />  
+        <input type="submit" value="답변등록" 
+            class="btn btn-primary {$is_login ? '' : 'disabled'}" 
+            on:click="{post_answer}" />  
     </form>
     -->
 </div>

@@ -5,22 +5,13 @@ from starlette import status
 from database.database import get_db
 from domain.question import question_schema
 from domain.question import question_schema, question_crud
+from domain.user.user_router import get_current_user
+from model.models import User
 
 router = APIRouter(
     prefix="/api/question",
 )
 
-"""
-@router.get("/list",response_model=question_schema.QuestionList)
-def question_list(db: Session = Depends(get_db),
-                  page: int = 0, size: int = 10):
-    total, _question_list = question_crud.get_question_list(
-        db, skip = page*size, limit = size)
-    return {
-        'total': total, 
-        'question_list': _question_list
-    }
-"""
 @router.get("/list", response_model=question_schema.QuestionList)
 def question_list(db: Session = Depends(get_db),
                   page: int = 0, size: int = 10):
@@ -38,5 +29,6 @@ def question_detail(question_id: int, db: Session = Depends(get_db)):
 
 @router.post("/create", status_code=status.HTTP_204_NO_CONTENT)
 def question_create(_question_create: question_schema.QuestionCreate,
-                    db: Session = Depends(get_db)):
-    question_crud.create_question(db=db, question_create=_question_create)
+                    db: Session = Depends(get_db),
+                    current_user: User = Depends(get_current_user)):
+    question_crud.create_question(db=db, question_create=_question_create,user=current_user)

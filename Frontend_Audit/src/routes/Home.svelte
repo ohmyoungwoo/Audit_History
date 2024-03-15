@@ -1,7 +1,7 @@
 <script>
     import fastapi from "../lib/api"
     import { link } from 'svelte-spa-router'
-    import { page } from "../lib/store"
+    import { page, is_login } from "../lib/store"
     
     import moment from 'moment/min/moment-with-locales'
 
@@ -73,5 +73,6 @@
     </ul>
     <!-- 페이징처리 끝 -->
 
-    <a use:link href="/question-create" class="btn btn-primary">진단 결과 등록하기</a>
+    <a use:link href="/question-create" 
+        class="btn btn-primary {$is_login ? '' : 'disabled'}">진단 결과 등록하기</a>
 </div>

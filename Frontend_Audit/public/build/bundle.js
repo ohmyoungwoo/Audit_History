@@ -45,6 +45,11 @@ var app = (function () {
         const unsub = store.subscribe(...callbacks);
         return unsub.unsubscribe ? () => unsub.unsubscribe() : unsub;
     }
+    function get_store_value(store) {
+        let value;
+        subscribe(store, _ => value = _)();
+        return value;
+    }
     function component_subscribe(component, store, callback) {
         component.$$.on_destroy.push(subscribe(store, callback));
     }
@@ -4005,6 +4010,20 @@ var app = (function () {
 
     var qs = /*@__PURE__*/getDefaultExportFromCjs(lib);
 
+    const persist_storage = (key, initValue) => {
+        const storeedValueStr = localStorage.getItem(key);
+        const store = writable(storeedValueStr != null ? JSON.parse(storeedValueStr) : initValue);
+        store.subscribe((val) => {
+            localStorage.setItem(key, JSON.stringify(val));
+        });
+        return store
+    };
+
+    const page = persist_storage("page", 0);
+    const access_token = persist_storage("access_token", "");
+    const username = persist_storage("username", "");
+    const is_login = persist_storage("is_login", false);
+
     const fastapi = (operation, url, params, success_callback, failure_callback) => {
         // operation : 데이터를 처리하는 방법 ex)get, post, put, delete
         // url : 요청 URL, Backend 서버의 호스트명 이후의 URL만 전달 ex) /api/question/list
@@ -4038,6 +4057,11 @@ var app = (function () {
             }
         };
 
+        const _access_token = get_store_value(access_token);
+        if (_access_token) {
+            options.headers["Authorization"] = "Bearer " + _access_token;
+        }
+
         if (method !== 'get') {
             options['body'] = body;
         }
@@ -4057,6 +4081,12 @@ var app = (function () {
                             if(success_callback) {
                                 success_callback(json);
                             }
+                        }else if(operation !== 'login' && response.status === 401) { // token time out
+                            access_token.set('');
+                            username.set('');
+                            is_login.set(false);
+                            alert("로그인이 필요합니다.");
+                            push$1('/user-login');
                         }else {
                             if (failure_callback) {
                                 failure_callback(json);
@@ -4070,20 +4100,6 @@ var app = (function () {
                     });
             });
     };
-
-    const persist_storage = (key, initValue) => {
-        const storeedValueStr = localStorage.getItem(key);
-        const store = writable(storeedValueStr != null ? JSON.parse(storeedValueStr) : initValue);
-        store.subscribe((val) => {
-            localStorage.setItem(key, JSON.stringify(val));
-        });
-        return store
-    };
-
-    const page = persist_storage("page", 0);
-    const access_token = persist_storage("access_token", "");
-    const username = persist_storage("username", "");
-    const is_login = persist_storage("is_login", false);
 
     function commonjsRequire(path) {
     	throw new Error('Could not dynamically require "' + path + '". Please configure the dynamicRequireTargets or/and ignoreDynamicRequires option of @rollup/plugin-commonjs appropriately for this require call to work.');
@@ -22571,15 +22587,15 @@ var app = (function () {
 
     function get_each_context$1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[9] = list[i];
-    	child_ctx[11] = i;
+    	child_ctx[10] = list[i];
+    	child_ctx[12] = i;
     	return child_ctx;
     }
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[12] = list[i];
-    	child_ctx[14] = i;
+    	child_ctx[13] = list[i];
+    	child_ctx[15] = i;
     	return child_ctx;
     }
 
@@ -22587,17 +22603,17 @@ var app = (function () {
     function create_each_block_1(ctx) {
     	let tr;
     	let td0;
-    	let t0_value = /*total*/ ctx[0] - /*$page*/ ctx[1] * /*size*/ ctx[4] - /*i*/ ctx[14] + "";
+    	let t0_value = /*total*/ ctx[0] - /*$page*/ ctx[1] * /*size*/ ctx[5] - /*i*/ ctx[15] + "";
     	let t0;
     	let t1;
     	let td1;
     	let a;
-    	let t2_value = /*question*/ ctx[12].subject + "";
+    	let t2_value = /*question*/ ctx[13].subject + "";
     	let t2;
     	let a_href_value;
     	let t3;
     	let td2;
-    	let t4_value = moment(/*question*/ ctx[12].create_date).format("YYYY년 MM월 DD일") + "";
+    	let t4_value = moment(/*question*/ ctx[13].create_date).format("YYYY년 MM월 DD일") + "";
     	let t4;
     	let t5;
     	let mounted;
@@ -22616,12 +22632,12 @@ var app = (function () {
     			td2 = element("td");
     			t4 = text(t4_value);
     			t5 = space();
-    			add_location(td0, file$6, 44, 12, 1222);
-    			attr_dev(a, "href", a_href_value = "/detail/" + /*question*/ ctx[12].id);
-    			add_location(a, file$6, 46, 16, 1297);
-    			add_location(td1, file$6, 45, 12, 1276);
-    			add_location(td2, file$6, 48, 12, 1391);
-    			add_location(tr, file$6, 43, 8, 1205);
+    			add_location(td0, file$6, 44, 12, 1232);
+    			attr_dev(a, "href", a_href_value = "/detail/" + /*question*/ ctx[13].id);
+    			add_location(a, file$6, 46, 16, 1307);
+    			add_location(td1, file$6, 45, 12, 1286);
+    			add_location(td2, file$6, 48, 12, 1401);
+    			add_location(tr, file$6, 43, 8, 1215);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, tr, anchor);
@@ -22642,14 +22658,14 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*total, $page*/ 3 && t0_value !== (t0_value = /*total*/ ctx[0] - /*$page*/ ctx[1] * /*size*/ ctx[4] - /*i*/ ctx[14] + "")) set_data_dev(t0, t0_value);
-    			if (dirty & /*question_list*/ 4 && t2_value !== (t2_value = /*question*/ ctx[12].subject + "")) set_data_dev(t2, t2_value);
+    			if (dirty & /*total, $page*/ 3 && t0_value !== (t0_value = /*total*/ ctx[0] - /*$page*/ ctx[1] * /*size*/ ctx[5] - /*i*/ ctx[15] + "")) set_data_dev(t0, t0_value);
+    			if (dirty & /*question_list*/ 4 && t2_value !== (t2_value = /*question*/ ctx[13].subject + "")) set_data_dev(t2, t2_value);
 
-    			if (dirty & /*question_list*/ 4 && a_href_value !== (a_href_value = "/detail/" + /*question*/ ctx[12].id)) {
+    			if (dirty & /*question_list*/ 4 && a_href_value !== (a_href_value = "/detail/" + /*question*/ ctx[13].id)) {
     				attr_dev(a, "href", a_href_value);
     			}
 
-    			if (dirty & /*question_list*/ 4 && t4_value !== (t4_value = moment(/*question*/ ctx[12].create_date).format("YYYY년 MM월 DD일") + "")) set_data_dev(t4, t4_value);
+    			if (dirty & /*question_list*/ 4 && t4_value !== (t4_value = moment(/*question*/ ctx[13].create_date).format("YYYY년 MM월 DD일") + "")) set_data_dev(t4, t4_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(tr);
@@ -22673,7 +22689,7 @@ var app = (function () {
     function create_if_block$2(ctx) {
     	let li;
     	let button;
-    	let t0_value = /*loop_page*/ ctx[11] + 1 + "";
+    	let t0_value = /*loop_page*/ ctx[12] + 1 + "";
     	let t0;
     	let t1;
     	let li_class_value;
@@ -22681,7 +22697,7 @@ var app = (function () {
     	let dispose;
 
     	function click_handler_1() {
-    		return /*click_handler_1*/ ctx[7](/*loop_page*/ ctx[11]);
+    		return /*click_handler_1*/ ctx[8](/*loop_page*/ ctx[12]);
     	}
 
     	const block = {
@@ -22691,9 +22707,9 @@ var app = (function () {
     			t0 = text(t0_value);
     			t1 = space();
     			attr_dev(button, "class", "page-link");
-    			add_location(button, file$6, 64, 12, 2027);
-    			attr_dev(li, "class", li_class_value = "page-item " + (/*loop_page*/ ctx[11] === /*$page*/ ctx[1] && 'active'));
-    			add_location(li, file$6, 63, 8, 1958);
+    			add_location(button, file$6, 64, 12, 2037);
+    			attr_dev(li, "class", li_class_value = "page-item " + (/*loop_page*/ ctx[12] === /*$page*/ ctx[1] && 'active'));
+    			add_location(li, file$6, 63, 8, 1968);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -22709,7 +22725,7 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty & /*$page*/ 2 && li_class_value !== (li_class_value = "page-item " + (/*loop_page*/ ctx[11] === /*$page*/ ctx[1] && 'active'))) {
+    			if (dirty & /*$page*/ 2 && li_class_value !== (li_class_value = "page-item " + (/*loop_page*/ ctx[12] === /*$page*/ ctx[1] && 'active'))) {
     				attr_dev(li, "class", li_class_value);
     			}
     		},
@@ -22734,7 +22750,7 @@ var app = (function () {
     // (62:8) {#each Array(total_page) as _, loop_page}
     function create_each_block$1(ctx) {
     	let if_block_anchor;
-    	let if_block = /*loop_page*/ ctx[11] >= /*$page*/ ctx[1] - 5 && /*loop_page*/ ctx[11] <= /*$page*/ ctx[1] + 5 && create_if_block$2(ctx);
+    	let if_block = /*loop_page*/ ctx[12] >= /*$page*/ ctx[1] - 5 && /*loop_page*/ ctx[12] <= /*$page*/ ctx[1] + 5 && create_if_block$2(ctx);
 
     	const block = {
     		c: function create() {
@@ -22746,7 +22762,7 @@ var app = (function () {
     			insert_dev(target, if_block_anchor, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (/*loop_page*/ ctx[11] >= /*$page*/ ctx[1] - 5 && /*loop_page*/ ctx[11] <= /*$page*/ ctx[1] + 5) {
+    			if (/*loop_page*/ ctx[12] >= /*$page*/ ctx[1] - 5 && /*loop_page*/ ctx[12] <= /*$page*/ ctx[1] + 5) {
     				if (if_block) {
     					if_block.p(ctx, dirty);
     				} else {
@@ -22804,6 +22820,8 @@ var app = (function () {
     	let li1_class_value;
     	let t15;
     	let a;
+    	let t16;
+    	let a_class_value;
     	let mounted;
     	let dispose;
     	let each_value_1 = /*question_list*/ ctx[2];
@@ -22866,33 +22884,33 @@ var app = (function () {
     			button1.textContent = "다음";
     			t15 = space();
     			a = element("a");
-    			a.textContent = "진단 결과 등록하기";
-    			add_location(th0, file$6, 34, 12, 988);
-    			add_location(th1, file$6, 35, 12, 1012);
-    			add_location(th2, file$6, 36, 12, 1039);
-    			add_location(th3, file$6, 37, 12, 1065);
-    			add_location(th4, file$6, 38, 12, 1090);
+    			t16 = text("진단 결과 등록하기");
+    			add_location(th0, file$6, 34, 12, 998);
+    			add_location(th1, file$6, 35, 12, 1022);
+    			add_location(th2, file$6, 36, 12, 1049);
+    			add_location(th3, file$6, 37, 12, 1075);
+    			add_location(th4, file$6, 38, 12, 1100);
     			attr_dev(tr, "class", "table-dark");
-    			add_location(tr, file$6, 33, 8, 952);
-    			add_location(thead, file$6, 32, 8, 936);
-    			add_location(tbody, file$6, 41, 8, 1144);
+    			add_location(tr, file$6, 33, 8, 962);
+    			add_location(thead, file$6, 32, 8, 946);
+    			add_location(tbody, file$6, 41, 8, 1154);
     			attr_dev(table, "class", "table");
-    			add_location(table, file$6, 31, 4, 906);
+    			add_location(table, file$6, 31, 4, 916);
     			attr_dev(button0, "class", "page-link");
-    			add_location(button0, file$6, 58, 12, 1719);
+    			add_location(button0, file$6, 58, 12, 1729);
     			attr_dev(li0, "class", li0_class_value = "page-item " + (/*$page*/ ctx[1] <= 0 && 'disabled'));
-    			add_location(li0, file$6, 57, 8, 1657);
+    			add_location(li0, file$6, 57, 8, 1667);
     			attr_dev(button1, "class", "page-link");
-    			add_location(button1, file$6, 70, 12, 2272);
+    			add_location(button1, file$6, 70, 12, 2282);
     			attr_dev(li1, "class", li1_class_value = "page-item " + (/*$page*/ ctx[1] >= /*total_page*/ ctx[3] - 1 && 'disabled'));
-    			add_location(li1, file$6, 69, 8, 2199);
+    			add_location(li1, file$6, 69, 8, 2209);
     			attr_dev(ul, "class", "pagination justify-content-center");
-    			add_location(ul, file$6, 55, 4, 1579);
+    			add_location(ul, file$6, 55, 4, 1589);
     			attr_dev(a, "href", "/question-create");
-    			attr_dev(a, "class", "btn btn-primary");
-    			add_location(a, file$6, 75, 4, 2406);
+    			attr_dev(a, "class", a_class_value = "btn btn-primary " + (/*$is_login*/ ctx[4] ? '' : 'disabled'));
+    			add_location(a, file$6, 75, 4, 2416);
     			attr_dev(div, "class", "container my-3");
-    			add_location(div, file$6, 30, 0, 873);
+    			add_location(div, file$6, 30, 0, 883);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -22937,11 +22955,12 @@ var app = (function () {
     			append_dev(li1, button1);
     			append_dev(div, t15);
     			append_dev(div, a);
+    			append_dev(a, t16);
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(button0, "click", /*click_handler*/ ctx[6], false, false, false, false),
-    					listen_dev(button1, "click", /*click_handler_2*/ ctx[8], false, false, false, false),
+    					listen_dev(button0, "click", /*click_handler*/ ctx[7], false, false, false, false),
+    					listen_dev(button1, "click", /*click_handler_2*/ ctx[9], false, false, false, false),
     					action_destroyer(link.call(null, a))
     				];
 
@@ -22949,7 +22968,7 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*moment, question_list, total, $page, size*/ 23) {
+    			if (dirty & /*moment, question_list, total, $page, size*/ 39) {
     				each_value_1 = /*question_list*/ ctx[2];
     				validate_each_argument(each_value_1);
     				let i;
@@ -22977,7 +22996,7 @@ var app = (function () {
     				attr_dev(li0, "class", li0_class_value);
     			}
 
-    			if (dirty & /*$page, get_question_list, total_page*/ 42) {
+    			if (dirty & /*$page, get_question_list, total_page*/ 74) {
     				each_value = Array(/*total_page*/ ctx[3]);
     				validate_each_argument(each_value);
     				let i;
@@ -23003,6 +23022,10 @@ var app = (function () {
 
     			if (dirty & /*$page, total_page*/ 10 && li1_class_value !== (li1_class_value = "page-item " + (/*$page*/ ctx[1] >= /*total_page*/ ctx[3] - 1 && 'disabled'))) {
     				attr_dev(li1, "class", li1_class_value);
+    			}
+
+    			if (dirty & /*$is_login*/ 16 && a_class_value !== (a_class_value = "btn btn-primary " + (/*$is_login*/ ctx[4] ? '' : 'disabled'))) {
+    				attr_dev(a, "class", a_class_value);
     			}
     		},
     		i: noop,
@@ -23030,8 +23053,11 @@ var app = (function () {
     function instance$7($$self, $$props, $$invalidate) {
     	let total_page;
     	let $page;
+    	let $is_login;
     	validate_store(page, 'page');
     	component_subscribe($$self, page, $$value => $$invalidate(1, $page = $$value));
+    	validate_store(is_login, 'is_login');
+    	component_subscribe($$self, is_login, $$value => $$invalidate(4, $is_login = $$value));
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Home', slots, []);
     	moment.locale('ko');
@@ -23064,18 +23090,20 @@ var app = (function () {
     		fastapi,
     		link,
     		page,
+    		is_login,
     		moment,
     		question_list,
     		size,
     		total,
     		get_question_list,
     		total_page,
-    		$page
+    		$page,
+    		$is_login
     	});
 
     	$$self.$inject_state = $$props => {
     		if ('question_list' in $$props) $$invalidate(2, question_list = $$props.question_list);
-    		if ('size' in $$props) $$invalidate(4, size = $$props.size);
+    		if ('size' in $$props) $$invalidate(5, size = $$props.size);
     		if ('total' in $$props) $$invalidate(0, total = $$props.total);
     		if ('total_page' in $$props) $$invalidate(3, total_page = $$props.total_page);
     	};
@@ -23099,6 +23127,7 @@ var app = (function () {
     		$page,
     		question_list,
     		total_page,
+    		$is_login,
     		size,
     		get_question_list,
     		click_handler,
@@ -23468,22 +23497,22 @@ var app = (function () {
     			t8 = space();
     			create_component(error_1.$$.fragment);
     			attr_dev(h2, "class", "border-bottom py-2");
-    			add_location(h2, file$4, 44, 4, 1218);
+    			add_location(h2, file$4, 45, 4, 1262);
     			attr_dev(div0, "class", "card-text");
     			set_style(div0, "white-space", "pre-line");
-    			add_location(div0, file$4, 47, 12, 1345);
+    			add_location(div0, file$4, 48, 12, 1389);
     			attr_dev(div1, "class", "d-flex justify-content-end");
-    			add_location(div1, file$4, 48, 12, 1436);
+    			add_location(div1, file$4, 49, 12, 1480);
     			attr_dev(div2, "class", "badge bg-light text-dark p-2");
-    			add_location(div2, file$4, 49, 16, 1499);
+    			add_location(div2, file$4, 50, 16, 1543);
     			attr_dev(div3, "class", "card-body");
-    			add_location(div3, file$4, 46, 8, 1309);
+    			add_location(div3, file$4, 47, 8, 1353);
     			attr_dev(div4, "class", "card my-3");
-    			add_location(div4, file$4, 45, 4, 1277);
+    			add_location(div4, file$4, 46, 4, 1321);
     			attr_dev(button, "class", "btn btn-secondary");
-    			add_location(button, file$4, 54, 4, 1654);
+    			add_location(button, file$4, 55, 4, 1698);
     			attr_dev(div5, "vlass", "container my-3");
-    			add_location(div5, file$4, 42, 0, 1171);
+    			add_location(div5, file$4, 43, 0, 1215);
     		},
     		l: function claim(nodes) {
     			throw new Error_1$3("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -23606,6 +23635,7 @@ var app = (function () {
     		fastapi,
     		Error: Error$1,
     		push: push$1,
+    		is_login,
     		moment,
     		params,
     		question_id,
