@@ -1,12 +1,12 @@
 <script>
     import { link } from 'svelte-spa-router'
-    import { page, access_token, username, is_login } from "../lib/store"
+    import { page, keyword, access_token, username, is_login } from "../lib/store"
 </script>
 
 <!-- 네이게이션 바 (화면 상단 바) -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
     <div class="container-fluid">
-        <a use:link class="navbar-brand" href="/" on:click="{() => {$page = 0}}">품질진단 이력관리 시스템</a>
+        <a use:link class="navbar-brand" href="/" on:click="{() => {$keyword = '', $page = 0}}">품질진단 이력관리 시스템</a>
         <button
             class="navbar-toggler"
             type="button"

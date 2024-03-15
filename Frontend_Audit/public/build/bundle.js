@@ -4020,6 +4020,7 @@ var app = (function () {
     };
 
     const page = persist_storage("page", 0);
+    const keyword = persist_storage("keyword", "");
     const access_token = persist_storage("access_token", "");
     const username = persist_storage("username", "");
     const is_login = persist_storage("is_login", false);
@@ -22587,39 +22588,39 @@ var app = (function () {
 
     function get_each_context$1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[10] = list[i];
-    	child_ctx[12] = i;
+    	child_ctx[14] = list[i];
+    	child_ctx[16] = i;
     	return child_ctx;
     }
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[13] = list[i];
-    	child_ctx[15] = i;
+    	child_ctx[17] = list[i];
+    	child_ctx[19] = i;
     	return child_ctx;
     }
 
-    // (43:8) {#each question_list as question, i}
+    // (60:8) {#each question_list as question, i}
     function create_each_block_1(ctx) {
     	let tr;
     	let td0;
-    	let t0_value = /*total*/ ctx[0] - /*$page*/ ctx[1] * /*size*/ ctx[5] - /*i*/ ctx[15] + "";
+    	let t0_value = /*total*/ ctx[0] - /*$page*/ ctx[2] * /*size*/ ctx[7] - /*i*/ ctx[19] + "";
     	let t0;
     	let t1;
     	let td1;
     	let a;
-    	let t2_value = /*question*/ ctx[13].subject + "";
+    	let t2_value = /*question*/ ctx[17].subject + "";
     	let t2;
     	let a_href_value;
     	let t3;
     	let td2;
-    	let t4_value = moment(/*question*/ ctx[13].create_date).format("YYYY년 MM월 DD일") + "";
+    	let t4_value = moment(/*question*/ ctx[17].create_date).format("YYYY년 MM월 DD일") + "";
     	let t4;
     	let t5;
     	let td3;
 
-    	let t6_value = (/*question*/ ctx[13].user
-    	? /*question*/ ctx[13].user.username
+    	let t6_value = (/*question*/ ctx[17].user
+    	? /*question*/ ctx[17].user.username
     	: "") + "";
 
     	let t6;
@@ -22643,15 +22644,15 @@ var app = (function () {
     			td3 = element("td");
     			t6 = text(t6_value);
     			t7 = space();
-    			add_location(td0, file$7, 44, 12, 1282);
-    			attr_dev(a, "href", a_href_value = "/detail/" + /*question*/ ctx[13].id);
-    			add_location(a, file$7, 46, 16, 1376);
+    			add_location(td0, file$7, 61, 12, 1921);
+    			attr_dev(a, "href", a_href_value = "/detail/" + /*question*/ ctx[17].id);
+    			add_location(a, file$7, 63, 16, 2015);
     			attr_dev(td1, "class", "text-start");
-    			add_location(td1, file$7, 45, 12, 1336);
-    			add_location(td2, file$7, 48, 12, 1470);
-    			add_location(td3, file$7, 49, 12, 1583);
+    			add_location(td1, file$7, 62, 12, 1975);
+    			add_location(td2, file$7, 65, 12, 2109);
+    			add_location(td3, file$7, 66, 12, 2222);
     			attr_dev(tr, "class", "text-center");
-    			add_location(tr, file$7, 43, 8, 1245);
+    			add_location(tr, file$7, 60, 8, 1884);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, tr, anchor);
@@ -22675,17 +22676,17 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*total, $page*/ 3 && t0_value !== (t0_value = /*total*/ ctx[0] - /*$page*/ ctx[1] * /*size*/ ctx[5] - /*i*/ ctx[15] + "")) set_data_dev(t0, t0_value);
-    			if (dirty & /*question_list*/ 4 && t2_value !== (t2_value = /*question*/ ctx[13].subject + "")) set_data_dev(t2, t2_value);
+    			if (dirty & /*total, $page*/ 5 && t0_value !== (t0_value = /*total*/ ctx[0] - /*$page*/ ctx[2] * /*size*/ ctx[7] - /*i*/ ctx[19] + "")) set_data_dev(t0, t0_value);
+    			if (dirty & /*question_list*/ 8 && t2_value !== (t2_value = /*question*/ ctx[17].subject + "")) set_data_dev(t2, t2_value);
 
-    			if (dirty & /*question_list*/ 4 && a_href_value !== (a_href_value = "/detail/" + /*question*/ ctx[13].id)) {
+    			if (dirty & /*question_list*/ 8 && a_href_value !== (a_href_value = "/detail/" + /*question*/ ctx[17].id)) {
     				attr_dev(a, "href", a_href_value);
     			}
 
-    			if (dirty & /*question_list*/ 4 && t4_value !== (t4_value = moment(/*question*/ ctx[13].create_date).format("YYYY년 MM월 DD일") + "")) set_data_dev(t4, t4_value);
+    			if (dirty & /*question_list*/ 8 && t4_value !== (t4_value = moment(/*question*/ ctx[17].create_date).format("YYYY년 MM월 DD일") + "")) set_data_dev(t4, t4_value);
 
-    			if (dirty & /*question_list*/ 4 && t6_value !== (t6_value = (/*question*/ ctx[13].user
-    			? /*question*/ ctx[13].user.username
+    			if (dirty & /*question_list*/ 8 && t6_value !== (t6_value = (/*question*/ ctx[17].user
+    			? /*question*/ ctx[17].user.username
     			: "") + "")) set_data_dev(t6, t6_value);
     		},
     		d: function destroy(detaching) {
@@ -22699,26 +22700,26 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(43:8) {#each question_list as question, i}",
+    		source: "(60:8) {#each question_list as question, i}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (64:8) {#if loop_page >= $page-5 && loop_page <= $page+5}
+    // (81:8) {#if loop_page >= $page-5 && loop_page <= $page+5}
     function create_if_block$3(ctx) {
     	let li;
     	let button;
-    	let t0_value = /*loop_page*/ ctx[12] + 1 + "";
+    	let t0_value = /*loop_page*/ ctx[16] + 1 + "";
     	let t0;
     	let t1;
     	let li_class_value;
     	let mounted;
     	let dispose;
 
-    	function click_handler_1() {
-    		return /*click_handler_1*/ ctx[8](/*loop_page*/ ctx[12]);
+    	function click_handler_2() {
+    		return /*click_handler_2*/ ctx[11](/*loop_page*/ ctx[16]);
     	}
 
     	const block = {
@@ -22728,9 +22729,9 @@ var app = (function () {
     			t0 = text(t0_value);
     			t1 = space();
     			attr_dev(button, "class", "page-link");
-    			add_location(button, file$7, 65, 12, 2175);
-    			attr_dev(li, "class", li_class_value = "page-item " + (/*loop_page*/ ctx[12] === /*$page*/ ctx[1] && 'active'));
-    			add_location(li, file$7, 64, 8, 2106);
+    			add_location(button, file$7, 82, 12, 2795);
+    			attr_dev(li, "class", li_class_value = "page-item " + (/*loop_page*/ ctx[16] === /*$page*/ ctx[2] && 'active'));
+    			add_location(li, file$7, 81, 8, 2726);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -22739,14 +22740,14 @@ var app = (function () {
     			append_dev(li, t1);
 
     			if (!mounted) {
-    				dispose = listen_dev(button, "click", click_handler_1, false, false, false, false);
+    				dispose = listen_dev(button, "click", click_handler_2, false, false, false, false);
     				mounted = true;
     			}
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty & /*$page*/ 2 && li_class_value !== (li_class_value = "page-item " + (/*loop_page*/ ctx[12] === /*$page*/ ctx[1] && 'active'))) {
+    			if (dirty & /*$page*/ 4 && li_class_value !== (li_class_value = "page-item " + (/*loop_page*/ ctx[16] === /*$page*/ ctx[2] && 'active'))) {
     				attr_dev(li, "class", li_class_value);
     			}
     		},
@@ -22761,17 +22762,17 @@ var app = (function () {
     		block,
     		id: create_if_block$3.name,
     		type: "if",
-    		source: "(64:8) {#if loop_page >= $page-5 && loop_page <= $page+5}",
+    		source: "(81:8) {#if loop_page >= $page-5 && loop_page <= $page+5}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (63:8) {#each Array(total_page) as _, loop_page}
+    // (80:8) {#each Array(total_page) as _, loop_page}
     function create_each_block$1(ctx) {
     	let if_block_anchor;
-    	let if_block = /*loop_page*/ ctx[12] >= /*$page*/ ctx[1] - 5 && /*loop_page*/ ctx[12] <= /*$page*/ ctx[1] + 5 && create_if_block$3(ctx);
+    	let if_block = /*loop_page*/ ctx[16] >= /*$page*/ ctx[2] - 5 && /*loop_page*/ ctx[16] <= /*$page*/ ctx[2] + 5 && create_if_block$3(ctx);
 
     	const block = {
     		c: function create() {
@@ -22783,7 +22784,7 @@ var app = (function () {
     			insert_dev(target, if_block_anchor, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (/*loop_page*/ ctx[12] >= /*$page*/ ctx[1] - 5 && /*loop_page*/ ctx[12] <= /*$page*/ ctx[1] + 5) {
+    			if (/*loop_page*/ ctx[16] >= /*$page*/ ctx[2] - 5 && /*loop_page*/ ctx[16] <= /*$page*/ ctx[2] + 5) {
     				if (if_block) {
     					if_block.p(ctx, dirty);
     				} else {
@@ -22806,7 +22807,7 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(63:8) {#each Array(total_page) as _, loop_page}",
+    		source: "(80:8) {#each Array(total_page) as _, loop_page}",
     		ctx
     	});
 
@@ -22814,38 +22815,46 @@ var app = (function () {
     }
 
     function create_fragment$8(ctx) {
-    	let div;
+    	let div4;
+    	let div3;
+    	let div0;
+    	let a;
+    	let t0;
+    	let a_class_value;
+    	let t1;
+    	let div2;
+    	let div1;
+    	let input;
+    	let t2;
+    	let button0;
+    	let t4;
     	let table;
     	let thead;
     	let tr;
     	let th0;
-    	let t1;
+    	let t6;
     	let th1;
-    	let t3;
+    	let t8;
     	let th2;
-    	let t5;
-    	let th3;
-    	let t7;
-    	let th4;
-    	let t9;
-    	let tbody;
     	let t10;
+    	let th3;
+    	let t12;
+    	let th4;
+    	let t14;
+    	let tbody;
+    	let t15;
     	let ul;
     	let li0;
-    	let button0;
-    	let li0_class_value;
-    	let t12;
-    	let t13;
-    	let li1;
     	let button1;
+    	let li0_class_value;
+    	let t17;
+    	let t18;
+    	let li1;
+    	let button2;
     	let li1_class_value;
-    	let t15;
-    	let a;
-    	let t16;
-    	let a_class_value;
     	let mounted;
     	let dispose;
-    	let each_value_1 = /*question_list*/ ctx[2];
+    	let each_value_1 = /*question_list*/ ctx[3];
     	validate_each_argument(each_value_1);
     	let each_blocks_1 = [];
 
@@ -22853,7 +22862,7 @@ var app = (function () {
     		each_blocks_1[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
     	}
 
-    	let each_value = Array(/*total_page*/ ctx[3]);
+    	let each_value = Array(/*total_page*/ ctx[5]);
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -22863,95 +22872,129 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
-    			div = element("div");
+    			div4 = element("div");
+    			div3 = element("div");
+    			div0 = element("div");
+    			a = element("a");
+    			t0 = text("진단 등록하기");
+    			t1 = space();
+    			div2 = element("div");
+    			div1 = element("div");
+    			input = element("input");
+    			t2 = space();
+    			button0 = element("button");
+    			button0.textContent = "찾기";
+    			t4 = space();
     			table = element("table");
     			thead = element("thead");
     			tr = element("tr");
     			th0 = element("th");
     			th0.textContent = "번호";
-    			t1 = space();
+    			t6 = space();
     			th1 = element("th");
     			th1.textContent = "진단 제목";
-    			t3 = space();
+    			t8 = space();
     			th2 = element("th");
     			th2.textContent = "작성일시";
-    			t5 = space();
+    			t10 = space();
     			th3 = element("th");
     			th3.textContent = "작성자";
-    			t7 = space();
+    			t12 = space();
     			th4 = element("th");
     			th4.textContent = "진단보고서";
-    			t9 = space();
+    			t14 = space();
     			tbody = element("tbody");
 
     			for (let i = 0; i < each_blocks_1.length; i += 1) {
     				each_blocks_1[i].c();
     			}
 
-    			t10 = space();
+    			t15 = space();
     			ul = element("ul");
     			li0 = element("li");
-    			button0 = element("button");
-    			button0.textContent = "이전";
-    			t12 = space();
+    			button1 = element("button");
+    			button1.textContent = "이전";
+    			t17 = space();
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
-    			t13 = space();
+    			t18 = space();
     			li1 = element("li");
-    			button1 = element("button");
-    			button1.textContent = "다음";
-    			t15 = space();
-    			a = element("a");
-    			t16 = text("진단 결과 등록하기");
-    			add_location(th0, file$7, 34, 12, 1010);
-    			set_style(th1, "width", "50%");
-    			add_location(th1, file$7, 35, 12, 1034);
-    			add_location(th2, file$7, 36, 12, 1079);
-    			add_location(th3, file$7, 37, 12, 1105);
-    			add_location(th4, file$7, 38, 12, 1130);
-    			attr_dev(tr, "class", "text-center table-dark");
-    			add_location(tr, file$7, 33, 8, 962);
-    			add_location(thead, file$7, 32, 8, 946);
-    			add_location(tbody, file$7, 41, 8, 1184);
-    			attr_dev(table, "class", "table");
-    			add_location(table, file$7, 31, 4, 916);
-    			attr_dev(button0, "class", "page-link");
-    			add_location(button0, file$7, 59, 12, 1867);
-    			attr_dev(li0, "class", li0_class_value = "page-item " + (/*$page*/ ctx[1] <= 0 && 'disabled'));
-    			add_location(li0, file$7, 58, 8, 1805);
-    			attr_dev(button1, "class", "page-link");
-    			add_location(button1, file$7, 71, 12, 2420);
-    			attr_dev(li1, "class", li1_class_value = "page-item " + (/*$page*/ ctx[1] >= /*total_page*/ ctx[3] - 1 && 'disabled'));
-    			add_location(li1, file$7, 70, 8, 2347);
-    			attr_dev(ul, "class", "pagination justify-content-center");
-    			add_location(ul, file$7, 56, 4, 1727);
+    			button2 = element("button");
+    			button2.textContent = "다음";
     			attr_dev(a, "href", "/question-create");
-    			attr_dev(a, "class", a_class_value = "btn btn-primary " + (/*$is_login*/ ctx[4] ? '' : 'disabled'));
-    			add_location(a, file$7, 76, 4, 2554);
-    			attr_dev(div, "class", "container my-3");
-    			add_location(div, file$7, 30, 0, 883);
+    			attr_dev(a, "class", a_class_value = "btn btn-primary " + (/*$is_login*/ ctx[6] ? '' : 'disabled'));
+    			add_location(a, file$7, 35, 12, 1062);
+    			attr_dev(div0, "class", "col-6");
+    			add_location(div0, file$7, 34, 8, 1030);
+    			attr_dev(input, "type", "text");
+    			attr_dev(input, "class", "form-control");
+    			add_location(input, file$7, 40, 16, 1278);
+    			attr_dev(button0, "class", "btn btn-outline-secondary");
+    			add_location(button0, file$7, 41, 16, 1368);
+    			attr_dev(div1, "class", "input-group");
+    			add_location(div1, file$7, 39, 12, 1236);
+    			attr_dev(div2, "class", "col-6");
+    			add_location(div2, file$7, 38, 8, 1204);
+    			attr_dev(div3, "class", "row my-3");
+    			add_location(div3, file$7, 33, 4, 996);
+    			add_location(th0, file$7, 51, 12, 1649);
+    			set_style(th1, "width", "50%");
+    			add_location(th1, file$7, 52, 12, 1673);
+    			add_location(th2, file$7, 53, 12, 1718);
+    			add_location(th3, file$7, 54, 12, 1744);
+    			add_location(th4, file$7, 55, 12, 1769);
+    			attr_dev(tr, "class", "text-center table-dark");
+    			add_location(tr, file$7, 50, 8, 1601);
+    			add_location(thead, file$7, 49, 8, 1585);
+    			add_location(tbody, file$7, 58, 8, 1823);
+    			attr_dev(table, "class", "table");
+    			add_location(table, file$7, 48, 4, 1555);
+    			attr_dev(button1, "class", "page-link");
+    			add_location(button1, file$7, 76, 12, 2506);
+    			attr_dev(li0, "class", li0_class_value = "page-item " + (/*$page*/ ctx[2] <= 0 && 'disabled'));
+    			add_location(li0, file$7, 75, 8, 2444);
+    			attr_dev(button2, "class", "page-link");
+    			add_location(button2, file$7, 88, 12, 3029);
+    			attr_dev(li1, "class", li1_class_value = "page-item " + (/*$page*/ ctx[2] >= /*total_page*/ ctx[5] - 1 && 'disabled'));
+    			add_location(li1, file$7, 87, 8, 2956);
+    			attr_dev(ul, "class", "pagination justify-content-center");
+    			add_location(ul, file$7, 73, 4, 2366);
+    			attr_dev(div4, "class", "container my-3");
+    			add_location(div4, file$7, 32, 0, 963);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
-    			append_dev(div, table);
+    			insert_dev(target, div4, anchor);
+    			append_dev(div4, div3);
+    			append_dev(div3, div0);
+    			append_dev(div0, a);
+    			append_dev(a, t0);
+    			append_dev(div3, t1);
+    			append_dev(div3, div2);
+    			append_dev(div2, div1);
+    			append_dev(div1, input);
+    			set_input_value(input, /*kw*/ ctx[4]);
+    			append_dev(div1, t2);
+    			append_dev(div1, button0);
+    			append_dev(div4, t4);
+    			append_dev(div4, table);
     			append_dev(table, thead);
     			append_dev(thead, tr);
     			append_dev(tr, th0);
-    			append_dev(tr, t1);
+    			append_dev(tr, t6);
     			append_dev(tr, th1);
-    			append_dev(tr, t3);
+    			append_dev(tr, t8);
     			append_dev(tr, th2);
-    			append_dev(tr, t5);
+    			append_dev(tr, t10);
     			append_dev(tr, th3);
-    			append_dev(tr, t7);
+    			append_dev(tr, t12);
     			append_dev(tr, th4);
-    			append_dev(table, t9);
+    			append_dev(table, t14);
     			append_dev(table, tbody);
 
     			for (let i = 0; i < each_blocks_1.length; i += 1) {
@@ -22960,11 +23003,11 @@ var app = (function () {
     				}
     			}
 
-    			append_dev(div, t10);
-    			append_dev(div, ul);
+    			append_dev(div4, t15);
+    			append_dev(div4, ul);
     			append_dev(ul, li0);
-    			append_dev(li0, button0);
-    			append_dev(ul, t12);
+    			append_dev(li0, button1);
+    			append_dev(ul, t17);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				if (each_blocks[i]) {
@@ -22972,26 +23015,33 @@ var app = (function () {
     				}
     			}
 
-    			append_dev(ul, t13);
+    			append_dev(ul, t18);
     			append_dev(ul, li1);
-    			append_dev(li1, button1);
-    			append_dev(div, t15);
-    			append_dev(div, a);
-    			append_dev(a, t16);
+    			append_dev(li1, button2);
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(button0, "click", /*click_handler*/ ctx[7], false, false, false, false),
-    					listen_dev(button1, "click", /*click_handler_2*/ ctx[9], false, false, false, false),
-    					action_destroyer(link.call(null, a))
+    					action_destroyer(link.call(null, a)),
+    					listen_dev(input, "input", /*input_input_handler*/ ctx[8]),
+    					listen_dev(button0, "click", /*click_handler*/ ctx[9], false, false, false, false),
+    					listen_dev(button1, "click", /*click_handler_1*/ ctx[10], false, false, false, false),
+    					listen_dev(button2, "click", /*click_handler_3*/ ctx[12], false, false, false, false)
     				];
 
     				mounted = true;
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*question_list, moment, total, $page, size*/ 39) {
-    				each_value_1 = /*question_list*/ ctx[2];
+    			if (dirty & /*$is_login*/ 64 && a_class_value !== (a_class_value = "btn btn-primary " + (/*$is_login*/ ctx[6] ? '' : 'disabled'))) {
+    				attr_dev(a, "class", a_class_value);
+    			}
+
+    			if (dirty & /*kw*/ 16 && input.value !== /*kw*/ ctx[4]) {
+    				set_input_value(input, /*kw*/ ctx[4]);
+    			}
+
+    			if (dirty & /*question_list, moment, total, $page, size*/ 141) {
+    				each_value_1 = /*question_list*/ ctx[3];
     				validate_each_argument(each_value_1);
     				let i;
 
@@ -23014,12 +23064,12 @@ var app = (function () {
     				each_blocks_1.length = each_value_1.length;
     			}
 
-    			if (dirty & /*$page*/ 2 && li0_class_value !== (li0_class_value = "page-item " + (/*$page*/ ctx[1] <= 0 && 'disabled'))) {
+    			if (dirty & /*$page*/ 4 && li0_class_value !== (li0_class_value = "page-item " + (/*$page*/ ctx[2] <= 0 && 'disabled'))) {
     				attr_dev(li0, "class", li0_class_value);
     			}
 
-    			if (dirty & /*$page, get_question_list, total_page*/ 74) {
-    				each_value = Array(/*total_page*/ ctx[3]);
+    			if (dirty & /*$page, total_page*/ 36) {
+    				each_value = Array(/*total_page*/ ctx[5]);
     				validate_each_argument(each_value);
     				let i;
 
@@ -23031,7 +23081,7 @@ var app = (function () {
     					} else {
     						each_blocks[i] = create_each_block$1(child_ctx);
     						each_blocks[i].c();
-    						each_blocks[i].m(ul, t13);
+    						each_blocks[i].m(ul, t18);
     					}
     				}
 
@@ -23042,18 +23092,14 @@ var app = (function () {
     				each_blocks.length = each_value.length;
     			}
 
-    			if (dirty & /*$page, total_page*/ 10 && li1_class_value !== (li1_class_value = "page-item " + (/*$page*/ ctx[1] >= /*total_page*/ ctx[3] - 1 && 'disabled'))) {
+    			if (dirty & /*$page, total_page*/ 36 && li1_class_value !== (li1_class_value = "page-item " + (/*$page*/ ctx[2] >= /*total_page*/ ctx[5] - 1 && 'disabled'))) {
     				attr_dev(li1, "class", li1_class_value);
-    			}
-
-    			if (dirty & /*$is_login*/ 16 && a_class_value !== (a_class_value = "btn btn-primary " + (/*$is_login*/ ctx[4] ? '' : 'disabled'))) {
-    				attr_dev(a, "class", a_class_value);
     			}
     		},
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div);
+    			if (detaching) detach_dev(div4);
     			destroy_each(each_blocks_1, detaching);
     			destroy_each(each_blocks, detaching);
     			mounted = false;
@@ -23074,27 +23120,31 @@ var app = (function () {
 
     function instance$8($$self, $$props, $$invalidate) {
     	let total_page;
+    	let $keyword;
     	let $page;
     	let $is_login;
+    	validate_store(keyword, 'keyword');
+    	component_subscribe($$self, keyword, $$value => $$invalidate(1, $keyword = $$value));
     	validate_store(page, 'page');
-    	component_subscribe($$self, page, $$value => $$invalidate(1, $page = $$value));
+    	component_subscribe($$self, page, $$value => $$invalidate(2, $page = $$value));
     	validate_store(is_login, 'is_login');
-    	component_subscribe($$self, is_login, $$value => $$invalidate(4, $is_login = $$value));
+    	component_subscribe($$self, is_login, $$value => $$invalidate(6, $is_login = $$value));
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Home', slots, []);
     	moment.locale('ko');
     	let question_list = [];
     	let size = 10;
     	let total = 0;
+    	let kw = ''; //검색 keyword
 
     	// total 변수의 값이 API 호출로 인해 그 값이 변하면 total_page 변수의 값도 실시간으로 재 계산된다
     	function get_question_list(_page) {
-    		let params = { page: _page, size };
+    		let params = { page: $page, size, keyword: $keyword };
 
     		fastapi('get', '/api/question/list', params, json => {
-    			$$invalidate(2, question_list = json.question_list);
-    			set_store_value(page, $page = _page, $page);
+    			$$invalidate(3, question_list = json.question_list);
     			$$invalidate(0, total = json.total);
+    			$$invalidate(4, kw = $keyword);
     		});
     	}
 
@@ -23104,30 +23154,43 @@ var app = (function () {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Home> was created with unknown prop '${key}'`);
     	});
 
-    	const click_handler = () => get_question_list($page - 1);
-    	const click_handler_1 = loop_page => get_question_list(loop_page);
-    	const click_handler_2 = () => get_question_list($page + 1);
+    	function input_input_handler() {
+    		kw = this.value;
+    		$$invalidate(4, kw);
+    	}
+
+    	const click_handler = () => {
+    		(set_store_value(keyword, $keyword = kw, $keyword), set_store_value(page, $page = 0, $page));
+    	};
+
+    	const click_handler_1 = () => set_store_value(page, $page--, $page);
+    	const click_handler_2 = loop_page => set_store_value(page, $page = loop_page, $page);
+    	const click_handler_3 = () => set_store_value(page, $page++, $page);
 
     	$$self.$capture_state = () => ({
     		fastapi,
     		link,
     		page,
+    		keyword,
     		is_login,
     		moment,
     		question_list,
     		size,
     		total,
+    		kw,
     		get_question_list,
     		total_page,
+    		$keyword,
     		$page,
     		$is_login
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ('question_list' in $$props) $$invalidate(2, question_list = $$props.question_list);
-    		if ('size' in $$props) $$invalidate(5, size = $$props.size);
+    		if ('question_list' in $$props) $$invalidate(3, question_list = $$props.question_list);
+    		if ('size' in $$props) $$invalidate(7, size = $$props.size);
     		if ('total' in $$props) $$invalidate(0, total = $$props.total);
-    		if ('total_page' in $$props) $$invalidate(3, total_page = $$props.total_page);
+    		if ('kw' in $$props) $$invalidate(4, kw = $$props.kw);
+    		if ('total_page' in $$props) $$invalidate(5, total_page = $$props.total_page);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -23136,25 +23199,28 @@ var app = (function () {
 
     	$$self.$$.update = () => {
     		if ($$self.$$.dirty & /*total*/ 1) {
-    			$$invalidate(3, total_page = Math.ceil(total / size)); // 스벨트에서 변수앞에 $: 기호를 붙이면 해당 변수는 반응형 변수, 
+    			$$invalidate(5, total_page = Math.ceil(total / size)); // 스벨트에서 변수앞에 $: 기호를 붙이면 해당 변수는 반응형 변수, 
     		}
 
-    		if ($$self.$$.dirty & /*$page*/ 2) {
-    			get_question_list($page); // 함수 앞의 $: 는 $page가 변경되면 함수도 다시 호출하라는 의미임
+    		if ($$self.$$.dirty & /*$page, $keyword*/ 6) {
+    			(get_question_list()); // 함수 앞의 $: 는 $page가 변경되면 함수도 다시 호출하라는 의미임
     		}
     	};
 
     	return [
     		total,
+    		$keyword,
     		$page,
     		question_list,
+    		kw,
     		total_page,
     		$is_login,
     		size,
-    		get_question_list,
+    		input_input_handler,
     		click_handler,
     		click_handler_1,
-    		click_handler_2
+    		click_handler_2,
+    		click_handler_3
     	];
     }
 
@@ -24185,14 +24251,14 @@ var app = (function () {
     			a1.textContent = "로그인";
     			attr_dev(a0, "class", "nav-link");
     			attr_dev(a0, "href", "/user-create");
-    			add_location(a0, file$3, 31, 24, 1336);
+    			add_location(a0, file$3, 31, 24, 1360);
     			attr_dev(li0, "class", "nav-item");
-    			add_location(li0, file$3, 30, 20, 1290);
+    			add_location(li0, file$3, 30, 20, 1314);
     			attr_dev(a1, "class", "nav-link");
     			attr_dev(a1, "href", "/user-login");
-    			add_location(a1, file$3, 34, 24, 1486);
+    			add_location(a1, file$3, 34, 24, 1510);
     			attr_dev(li1, "class", "nav-item");
-    			add_location(li1, file$3, 33, 20, 1440);
+    			add_location(li1, file$3, 33, 20, 1464);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li0, anchor);
@@ -24246,13 +24312,13 @@ var app = (function () {
     			li = element("li");
     			a = element("a");
     			t0 = text("로그아웃 (");
-    			t1 = text(/*$username*/ ctx[3]);
+    			t1 = text(/*$username*/ ctx[4]);
     			t2 = text(")");
     			attr_dev(a, "href", "/user-login");
     			attr_dev(a, "class", "nav-link");
-    			add_location(a, file$3, 23, 24, 968);
+    			add_location(a, file$3, 23, 24, 992);
     			attr_dev(li, "class", "nav-item");
-    			add_location(li, file$3, 22, 20, 922);
+    			add_location(li, file$3, 22, 20, 946);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -24264,14 +24330,14 @@ var app = (function () {
     			if (!mounted) {
     				dispose = [
     					action_destroyer(link.call(null, a)),
-    					listen_dev(a, "click", /*click_handler_1*/ ctx[5], false, false, false, false)
+    					listen_dev(a, "click", /*click_handler_1*/ ctx[6], false, false, false, false)
     				];
 
     				mounted = true;
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*$username*/ 8) set_data_dev(t1, /*$username*/ ctx[3]);
+    			if (dirty & /*$username*/ 16) set_data_dev(t1, /*$username*/ ctx[4]);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(li);
@@ -24305,7 +24371,7 @@ var app = (function () {
     	let dispose;
 
     	function select_block_type(ctx, dirty) {
-    		if (/*$is_login*/ ctx[1]) return create_if_block;
+    		if (/*$is_login*/ ctx[2]) return create_if_block;
     		return create_else_block;
     	}
 
@@ -24327,9 +24393,9 @@ var app = (function () {
     			if_block.c();
     			attr_dev(a, "class", "navbar-brand");
     			attr_dev(a, "href", "/");
-    			add_location(a, file$3, 8, 8, 282);
+    			add_location(a, file$3, 8, 8, 291);
     			attr_dev(span, "class", "navbar-toggler-icon");
-    			add_location(span, file$3, 17, 12, 682);
+    			add_location(span, file$3, 17, 12, 706);
     			attr_dev(button, "class", "navbar-toggler");
     			attr_dev(button, "type", "button");
     			attr_dev(button, "data-bs-toggle", "collapse");
@@ -24337,16 +24403,16 @@ var app = (function () {
     			attr_dev(button, "aria-controls", "navbarSupportedContent");
     			attr_dev(button, "aria-expanded", "false");
     			attr_dev(button, "aria-label", "Toggle navigation");
-    			add_location(button, file$3, 9, 8, 381);
+    			add_location(button, file$3, 9, 8, 405);
     			attr_dev(ul, "class", "navbar-nav me-auto mb-2 mb-lg-0");
-    			add_location(ul, file$3, 20, 12, 824);
+    			add_location(ul, file$3, 20, 12, 848);
     			attr_dev(div0, "class", "collapse navbar-collapse");
     			attr_dev(div0, "id", "navbarSupportedContent");
-    			add_location(div0, file$3, 19, 8, 745);
+    			add_location(div0, file$3, 19, 8, 769);
     			attr_dev(div1, "class", "container-fluid");
-    			add_location(div1, file$3, 7, 4, 244);
+    			add_location(div1, file$3, 7, 4, 253);
     			attr_dev(nav, "class", "navbar navbar-expand-lg navbar-light bg-light border-bottom");
-    			add_location(nav, file$3, 6, 0, 166);
+    			add_location(nav, file$3, 6, 0, 175);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -24366,7 +24432,7 @@ var app = (function () {
     			if (!mounted) {
     				dispose = [
     					action_destroyer(link.call(null, a)),
-    					listen_dev(a, "click", /*click_handler*/ ctx[4], false, false, false, false)
+    					listen_dev(a, "click", /*click_handler*/ ctx[5], false, false, false, false)
     				];
 
     				mounted = true;
@@ -24407,18 +24473,21 @@ var app = (function () {
     }
 
     function instance$4($$self, $$props, $$invalidate) {
+    	let $keyword;
     	let $page;
     	let $is_login;
     	let $access_token;
     	let $username;
+    	validate_store(keyword, 'keyword');
+    	component_subscribe($$self, keyword, $$value => $$invalidate(0, $keyword = $$value));
     	validate_store(page, 'page');
-    	component_subscribe($$self, page, $$value => $$invalidate(0, $page = $$value));
+    	component_subscribe($$self, page, $$value => $$invalidate(1, $page = $$value));
     	validate_store(is_login, 'is_login');
-    	component_subscribe($$self, is_login, $$value => $$invalidate(1, $is_login = $$value));
+    	component_subscribe($$self, is_login, $$value => $$invalidate(2, $is_login = $$value));
     	validate_store(access_token, 'access_token');
-    	component_subscribe($$self, access_token, $$value => $$invalidate(2, $access_token = $$value));
+    	component_subscribe($$self, access_token, $$value => $$invalidate(3, $access_token = $$value));
     	validate_store(username, 'username');
-    	component_subscribe($$self, username, $$value => $$invalidate(3, $username = $$value));
+    	component_subscribe($$self, username, $$value => $$invalidate(4, $username = $$value));
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Navigation', slots, []);
     	const writable_props = [];
@@ -24428,7 +24497,7 @@ var app = (function () {
     	});
 
     	const click_handler = () => {
-    		set_store_value(page, $page = 0, $page);
+    		(set_store_value(keyword, $keyword = '', $keyword), set_store_value(page, $page = 0, $page));
     	};
 
     	const click_handler_1 = () => {
@@ -24440,16 +24509,26 @@ var app = (function () {
     	$$self.$capture_state = () => ({
     		link,
     		page,
+    		keyword,
     		access_token,
     		username,
     		is_login,
+    		$keyword,
     		$page,
     		$is_login,
     		$access_token,
     		$username
     	});
 
-    	return [$page, $is_login, $access_token, $username, click_handler, click_handler_1];
+    	return [
+    		$keyword,
+    		$page,
+    		$is_login,
+    		$access_token,
+    		$username,
+    		click_handler,
+    		click_handler_1
+    	];
     }
 
     class Navigation extends SvelteComponentDev {
