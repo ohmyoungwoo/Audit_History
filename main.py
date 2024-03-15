@@ -3,11 +3,12 @@ from starlette.middleware.cors import CORSMiddleware
 
 from domain.question import question_router
 from domain.answer import answer_router
+from domain.user import user_router
 
 app = FastAPI()
 
 origins = [
-    "http://localhost:44247",    # Svelte Frontend 서버 주소 업데이트 해야 정상 작동함
+    "http://localhost:8089",    # Svelte Frontend 서버 주소 업데이트 해야 정상 작동함
 ]
 
 app.add_middleware(
@@ -21,3 +22,4 @@ app.add_middleware(
 
 app.include_router(question_router.router)
 app.include_router(answer_router.router)
+app.include_router(user_router.router)

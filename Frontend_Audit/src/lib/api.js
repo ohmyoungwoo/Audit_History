@@ -1,3 +1,5 @@
+import qs from "qs"
+
 const fastapi = (operation, url, params, success_callback, failure_callback) => {
     // operation : 데이터를 처리하는 방법 ex)get, post, put, delete
     // url : 요청 URL, Backend 서버의 호스트명 이후의 URL만 전달 ex) /api/question/list
@@ -8,6 +10,12 @@ const fastapi = (operation, url, params, success_callback, failure_callback) => 
     let method = operation
     let content_type = 'application/json'
     let body = JSON.stringify(params)   // params를 JSON으로 변경해서 body에 입력
+
+    if(operation === 'login') {
+        method = 'post'
+        content_type = 'application/x-www-form-urlencoded'
+        body = qs.stringify(params)
+    }
 
     let _url = 'http://127.0.0.1:8000'+ url
 
