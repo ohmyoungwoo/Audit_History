@@ -9,6 +9,7 @@ from domain.user import user_router
 
 app = FastAPI()
 
+"""
 origins = [
     "http://localhost:8089",    # Svelte Frontend 서버 주소 업데이트 해야 정상 작동함
 ]
@@ -20,13 +21,13 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
+"""
 
 app.include_router(question_router.router)
 app.include_router(answer_router.router)
 app.include_router(user_router.router)
 app.mount("/build", StaticFiles(directory="Frontend_Audit/public/build"))
 
-@app.get("/")
+@app.get("/")  # "/"" 경로로 접속하면 Frontend_Audit/public/index.html 파일을 읽어서 서비스 할 수 있도록 index 함수를 추가
 def index():
     return FileResponse("Frontend_Audit/public/index.html")

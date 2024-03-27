@@ -20,8 +20,8 @@ const fastapi = (operation, url, params, success_callback, failure_callback) => 
         body = qs.stringify(params)
     }
 
-    let _url = 'http://127.0.0.1:8000'+ url
-
+    let _url = 'http://10.182.32.155:8000'+ url
+    
     //let _url = import.meta.env.VITE_SERVER_URL + url  // 작동 안함 (이유를 모르겠음 ????)
     //alert(import.meta.env.VITE_SERVER_URL)
 
