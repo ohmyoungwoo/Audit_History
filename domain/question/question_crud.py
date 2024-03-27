@@ -48,9 +48,11 @@ def create_question(db: Session, question_create: QuestionCreate, user: User):
     
 def update_question(db: Session, db_question: Question,
                     question_update: QuestionUpdate):
-    db_question.subject = question_update.subject
-    db_question.content = question_update.content
-    db_question.modify_date = datetime.now()
+    db_question = Question(
+        subject = question_update.subject,
+        content = question_update.content,
+        modify_date = datetime.now(),
+    )
     
     db.add(db_question)
     db.commit()
