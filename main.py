@@ -27,6 +27,7 @@ app.include_router(question_router.router)
 app.include_router(answer_router.router)
 app.include_router(user_router.router)
 app.mount("/build", StaticFiles(directory="Frontend_Audit/public/build"))
+#app.mount("/", StaticFiles(directory="Frontend_Audit/public"))
 
 @app.get("/")  # "/"" 경로로 접속하면 Frontend_Audit/public/index.html 파일을 읽어서 서비스 할 수 있도록 index 함수를 추가
 def index():

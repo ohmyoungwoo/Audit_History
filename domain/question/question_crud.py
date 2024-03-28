@@ -56,7 +56,6 @@ def update_question(db: Session, db_question: Question,
         modify_date = datetime.now(),
     )
     """
-    
     db_question.subject = question_update.subject
     db_question.content = question_update.content
     db_question.modify_date = datetime.now()

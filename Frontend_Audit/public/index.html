@@ -7,7 +7,8 @@
 	<title>Svelte app</title>
 
 	<link rel='icon' type='image/png' href='/favicon.png'>
-	<link rel='stylesheet' href='/global.css'>
+	<link rel='stylesheet' href='/build/global.css'>    <!--원래 /global.css 에 있었는데 /build/ 밑으로 옮김, 
+		이유는 app.mount("/build", StaticFiles(directory="Frontend_Audit/public/build"))로 인해 global.css을 찾지 못함-->
 	<link rel='stylesheet' href='/build/bundle.css'>
 
 	<script defer src='/build/bundle.js'></script>
