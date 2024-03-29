@@ -6,7 +6,7 @@
     let error = {detail:[]}
     let subject = ''
     let content = ''
-    let myBindDate = (new Date()).toJSON().slice(0, 10);
+    let myDate = (new Date()).toJSON().slice(0, 10);
     let date1 = "2024-01-01"; //audit_date test용
 
     function post_question(event) {
@@ -42,7 +42,7 @@
         </div>
         <div class="my-3">
             <label for="audit_date">진단일자</label>
-            <input type="date" class="form-control" bind:value="{myBindDate}">
+            <input type="date" class="form-control" bind:value="{myDate}">
         </div>
         <button class="btn btn-primary" on:click="{post_question}">저장하기</button>
     </form>
