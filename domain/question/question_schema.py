@@ -13,6 +13,7 @@ class Question(BaseModel):
     answers: list[Answer] = []
     user: User | None
     modify_date: datetime.datetime | None = None
+    audit_date: datetime.datetime | None = None
     
     class Config:
         orm_mode = True
@@ -20,6 +21,7 @@ class Question(BaseModel):
 class QuestionCreate(BaseModel):
     subject: str
     content: str
+    audit_date: datetime.datetime | None = None
     
     @field_validator('subject', 'content')
     def not_empty(cls, v):

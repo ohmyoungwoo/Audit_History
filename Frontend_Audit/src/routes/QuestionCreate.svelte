@@ -6,6 +6,8 @@
     let error = {detail:[]}
     let subject = ''
     let content = ''
+    let myBindDate = (new Date()).toJSON().slice(0, 10);
+    let date1 = "2024-01-01"; //audit_date test용
 
     function post_question(event) {
         event.preventDefault()
@@ -13,6 +15,7 @@
         let params = {
             subject: subject,
             content: content,
+            audit_date:myBindDate,
         }
         fastapi('post', url, params, 
             (json) => {
@@ -36,6 +39,10 @@
         <div class="mb-3">
             <label for="content">내용</label>
             <textarea class="form-control" rows="10" bind:value="{content}"></textarea>
+        </div>
+        <div class="my-3">
+            <label for="audit_date">진단일자</label>
+            <input type="date" class="form-control" bind:value="{myBindDate}">
         </div>
         <button class="btn btn-primary" on:click="{post_question}">저장하기</button>
     </form>

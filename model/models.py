@@ -14,6 +14,7 @@ class Question(Base):
     user_id = Column(Integer, ForeignKey("user.id"), nullable=True)
     user = relationship("User", backref="question_users")
     modify_date = Column(DateTime, nullable=True)
+    audit_date = Column(DateTime, nullable=True)
     
 class Answer(Base):
     __tablename__ = "answer"

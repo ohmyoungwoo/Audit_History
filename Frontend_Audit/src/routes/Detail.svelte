@@ -13,6 +13,7 @@
     let question = {answers:[]}
     let content = ""
     let error = {detail:[]}
+    let date1 = "2024-01-01"; //audit_date test용
 
     function get_question() {
         fastapi("get", "/api/question/detail/" + question_id, {}, (json) => {
@@ -85,6 +86,7 @@
                     on:click={() => delete_question(question.id)}>진단내용 삭제</button>
                 {/if}
             </div>
+            
         </div>
     </div>
 

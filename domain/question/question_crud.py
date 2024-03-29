@@ -41,6 +41,7 @@ def create_question(db: Session, question_create: QuestionCreate, user: User):
         subject=question_create.subject,
         content=question_create.content,
         create_date=datetime.now(),
+        audit_date=question_create.audit_date,
         user=user)
     
     db.add(db_question)
