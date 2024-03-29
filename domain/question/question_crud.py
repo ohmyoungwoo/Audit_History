@@ -60,6 +60,7 @@ def update_question(db: Session, db_question: Question,
     db_question.subject = question_update.subject
     db_question.content = question_update.content
     db_question.modify_date = datetime.now()
+    db_question.audit_date = question_update.audit_date
     
     db.add(db_question)
     db.commit()

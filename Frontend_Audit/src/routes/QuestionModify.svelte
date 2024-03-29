@@ -9,6 +9,7 @@
     let error = {detail:[]}
     let subject = ''
     let content = ''
+    let myDate = (new Date()).toJSON().slice(0, 10);
 
     fastapi("get", "/api/question/detail/" + question_id, {}, (json) => {
         subject = json.subject
@@ -22,6 +23,7 @@
             question_id: question_id,
             subject: subject,
             content: content,
+            audit_date:myDate,
         }
         fastapi('put', url, params, 
             (json) => {
@@ -45,6 +47,10 @@
         <div class="mb-3">
             <label for="content">내용</label>
             <textarea class="form-control" rows="10" bind:value="{content}"></textarea>
+        </div>
+        <div class="my-3">
+            <label for="audit_date">진단일자</label>
+            <input type="date" class="form-control" bind:value="{myDate}">
         </div>
         <button class="btn btn-primary" on:click="{update_question}">수정하기</button>
     </form>
