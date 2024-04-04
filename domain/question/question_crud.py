@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from domain.question.question_schema import QuestionCreate, QuestionUpdate
-from model.models import Question, Answer, User
+from model.models import Question, User#, Answer
 from sqlalchemy.orm import Session
 from sqlalchemy import and_
 
@@ -10,16 +10,16 @@ def get_question_list(db: Session, skip: int = 0, limit: int = 10, keyword: str 
     question_list = db.query(Question)
     if keyword:
         search = '%%{}%%'.format(keyword)  # keyword는 화면에서 전달 받은 값
-        sub_query = db.query(Answer.question_id, Answer.content, User.username)\
-            .outerjoin(User, and_(Answer.user_id == User.id)).subquery()
+        #sub_query = db.query(Answer.question_id, Answer.content, User.username)\
+        #    .outerjoin(User, and_(Answer.user_id == User.id)).subquery()
         question_list = question_list \
             .outerjoin(User) \
-            .outerjoin(sub_query, and_ (sub_query.c.question_id == Question.id)) \
             .filter(Question.subject.ilike(search) |   # 진단 제목
                     Question.content.ilike(search) |   # 진단 상세 내용
                     User.username.ilike(search)        # 진단 작성자 이름
                     #sub_query.c.content.ilike(search) | # 답변내용, 
                     #sub_query.c.username.ilike(search) # 답변 작성자
+            #.outerjoin(sub_query, and_ (sub_query.c.question_id == Question.id)) \
             )
             # sub_query.c.question_id 에서 c 는 서브쿼리의 조회 항목이며, 
             # sub_query.c.question_id 는 서브쿼리의 조회 항목 중 question_id를 의미함

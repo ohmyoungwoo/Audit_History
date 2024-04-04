@@ -8,6 +8,7 @@ class Question(Base):
     __tablename__ = "question"
 
     id = Column(Integer, primary_key=True)
+    audit_flag = Column(Text, nullable=True)
     subject = Column(String, nullable=False)
     content = Column(Text, nullable=False)
     create_date = Column(DateTime, nullable=False)
@@ -15,7 +16,10 @@ class Question(Base):
     user = relationship("User", backref="question_users")
     modify_date = Column(DateTime, nullable=True)
     audit_date = Column(DateTime, nullable=True)
+    file_name = Column(String, nullable=True)
+    file_path = Column(String, nullable=True)
     
+
 class Answer(Base):
     __tablename__ = "answer"
 

@@ -14,6 +14,7 @@ class Question(BaseModel):
     user: User | None
     modify_date: datetime.datetime | None = None
     audit_date: datetime.datetime | None = None
+    #file_name: str
     
     class Config:
         orm_mode = True

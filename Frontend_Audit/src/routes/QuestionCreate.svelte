@@ -15,7 +15,7 @@
         let params = {
             subject: subject,
             content: content,
-            audit_date:myDate,
+            audit_date: myDate,
         }
         fastapi('post', url, params, 
             (json) => {
