@@ -1,5 +1,6 @@
 <script>
     import { push } from 'svelte-spa-router'
+    import { link } from 'svelte-spa-router'
     import fastapi from "../lib/api"
     import Error from "../components/Error.svelte"
 
@@ -7,7 +8,7 @@
     let subject = ''
     let content = ''
     let myDate = (new Date()).toJSON().slice(0, 10);
-    let date1 = "2024-01-01"; //audit_date test용
+    let file;
 
     function post_question(event) {
         event.preventDefault()
@@ -26,6 +27,7 @@
             }
         )
     }
+
 </script>
 
 <div class="container">
@@ -36,14 +38,25 @@
             <label for="subject">제목</label>
             <input type="text" class="form-control" bind:value="{subject}">
         </div>
+        
         <div class="mb-3">
             <label for="content">내용</label>
             <textarea class="form-control" rows="10" bind:value="{content}"></textarea>
         </div>
+        
         <div class="my-3">
             <label for="audit_date">진단일자</label>
             <input type="date" class="form-control" bind:value="{myDate}">
         </div>
+        
+        <div>
+            <a use:link href="/api/question-create/file/">파일 업로드</a>
+        </div>
+        
         <button class="btn btn-primary" on:click="{post_question}">저장하기</button>
     </form>
 </div>
+            <!--
+            <input type="file" on:change="{(event) => (file = event.target.files[0])}" />
+            <button on:click="{upload}">업로드</button>
+            -->

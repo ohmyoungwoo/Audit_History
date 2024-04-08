@@ -3,3 +3,4 @@ audit.db
 __pycache__
 migrations
 alembic.ini
+file_dir/

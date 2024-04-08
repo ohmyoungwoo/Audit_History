@@ -57,10 +57,10 @@ def update_question(db: Session, db_question: Question,
         modify_date = datetime.now(),
     )
     """
-    db_question.subject = question_update.subject
-    db_question.content = question_update.content
-    db_question.modify_date = datetime.now()
-    db_question.audit_date = question_update.audit_date
+    db_question.subject = question_update.subject # type: ignore
+    db_question.content = question_update.content # type: ignore
+    db_question.modify_date = datetime.now() # type: ignore
+    db_question.audit_date = question_update.audit_date # type: ignore
     
     db.add(db_question)
     db.commit()

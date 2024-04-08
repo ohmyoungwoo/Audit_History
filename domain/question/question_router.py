@@ -1,6 +1,9 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, File, UploadFile
 from sqlalchemy.orm import Session
 from starlette import status
+import os
+import datetime
+import secrets
 
 from database.database import get_db
 from domain.question import question_schema
@@ -59,3 +62,20 @@ def question_delete(_question_delete: question_schema.QuestionDelete,
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail="삭제 권한이 없습니다.")
     question_crud.delete_question(db=db, db_question=db_question)
+    
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SAVE_DIR = os.path.join(BASE_DIR,'file_dir/')
+
+"""
+@router.post("/file")
+async def store_file(file: UploadFile = File(...)):
+    currentTime = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    #saved_file_name = ''.join([currentTime,secrets.token_hex(16)])
+    saved_file_name = ''.join([file.filename, currentTime]) # type: ignore
+    file_location = os.path.join(SAVE_DIR,saved_file_name)
+    
+    with open(file_location, "wb+") as file_object:
+        file_object.write(file.file.read())
+        
+    return file_location
+"""
