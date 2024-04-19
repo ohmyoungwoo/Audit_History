@@ -42,6 +42,7 @@ def create_question(db: Session, question_create: QuestionCreate, user: User):
         content=question_create.content,
         create_date=datetime.now(),
         audit_date=question_create.audit_date,
+        file_name=question_create.file_name,
         user=user)
     
     db.add(db_question)

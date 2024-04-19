@@ -14,7 +14,7 @@ class Question(BaseModel):
     user: User | None
     modify_date: datetime.datetime | None = None
     audit_date: datetime.datetime | None = None
-    #file_name: str
+    file_name: str | None = None
     
     class Config:
         orm_mode = True
@@ -23,6 +23,7 @@ class QuestionCreate(BaseModel):
     subject: str
     content: str
     audit_date: datetime.datetime | None = None
+    file_name: str |None = None
     
     @field_validator('subject', 'content')
     def not_empty(cls, v):

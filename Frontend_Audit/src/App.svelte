@@ -7,8 +7,6 @@
 	import Navigation from './components/Navigation.svelte'
 	import UserCreate from "./routes/UserCreate.svelte"
 	import UserLogin from "./routes/UserLogin.svelte"
-
-	import FileUpload from './routes/file_upload.svelte'
   
 	const routes = {
 	  '/': Home,
@@ -17,7 +15,6 @@
 	  '/question-modify/:question_id': QuestionModify,
 	  '/user-create': UserCreate,
 	  '/user-login': UserLogin,
-	  '/api/question-create/file' : FileUpload,
 	}
   </script>
   

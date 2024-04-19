@@ -25,9 +25,14 @@
             total = json.total
             kw = $keyword
         })
+        console.log({"question_list": question_list})
+        
     }
+    //console.log(question_list[0].file_name);
+   
 
     $: $page, $keyword, get_question_list()    // 함수 앞의 $: 는 $page가 변경되면 함수도 다시 호출하라는 의미임
+    //console.log({"question_list": question_list})
 </script>
 
 <div class="container my-3">
@@ -67,10 +72,12 @@
             <td>{moment(question.audit_date).format("YYYY년 MM월 DD일")}</td>  <!-- 시간표시: hh:mm a : 시간:분 오전/오후 -->
             <td>{moment(question.create_date).format("YYYY년 MM월 DD일")}</td>  <!-- 시간표시: hh:mm a : 시간:분 오전/오후 -->
             <td>{ question.user ? question.user.username : "" }</td>
+            <td>{ question.file_name }</td>
         </tr>
         {/each}
         </tbody>
     </table>
+    
 
     <!-- 페이징처리 시작 -->
     <ul class="pagination justify-content-center">
