@@ -7,7 +7,9 @@
     let subject = ''
     let content = ''
     let audit_date = (new Date()).toJSON().slice(0, 10);
-    let file_name ='';  // 여기서 지우는 듯 -_-;;;
+    let file_name = ''  
+    let file_path = ''
+    let return_value =[]
     let file
     
     // event 에 무언가 있네 ㅠㅠ ????
@@ -20,9 +22,11 @@
             content: content,
             audit_date: audit_date,
             file_name: file_name,
+            file_path: file_path,
         }
 
-        console.log({"post_question2": params.file_name})
+        //console.log({"post_file_name": params.file_name,"post_file_path": params.file_path})
+        console.log({"params": params})
 
         fastapi('post', url, params, 
             (json) => {
@@ -36,7 +40,7 @@
     //upload 함수를 post_question 안에 넣어야 하나?????
 
     async function upload() {
-        console.log("Upload 시작3");
+        //console.log("Upload 시작3");
 
         const formData = new FormData();
         formData.append('file', file);
@@ -47,8 +51,11 @@
             body: formData,
         });
     
-        file_name = await response.json();
-        console.log({"upload": file_name});
+        return_value = await response.json();
+        file_name=return_value[0]
+        file_path=return_value[1]
+
+        console.log({"upload--> file_name": file_name, "file_path": file_path});
     }
 
 </script>
