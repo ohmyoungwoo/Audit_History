@@ -45,7 +45,7 @@
         const formData = new FormData();
         formData.append('file', file);
     
-        const response = await fetch('http://10.182.32.155:8000/api/question/file', 
+        const response = await fetch('http://10.182.32.155:8000/api/question/upload', 
         {
             method: 'POST',
             body: formData,
@@ -55,7 +55,7 @@
         file_name=return_value[0]
         file_path=return_value[1]
 
-        console.log({"upload--> file_name": file_name, "file_path": file_path});
+        //console.log({"upload--> file_name": file_name, "file_path": file_path});
     }
 
 </script>

@@ -25,10 +25,24 @@
             total = json.total
             kw = $keyword
         })
-        console.log({"question_list": question_list})
+        //console.log({"question_list": question_list})
         
     }
     //console.log(question_list[0].file_name);
+    async function download(file_name) {
+        //console.log(file_name)
+        let _url = 'http://10.182.32.155:8000/api/question/download/' + file_name
+        
+        const response = await fetch(_url);
+        const blob = await response.blob();
+        const downloadUrl = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.download = file_name;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
    
 
     $: $page, $keyword, get_question_list()    // 함수 앞의 $: 는 $page가 변경되면 함수도 다시 호출하라는 의미임
@@ -72,7 +86,11 @@
             <td>{moment(question.audit_date).format("YYYY년 MM월 DD일")}</td>  <!-- 시간표시: hh:mm a : 시간:분 오전/오후 -->
             <td>{moment(question.create_date).format("YYYY년 MM월 DD일")}</td>  <!-- 시간표시: hh:mm a : 시간:분 오전/오후 -->
             <td>{ question.user ? question.user.username : "" }</td>
-            <td>{ question.file_name }</td>
+            <td>
+                <!--<a download href={question.file_path}> {question.file_name}</a>-->
+                <button on:click={download(question.file_name)}>{question.file_name}</button>
+                <!--{ question.file_name }-->
+            </td>
         </tr>
         {/each}
         </tbody>

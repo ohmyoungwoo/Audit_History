@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, File, UploadFile
 from sqlalchemy.orm import Session
 from starlette import status
+from starlette.responses import FileResponse
 import os
 import datetime
 import secrets
@@ -66,13 +67,25 @@ def question_delete(_question_delete: question_schema.QuestionDelete,
                             detail="삭제 권한이 없습니다.")
     question_crud.delete_question(db=db, db_question=db_question)
     
-@router.post("/file")
+@router.post("/upload")
 async def store_file(file: UploadFile = File(...)):
-    currentTime = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-    saved_file_name = ''.join([file.filename, currentTime]) # type: ignore
-    file_location = os.path.join(SAVE_DIR, saved_file_name)
+    #currentTime = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    #saved_file_name = ''.join([file.filename, currentTime]) # type: ignore
+    file_location = os.path.join(SAVE_DIR, file.filename) # type: ignore
+    print (file_location)
     
     with open(file_location, "wb+") as file_object:
         file_object.write(file.file.read())
     
     return [file.filename, file_location]
+
+@router.get("/download/{file_name}")
+async def download_file(file_name:str):
+    #print("Call download router"+file_name)
+    file_path = os.path.join(SAVE_DIR, file_name)
+    
+    #if not os.path.exists(file_path):
+    #    raise HTTPException(status_code=404, detail="저장된 파일이 없습니다")
+    
+    print(f"Backend_download_File path: {file_path} ")
+    return FileResponse(file_path, media_type='application/octet-stream', filename=file_name)
