@@ -16,7 +16,12 @@ def get_question_list(db: Session, skip: int = 0, limit: int = 10, keyword: str 
             .outerjoin(User) \
             .filter(Question.subject.ilike(search) |   # 진단 제목
                     Question.content.ilike(search) |   # 진단 상세 내용
-                    User.username.ilike(search)        # 진단 작성자 이름
+                    Question.auditor1.ilike(search)|    # 진단자 이름
+                    Question.auditor2.ilike(search)|    # 진단자 이름
+                    Question.region.ilike(search)|      # 사업장
+                    Question.production.ilike(search)|  # 제품군
+                    Question.audit_type.ilike(search)   # 진단유형
+                    
                     #sub_query.c.content.ilike(search) | # 답변내용, 
                     #sub_query.c.username.ilike(search) # 답변 작성자
             #.outerjoin(sub_query, and_ (sub_query.c.question_id == Question.id)) \
