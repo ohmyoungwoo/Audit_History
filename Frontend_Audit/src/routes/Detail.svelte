@@ -23,24 +23,6 @@
 
     get_question()
 
-    function post_answer(event) {
-        event.preventDefault()
-        let url = "/api/answer/create/" + question_id
-        let params = {
-            content: content
-        }
-        fastapi('post', url, params,
-            (json) => {
-                content = ''
-                error = {detail:[]}     // 오류 발행 후 다시 입력값을 조정하여 성공하면 오류 메시지를 없애기 위해
-                get_question()
-            },
-            (err_json) => {           // Error 발생하면 failure_callback에 의해 err_json 이 {detail: ...} 형태로 전달됨
-                error = err_json
-            }
-        )
-    }
-
     function delete_question(_question_id) {
         if(window.confirm('정말로 삭제하시겠습니까?')) {
             let url = "/api/question/delete"

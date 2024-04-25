@@ -16,6 +16,11 @@ class Question(BaseModel):
     audit_date: datetime.datetime | None = None
     file_name: str | None = None
     file_path: str | None = None
+    auditor1: str  | None = None
+    auditor2: str  | None = None
+    audit_type: str  | None = None
+    region: str  | None = None
+    production: str  | None = None
     
     class Config:
         orm_mode = True
@@ -26,6 +31,11 @@ class QuestionCreate(BaseModel):
     audit_date: datetime.datetime | None = None
     file_name: str | None = None
     file_path: str | None = None
+    auditor1: str  | None = None
+    auditor2: str  | None = None
+    audit_type: str  | None = None
+    region: str  | None = None
+    production: str  | None = None
     
     @field_validator('subject', 'content')
     def not_empty(cls, v):

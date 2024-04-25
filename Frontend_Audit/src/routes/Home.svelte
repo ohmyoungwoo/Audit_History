@@ -25,11 +25,11 @@
             total = json.total
             kw = $keyword
         })
-        //console.log({"question_list": question_list})
         
     }
-    //console.log(question_list[0].file_name);
+
     async function download(file_name) {
+
         //console.log(file_name)
         let _url = 'http://10.182.32.155:8000/api/question/download/' + file_name
         
@@ -69,28 +69,36 @@
         <thead>
         <tr class="text-center table-dark">
             <th>번호</th>
-            <th style="width:50%">진단 제목</th>
+            <th>유형</th>
+            <th>사업장</th>
+            <th>제품군</th>
+            <th style="width:40%">진단 제목</th>
             <th>진단일자</th>
-            <th>작성일자</th>
-            <th>작성자</th>
+            <th>진단자</th>
             <th>진단보고서</th>
+            <th>작성자</th>
         </tr>
         </thead>
         <tbody>
         {#each question_list as question, i}
         <tr class="text-center">
             <td>{ total - ( $page * size ) - i }</td>
+            <td>{ question.audit_type }</td>
+            <td>{ question.region }</td>
+            <td>{ question.production }</td>
             <td class="text-start">
                 <a use:link href="/detail/{question.id}">{question.subject}</a>
             </td>
             <td>{moment(question.audit_date).format("YYYY년 MM월 DD일")}</td>  <!-- 시간표시: hh:mm a : 시간:분 오전/오후 -->
-            <td>{moment(question.create_date).format("YYYY년 MM월 DD일")}</td>  <!-- 시간표시: hh:mm a : 시간:분 오전/오후 -->
-            <td>{ question.user ? question.user.username : "" }</td>
+            <td>{ question.auditor1 } {question.auditor2}</td>
             <td>
                 <!--<a download href={question.file_path}> {question.file_name}</a>-->
-                <button on:click={download(question.file_name)}>{question.file_name}</button>
+                {#if question.file_name != ""} 
+                    <button on:click={download(question.file_name)}>보고서</button>
+                {/if}
                 <!--{ question.file_name }-->
             </td>
+            <td>{ question.user ? question.user.username : "" }</td>
         </tr>
         {/each}
         </tbody>

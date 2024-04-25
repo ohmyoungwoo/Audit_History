@@ -26,8 +26,8 @@ def get_question_list(db: Session, skip: int = 0, limit: int = 10, keyword: str 
             # and_ 는 sqlalchemy 의 특이한 함수???
             
     total = question_list.distinct().count()
-    question_list = question_list.order_by(Question.create_date.desc()) \
-        .offset(skip).limit(limit).distinct().all()
+    question_list = question_list.order_by(Question.audit_date.desc()) \
+        .offset(skip).limit(limit).distinct().all() # 리스트 정렬 (진단일자 기준)
         
     return total, question_list
 
@@ -44,7 +44,13 @@ def create_question(db: Session, question_create: QuestionCreate, user: User):
         audit_date=question_create.audit_date,
         file_name=question_create.file_name,
         file_path=question_create.file_path,
-        user=user)
+        user=user,
+        auditor1 = question_create.auditor1,
+        auditor2 = question_create.auditor2,
+        audit_type = question_create.audit_type,
+        region = question_create.region,
+        production = question_create.production,
+        )
     
     db.add(db_question)
     db.commit()
@@ -63,6 +69,14 @@ def update_question(db: Session, db_question: Question,
     db_question.content = question_update.content # type: ignore
     db_question.modify_date = datetime.now() # type: ignore
     db_question.audit_date = question_update.audit_date # type: ignore
+    db_question.file_name = question_update.file_name # type: ignore
+    db_question.file_path = question_update.file_path # type: ignore
+    db_question.auditor1 = question_update.auditor1 # type: ignore
+    db_question.auditor2 = question_update.auditor2 # type: ignore
+    db_question.audit_type = question_update.audit_type # type: ignore
+    db_question.region = question_update.region # type: ignore
+    db_question.production = question_update.production # type: ignore
+    
     
     db.add(db_question)
     db.commit()
