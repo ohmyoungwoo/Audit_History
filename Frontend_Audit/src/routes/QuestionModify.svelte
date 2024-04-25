@@ -19,6 +19,12 @@
     let audit_date = (new Date()).toJSON().slice(0, 10);
     let myDate = (new Date()).toJSON().slice(0, 10);
     let file
+    let region_list = ["창원", "평택", "구미", "TR(태주)", "PN(남경)", "TA(천진)", "QA(청도)", "VH(하이퐁)",
+                       "TA(태국)", "IN(땅그랑)", "IL(노이다)", "IL(푸네)", "SR(사우디)", "AT(터키)", "WR(폴란드)",
+                       "EG(이집트)", "RA(러시아)", "MN(몬테레이)", "SP(브라질)","TN(테네시)", "협력사"]
+    let production_list = ["냉장고", "세탁기","건조기", "RAC", "SAC", "오븐", "식세기", "청소기", "정수기", "공청기", 
+                           "컴프(냉장고)","컴프(에어컨)", "모터", "TV", "모니터", "사이니지", "PC", "IVI", "로봇", "EV충전"]
+
 
     fastapi("get", "/api/question/detail/" + question_id, {}, (json) => {
         subject = json.subject
@@ -94,17 +100,29 @@
         <div class="row mb-3">
             <div class = "col-4">
                 <label for="audit_type">유형</label>
-                <input type="text" class="form-control" bind:value="{audit_type}">
+                <select type="text" class="form-control" bind:value="{audit_type}">
+                    <option value="품질체제">품질체제</option>
+                    <option value="이슈품질">이슈품질</option>
+                    <option value="생산지승인">생산지승인</option>
+                </select>
             </div>
 
             <div class = "col-4">
                 <label for="region">사업장</label>
-                <input type="text" class="form-control" bind:value="{region}">
+                <select type="text" class="form-control" bind:value="{region}">
+                    {#each region_list as region_item }
+                        <option value="{region_item}">{region_item}</option>
+                    {/each}
+                </select>
             </div>
             
             <div class = "col-4">
                 <label for="production">제품군</label>
-                <input type="text" class="form-control" bind:value="{production}">
+                <select type="text" class="form-control" bind:value="{production}">
+                    {#each production_list as production_item }
+                        <option value="{production_item}">{production_item}</option>
+                    {/each}
+                </select>
             </div>
         </div>
 

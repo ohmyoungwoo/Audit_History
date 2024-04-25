@@ -90,7 +90,7 @@
                 <a use:link href="/detail/{question.id}">{question.subject}</a>
             </td>
             <td>{moment(question.audit_date).format("YYYY년 MM월 DD일")}</td>  <!-- 시간표시: hh:mm a : 시간:분 오전/오후 -->
-            <td>{ question.auditor1 } {question.auditor2}</td>
+            <td>{ question.auditor1 } <br> {question.auditor2}</td>
             <td>
                 <!--<a download href={question.file_path}> {question.file_name}</a>-->
                 {#if question.file_name != ""} 

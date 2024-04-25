@@ -11,7 +11,7 @@
     export let params = {}
     let question_id = params.question_id
     let question = {answers:[]}
-    let content = ""
+    let content = ''
     let error = {detail:[]}
     let date1 = "2024-01-01"; //audit_date test용
 
