@@ -74,6 +74,11 @@ def update_question(db: Session, db_question: Question,
         modify_date = datetime.now(),
     )
     """
+    
+    if (db_question.file_path != question_update.file_path) :  #type: ignore
+        if os.path.exists(db_question.file_path): #type: ignore
+            os.remove(db_question.file_path) # type: ignore , 진단보고서 삭제        
+
     db_question.subject = question_update.subject # type: ignore
     db_question.content = question_update.content # type: ignore
     db_question.modify_date = datetime.now() # type: ignore
@@ -88,13 +93,13 @@ def update_question(db: Session, db_question: Question,
     db_question.region = question_update.region # type: ignore
     db_question.production = question_update.production # type: ignore
     
-    
     db.add(db_question)
     db.commit()
     
 def delete_question(db: Session, db_question: Question):
     
-    os.remove(db_question.file_path) # type: ignore , 진단보고서 삭제
+    if os.path.exists(db_question.file_path): #type: ignore
+        os.remove(db_question.file_path) # type: ignore , 진단보고서 삭제
     
     db.delete(db_question)
     db.commit()

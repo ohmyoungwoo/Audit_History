@@ -39,7 +39,7 @@
             )
         }
     }
-    
+
 </script>
 
 <div vlass="container my-3">

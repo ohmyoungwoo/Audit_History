@@ -43,7 +43,7 @@
         production = json.production
     })
 
-    function update_question(event) {
+    async function update_question(event) {
         event.preventDefault()
         let url = "/api/question/update"
         let params = {
@@ -61,6 +61,13 @@
             region: region,
             production: production,
         }
+
+        let return_value = await upload_modify()
+        //console.log({"upload_modify": return_value})
+
+        params.file_name = return_value[0]
+        params.file_path = return_value[1]
+
         fastapi('put', url, params, 
             (json) => {
                 push('/detail/'+question_id)
@@ -72,23 +79,18 @@
     }
 
     async function upload_modify() {
-        console.log("Upload 변경");
+        //console.log("Upload 변경");
 
-        //const formData = new FormData();
-        //formData.append('file', file);
+        const formData = new FormData();
+        formData.append('file', file);
     
-        //const response = await fetch('http://10.182.32.155:8000/api/question/upload', 
-        //{
-        //    method: 'POST',
-        //    body: formData,
-        //});
+        const response = await fetch('http://10.182.32.155:8000/api/question/upload', 
+        {
+            method: 'POST',
+            body: formData,
+        });
     
-        //return_value = await response.json();
-
-        //file_name=return_value[0]
-        //file_path=return_value[1]
-
-        //console.log({"upload--> file_name": file_name, "file_path": file_path});
+        return await response.json()
     }
 
 </script>
@@ -98,9 +100,9 @@
     <Error error={error} />
     <form method="post" class="my-3">
         <div>
-            <h6>보고서 업로드</h6>
+            <h6>변경 보고서 업로드 (현재 파일명: {file_name})</h6>
             <input type="file" on:change="{(event) => (file = event.target.files[0])}"/> 
-            <button on:click="{upload_modify}">업로드</button>
+            <!--<button on:click="{upload_modify}">업로드</button>-->
         </div>
 
         <div class="row mb-3">
