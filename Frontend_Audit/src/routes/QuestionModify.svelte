@@ -13,10 +13,12 @@
     let file_path = ''
     let auditor1 = ''
     let auditor2 = ''
+    let auditor3 = ''
     let audit_type = ''
     let region = ''
     let production = ''
     let audit_date = (new Date()).toJSON().slice(0, 10);
+    let audit_date_end = (new Date()).toJSON().slice(0, 10);
     let myDate = (new Date()).toJSON().slice(0, 10);
     let file
     let region_list = ["창원", "평택", "구미", "TR(태주)", "PN(남경)", "TA(천진)", "QA(청도)", "VH(하이퐁)",
@@ -30,10 +32,12 @@
         subject = json.subject
         content = json.content
         audit_date = json.audit_date
+        audit_date_end = json.audit_date_end
         file_name = json.file_name
         file_path = json.file_path
         auditor1 = json.auditor1
         auditor2 = json.auditor2
+        auditor3 = json.auditor3
         audit_type = json.audit_type
         region = json.region,
         production = json.production
@@ -47,10 +51,12 @@
             subject: subject,
             content: content,
             audit_date: audit_date,
+            audit_date_end: audit_date_end,
             file_name: file_name,
             file_path: file_path,
             auditor1: auditor1,
             auditor2: auditor2,
+            auditor3: auditor3,
             audit_type: audit_type,
             region: region,
             production: production,
@@ -134,9 +140,15 @@
             <label for="content">내용</label>
             <textarea class="form-control" rows="10" bind:value="{content}"></textarea>
         </div>
-        <div class="my-3">
-            <label for="audit_date">진단일자</label>
-            <input type="date" class="form-control" bind:value="{audit_date}">
+        <div class ="row mb-3">
+            <div class = "col-4">
+                <label for="audit_date">진단일자(시작)</label>
+                <input type="date" class="form-control" bind:value="{audit_date}">
+            </div>
+            <div class = "col-4"> 
+                <label for="audit_date_end">진단일자(종료)</label>
+                <input type="date" class="form-control" bind:value="{audit_date_end}">
+            </div>
         </div>
 
         <div class="row mb-3">
@@ -147,6 +159,10 @@
             <div class = "col-4">
                 <label for="auditor2">진단자2</label>
                 <input type="text" class="form-control" bind:value="{auditor2}">
+            </div>
+            <div class = "col-4">
+                <label for="auditor3">진단자3</label>
+                <input type="text" class="form-control" bind:value="{auditor3}">
             </div>
         </div>
         <button class="btn btn-primary" on:click="{update_question}">수정하기</button>

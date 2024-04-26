@@ -14,10 +14,11 @@ def get_question_list(db: Session, skip: int = 0, limit: int = 10, keyword: str 
         #    .outerjoin(User, and_(Answer.user_id == User.id)).subquery()
         question_list = question_list \
             .outerjoin(User) \
-            .filter(Question.subject.ilike(search) |   # 진단 제목
-                    Question.content.ilike(search) |   # 진단 상세 내용
+            .filter(Question.subject.ilike(search)|   # 진단 제목
+                    Question.content.ilike(search)|   # 진단 상세 내용
                     Question.auditor1.ilike(search)|    # 진단자 이름
                     Question.auditor2.ilike(search)|    # 진단자 이름
+                    Question.auditor3.ilike(search)|    # 진단자 이름
                     Question.region.ilike(search)|      # 사업장
                     Question.production.ilike(search)|  # 제품군
                     Question.audit_type.ilike(search)   # 진단유형
@@ -47,11 +48,13 @@ def create_question(db: Session, question_create: QuestionCreate, user: User):
         content=question_create.content,
         create_date=datetime.now(),
         audit_date=question_create.audit_date,
+        audit_date_end=question_create.audit_date_end,
         file_name=question_create.file_name,
         file_path=question_create.file_path,
         user=user,
         auditor1 = question_create.auditor1,
         auditor2 = question_create.auditor2,
+        auditor3 = question_create.auditor3,
         audit_type = question_create.audit_type,
         region = question_create.region,
         production = question_create.production,
@@ -74,10 +77,12 @@ def update_question(db: Session, db_question: Question,
     db_question.content = question_update.content # type: ignore
     db_question.modify_date = datetime.now() # type: ignore
     db_question.audit_date = question_update.audit_date # type: ignore
+    db_question.audit_date_end = question_update.audit_date_end # type: ignore
     db_question.file_name = question_update.file_name # type: ignore
     db_question.file_path = question_update.file_path # type: ignore
     db_question.auditor1 = question_update.auditor1 # type: ignore
     db_question.auditor2 = question_update.auditor2 # type: ignore
+    db_question.auditor3 = question_update.auditor3 # type: ignore
     db_question.audit_type = question_update.audit_type # type: ignore
     db_question.region = question_update.region # type: ignore
     db_question.production = question_update.production # type: ignore

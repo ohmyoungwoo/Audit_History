@@ -14,10 +14,12 @@ class Question(BaseModel):
     user: User | None
     modify_date: datetime.datetime | None = None
     audit_date: datetime.datetime | None = None
+    audit_date_end: datetime.datetime | None = None
     file_name: str | None = None
     file_path: str | None = None
     auditor1: str  | None = None
     auditor2: str  | None = None
+    auditor3: str  | None = None
     audit_type: str  | None = None
     region: str  | None = None
     production: str  | None = None
@@ -29,10 +31,12 @@ class QuestionCreate(BaseModel):
     subject: str
     content: str
     audit_date: datetime.datetime | None = None
+    audit_date_end: datetime.datetime | None = None
     file_name: str | None = None
     file_path: str | None = None
     auditor1: str  | None = None
     auditor2: str  | None = None
+    auditor3: str  | None = None
     audit_type: str  | None = None
     region: str  | None = None
     production: str  | None = None

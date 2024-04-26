@@ -15,11 +15,13 @@ class Question(Base):
     user_id = Column(Integer, ForeignKey("user.id"), nullable=True) # 작성자 ID
     user = relationship("User", backref="question_users") # 작성자 이름
     modify_date = Column(DateTime, nullable=True) # 변경날자
-    audit_date = Column(DateTime, nullable=True) # 진단날자
+    audit_date = Column(DateTime, nullable=True) # 진단날자 시작
+    audit_date_end = Column(DateTime, nullable=True) # 진단날자 종료
     file_name = Column(String, nullable=True) # 진단보고서 파일이름
     file_path = Column(String, nullable=True) # 진단보고서 저장위치 + 파일이름
     auditor1 = Column(String, nullable=True) # 진단자1
     auditor2 = Column(String, nullable=True) # 진단자2
+    auditor3 = Column(String, nullable=True) # 진단자3
     audit_type = Column(String, nullable=True) # 진단 구분 (품질체제진단, 이슈진단)
     region = Column(String, nullable=True) # 지역(창원, 구미, 평택, LGETH, LGEMN ... )
     production = Column(String, nullable=True) # 제품군 (냉장고, 세탁기, 에어컨 ...)

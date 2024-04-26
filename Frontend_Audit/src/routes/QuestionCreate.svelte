@@ -7,10 +7,12 @@
     let subject = ''
     let content = ''
     let audit_date = (new Date()).toJSON().slice(0, 10);
+    let audit_date_end = (new Date()).toJSON().slice(0, 10);
     let file_name = ''  
     let file_path = ''
     let auditor1 = ''
     let auditor2 = ''
+    let auditor3 = ''
     let audit_type = ''
     let region = ''
     let production = ''
@@ -19,7 +21,7 @@
     let region_list = ["창원", "평택", "구미", "TR(태주)", "PN(남경)", "TA(천진)", "QA(청도)", "VH(하이퐁)",
                        "TA(태국)", "IN(땅그랑)", "IL(노이다)", "IL(푸네)", "SR(사우디)", "AT(터키)", "WR(폴란드)",
                        "EG(이집트)", "RA(러시아)", "MN(몬테레이)", "SP(브라질)","TN(테네시)", "협력사"]
-    let production_list = ["냉장고", "세탁기","건조기", "RAC", "SAC", "오븐", "식세기", "청소기", "정수기", "공청기", 
+    let production_list = ["냉장고", "세탁기","건조기", "에어컨", "RAC", "SAC", "오븐", "식세기", "청소기", "정수기", "공청기", 
                            "컴프(냉장고)","컴프(에어컨)", "모터", "TV", "모니터", "사이니지", "PC", "IVI", "로봇", "EV충전"]
 
     
@@ -32,10 +34,12 @@
             subject: subject,
             content: content,
             audit_date: audit_date,
+            audit_date_end: audit_date_end,
             file_name: file_name,
             file_path: file_path,
             auditor1: auditor1,
             auditor2: auditor2,
+            auditor3: auditor3,
             audit_type: audit_type,
             region: region,
             production: production,
@@ -86,6 +90,7 @@
         <h6>보고서 업로드</h6>
         <input type="file" on:change="{(event) => (file = event.target.files[0])}" /> 
         <button on:click="{upload}">업로드</button>
+        {file_name}
     </div>
 
     <form method="post" class="my-3">
@@ -130,9 +135,15 @@
             <textarea class="form-control" rows="10" bind:value="{content}"></textarea>
         </div>
         
-        <div class="my-3">
-            <label for="audit_date">진단일자</label>
-            <input type="date" class="form-control" bind:value="{audit_date}">
+        <div class ="row mb-3">
+            <div class = "col-4">
+                <label for="audit_date">진단일자(시작)</label>
+                <input type="date" class="form-control" bind:value="{audit_date}">
+            </div>
+            <div class = "col-4"> 
+                <label for="audit_date_end">진단일자(종료)</label>
+                <input type="date" class="form-control" bind:value="{audit_date_end}">
+            </div>
         </div>
 
         <div class="row mb-3">
@@ -143,6 +154,10 @@
             <div class = "col-4">
                 <label for="auditor2">진단자2</label>
                 <input type="text" class="form-control" bind:value="{auditor2}">
+            </div>
+            <div class = "col-4">
+                <label for="auditor3">진단자3</label>
+                <input type="text" class="form-control" bind:value="{auditor3}">
             </div>
         </div>
         
