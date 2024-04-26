@@ -45,15 +45,15 @@
 <div vlass="container my-3">
     <!--질문-->
     <h2 class="border-bottom py-2">{question.subject}</h2>   <!--진단제목-->
-    <h6 class="py-2">{question.audit_type} / {question.region} / {question.production}</h6>
+    <h6 class="py-2">{question.audit_type} / {question.region} / {question.production} / [{question.file_name}]</h6>
     <div class="card my-3">
         <div class="card-body">
             <div class="card-text" style="white-space: pre-line;">{question.content}</div>   <!--진단상세-->
-            <div class="d-flex justify-content-end">
-                {#if question.modify_date }
+            <div class="d-flex justify-content-end"> <!--진단수정일자-->
+                {#if question.modify_date }  
                 <div class="badge bg-light text-dark p-2 text-start mx-3">
                     <div class="mb-2">modified at</div>
-                    <div>{moment(question.modify_date).format("YYYY년 MM월 DD일 hh:mm a")}</div> <!--진단수정일자-->
+                    <div>{moment(question.modify_date).format("YYYY년 MM월 DD일 hh:mm a")}</div> 
                 </div>
                 {/if}
                 
@@ -65,7 +65,8 @@
                     <div class="mb-2">{ question.auditor1 } { question.auditor2 } { question.auditor3 }</div>
                 </div>
             </div>
-            <div class="my-3">
+
+            <div class="my-3"> <!--진단수정/삭제 버튼-->
                 {#if question.user && $username === question.user.username }
                 <a use:link href="/question-modify/{question.id}" 
                     class="btn btn-sm btn-outline-secondary">진단내용 수정</a>

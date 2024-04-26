@@ -31,8 +31,8 @@
     fastapi("get", "/api/question/detail/" + question_id, {}, (json) => {
         subject = json.subject
         content = json.content
-        audit_date = json.audit_date
-        audit_date_end = json.audit_date_end
+        audit_date = json.audit_date.slice(0,10)
+        audit_date_end = json.audit_date_end.slice(0,10)
         file_name = json.file_name
         file_path = json.file_path
         auditor1 = json.auditor1
@@ -42,6 +42,8 @@
         region = json.region,
         production = json.production
     })
+
+    //console.log({"audit_date":audit_date.slice(0,10)})
 
     async function update_question(event) {
         event.preventDefault()
