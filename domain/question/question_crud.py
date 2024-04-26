@@ -1,4 +1,5 @@
 from datetime import datetime
+import os
 
 from domain.question.question_schema import QuestionCreate, QuestionUpdate
 from model.models import Question, User#, Answer
@@ -92,5 +93,10 @@ def update_question(db: Session, db_question: Question,
     db.commit()
     
 def delete_question(db: Session, db_question: Question):
+    
+    os.remove(db_question.file_path) # type: ignore , 진단보고서 삭제
+    
     db.delete(db_question)
     db.commit()
+    
+    

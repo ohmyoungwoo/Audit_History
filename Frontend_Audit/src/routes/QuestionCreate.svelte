@@ -48,7 +48,11 @@
         //console.log({"post_file_name": params.file_name,"post_file_path": params.file_path})
         
         //params.file_name, params.file_path = await upload()
-        params.file_name = await upload()
+        
+        //params.file_name = await upload()
+        return_value = await upload()
+        params.file_name = return_value[0]
+        params.file_path = return_value[1]
 
         console.log({"params": params})
 
@@ -78,12 +82,10 @@
     
         return_value = await response.json();
         
-        file_name=return_value[0]
-        file_path=return_value[1]
+        console.log({"Upload 완료/ 파일명:": return_value[0]});
 
-        console.log({"Upload 완료/ 파일명:": file_name});
-
-        return file_name
+        //return file_name
+        return return_value
 
         //console.log({"upload--> file_name": file_name, "file_path": file_path});
     }
