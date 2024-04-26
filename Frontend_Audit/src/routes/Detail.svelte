@@ -39,25 +39,30 @@
             )
         }
     }
+    
 </script>
 
 <div vlass="container my-3">
     <!--질문-->
-    <h2 class="border-bottom py-2">{question.subject}</h2>
+    <h2 class="border-bottom py-2">{question.subject}</h2>   <!--진단제목-->
+    <h6 class="py-2">{question.audit_type} / {question.region} / {question.production}</h6>
     <div class="card my-3">
         <div class="card-body">
-            <div class="card-text" style="white-space: pre-line;">{question.content}</div>
+            <div class="card-text" style="white-space: pre-line;">{question.content}</div>   <!--진단상세-->
             <div class="d-flex justify-content-end">
                 {#if question.modify_date }
                 <div class="badge bg-light text-dark p-2 text-start mx-3">
                     <div class="mb-2">modified at</div>
-                    <div>{moment(question.modify_date).format("YYYY년 MM월 DD일 hh:mm a")}</div>
+                    <div>{moment(question.modify_date).format("YYYY년 MM월 DD일 hh:mm a")}</div> <!--진단수정일자-->
                 </div>
                 {/if}
                 
-                <div class="badge bg-light text-dark p-2 text-start">
-                    <div>{moment(question.create_date).format("YYYY년 MM월 DD일")}</div>
-                    <div class="mb-2">{ question.user ? question.user.username : ""}</div>
+                <div class="badge bg-light text-dark p-2 text-start">   <!--진단실시일자-->
+                    <div>{moment(question.audit_date).format("YYYY년 MM월 DD일")}
+                        <br>
+                         {moment(question.audit_date_end).format("YYYY년 MM월 DD일")}
+                    </div>
+                    <div class="mb-2">{ question.auditor1 } { question.auditor2 } { question.auditor3 }</div>
                 </div>
             </div>
             <div class="my-3">
@@ -77,9 +82,9 @@
     }}">목록으로 이동</button>``
 
     <!-- 답변 등록 -->
-
-    <Error error={error} />
     <!--
+    <Error error={error} />
+    
     <form method="post" class="my-3">
         <div class="mb-3">
             <textarea rows="10" bind:value={content} 

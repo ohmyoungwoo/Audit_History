@@ -27,7 +27,7 @@
     
     // event 에 무언가 있네 ㅠㅠ ????
 
-    function post_question(event) {
+    async function post_question(event) {
         event.preventDefault()
         let url = "/api/question/create"
         let params = {
@@ -46,6 +46,10 @@
         }
 
         //console.log({"post_file_name": params.file_name,"post_file_path": params.file_path})
+        
+        //params.file_name, params.file_path = await upload()
+        params.file_name = await upload()
+
         console.log({"params": params})
 
         fastapi('post', url, params, 
@@ -59,6 +63,7 @@
     }
     //upload 함수를 post_question 안에 넣어야 하나?????
 
+    //async function upload() {
     async function upload() {
         console.log("Upload 시작");
 
@@ -76,6 +81,10 @@
         file_name=return_value[0]
         file_path=return_value[1]
 
+        console.log({"Upload 완료/ 파일명:": file_name});
+
+        return file_name
+
         //console.log({"upload--> file_name": file_name, "file_path": file_path});
     }
 
@@ -87,10 +96,9 @@
     <Error error={error} />
     
     <div>
-        <h6>보고서 업로드</h6>
+        <h6>보고서 업로드</h6>    
         <input type="file" on:change="{(event) => (file = event.target.files[0])}" /> 
-        <button on:click="{upload}">업로드</button>
-        {file_name}
+        <!--<button on:click="{upload}">업로드</button>-->
     </div>
 
     <form method="post" class="my-3">
@@ -105,14 +113,12 @@
             </div>
 
             <div class = "col-4">
-                
                 <label for="region">사업장</label>
                 <select type="text" class="form-control" bind:value="{region}">
                     {#each region_list as region_item }
                         <option value="{region_item}">{region_item}</option>
                     {/each}
                 </select>
-                
             </div>
 
             <div class = "col-4">
