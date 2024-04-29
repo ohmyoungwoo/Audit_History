@@ -23,6 +23,7 @@ class Question(Base):
     auditor2 = Column(String, nullable=True) # 진단자2
     auditor3 = Column(String, nullable=True) # 진단자3
     audit_type = Column(String, nullable=True) # 진단 구분 (품질체제진단, 이슈진단)
+    company = Column(String, nullable=True) # 회사(LGE, 성철사, 신성델타, 고모텍, ACE-TEC ... )
     region = Column(String, nullable=True) # 지역(창원, 구미, 평택, LGETH, LGEMN ... )
     production = Column(String, nullable=True) # 제품군 (냉장고, 세탁기, 에어컨 ...)
     

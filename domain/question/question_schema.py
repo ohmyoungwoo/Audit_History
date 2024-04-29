@@ -21,6 +21,7 @@ class Question(BaseModel):
     auditor2: str  | None = None
     auditor3: str  | None = None
     audit_type: str  | None = None
+    company: str | None = None
     region: str  | None = None
     production: str  | None = None
     
@@ -38,6 +39,7 @@ class QuestionCreate(BaseModel):
     auditor2: str  | None = None
     auditor3: str  | None = None
     audit_type: str  | None = None
+    company: str | None = None
     region: str  | None = None
     production: str  | None = None
     

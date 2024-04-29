@@ -70,9 +70,10 @@
         <tr class="text-center table-dark">
             <th>번호</th>
             <th>유형</th>
+            <th>회사</th>
             <th>사업장</th>
             <th>제품군</th>
-            <th style="width:40%">진단 제목</th>
+            <th style="width:35%">진단 제목</th>
             <th>진단일자</th>
             <th>진단자</th>
             <th>진단보고서</th>
@@ -84,6 +85,7 @@
         <tr class="text-center">
             <td>{ total - ( $page * size ) - i }</td>
             <td>{ question.audit_type }</td>
+            <td>{ question.company }</td>
             <td>{ question.region }</td>
             <td>{ question.production }</td>
             <td class="text-start">
@@ -96,7 +98,7 @@
             <td>{ question.auditor1 } <br> {question.auditor2}</td>
             <td>
                 <!--<a download href={question.file_path}> {question.file_name}</a>-->
-                {#if question.file_name != ""} 
+                {#if question.file_path !== null && question.file_path !== undefined }
                     <button on:click={download(question.file_name)}>보고서</button>
                 {/if}
                 <!--{ question.file_name }-->

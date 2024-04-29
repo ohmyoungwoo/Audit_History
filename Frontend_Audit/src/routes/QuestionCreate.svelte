@@ -14,15 +14,19 @@
     let auditor2 = ''
     let auditor3 = ''
     let audit_type = ''
+    let company = ''
     let region = ''
     let production = ''
     let return_value =[]
     let file
+    let company_list = ["LGE", "신성델타", "성철사", "고모텍", "청호", "ACE-TEC"]
+    let audit_type_list = ["품질체제(한국)", "품질체제(해외)", "품질체제(O/S)", "품질체제(사내도급)", "이슈품질", "생산지승인"]
     let region_list = ["창원", "평택", "구미", "TR(태주)", "PN(남경)", "TA(천진)", "QA(청도)", "VH(하이퐁)",
                        "TA(태국)", "IN(땅그랑)", "IL(노이다)", "IL(푸네)", "SR(사우디)", "AT(터키)", "WR(폴란드)",
                        "EG(이집트)", "RA(러시아)", "MN(몬테레이)", "SP(브라질)","TN(테네시)", "협력사"]
     let production_list = ["냉장고", "세탁기","건조기", "에어컨", "RAC", "SAC", "오븐", "식세기", "청소기", "정수기", "공청기", 
-                           "컴프(냉장고)","컴프(에어컨)", "모터", "TV", "모니터", "사이니지", "PC", "IVI", "로봇", "EV충전"]
+                           "컴프", "컴프(냉장고)","컴프(에어컨)", "모터", "TV", "모니터", "사이니지", "PC", "IVI", "로봇", "EV충전",
+                           "뷰티"]
 
     
     // event 에 무언가 있네 ㅠㅠ ????
@@ -41,6 +45,7 @@
             auditor2: auditor2,
             auditor3: auditor3,
             audit_type: audit_type,
+            company: company,
             region: region,
             production: production,
         }
@@ -105,16 +110,25 @@
 
     <form method="post" class="my-3">
         <div class="row mb-3">
-            <div class = "col-4">
+            <div class = "col-3">
                 <label for="audit_type">유형</label>
                 <select type="text" class="form-control" bind:value="{audit_type}">
-                    <option value="품질체제">품질체제</option>
-                    <option value="이슈품질">이슈품질</option>
-                    <option value="생산지승인">생산지승인</option>
+                    {#each audit_type_list as audit_type_item }
+                        <option value="{audit_type_item}">{audit_type_item}</option>
+                    {/each}
                 </select>
             </div>
 
-            <div class = "col-4">
+            <div class = "col-3">
+                <label for="region">회사</label>
+                <select type="text" class="form-control" bind:value="{company}">
+                    {#each company_list as company_item }
+                        <option value="{company_item}">{company_item}</option>
+                    {/each}
+                </select>
+            </div>
+
+            <div class = "col-3">
                 <label for="region">사업장</label>
                 <select type="text" class="form-control" bind:value="{region}">
                     {#each region_list as region_item }
@@ -123,7 +137,7 @@
                 </select>
             </div>
 
-            <div class = "col-4">
+            <div class = "col-3">
                 <label for="production">제품군</label>
                 <select type="text" class="form-control" bind:value="{production}">
                     {#each production_list as production_item }

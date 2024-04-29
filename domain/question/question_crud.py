@@ -20,7 +20,8 @@ def get_question_list(db: Session, skip: int = 0, limit: int = 10, keyword: str 
                     Question.auditor1.ilike(search)|    # 진단자 이름
                     Question.auditor2.ilike(search)|    # 진단자 이름
                     Question.auditor3.ilike(search)|    # 진단자 이름
-                    Question.region.ilike(search)|      # 사업장
+                    Question.company.ilike(search)|     # 회사 (ex) LGE, 신성델타 ...
+                    Question.region.ilike(search)|      # 사업장 
                     Question.production.ilike(search)|  # 제품군
                     Question.audit_type.ilike(search)   # 진단유형
                     
@@ -57,6 +58,7 @@ def create_question(db: Session, question_create: QuestionCreate, user: User):
         auditor2 = question_create.auditor2,
         auditor3 = question_create.auditor3,
         audit_type = question_create.audit_type,
+        company = question_create.company,
         region = question_create.region,
         production = question_create.production,
         )
@@ -75,21 +77,26 @@ def update_question(db: Session, db_question: Question,
     )
     """
     
-    if (db_question.file_path != question_update.file_path) :  #type: ignore
+    # 오류 수정 필요
+    if ( question_update.file_path != None ) and (question_update.file_path != db_question.file_path) :  #type: ignore
         if os.path.exists(db_question.file_path): #type: ignore
             os.remove(db_question.file_path) # type: ignore , 진단보고서 삭제        
+             #print({"remove ----> db_quesiton:": db_question.file_path, "question_update:": question_update.file_path})
 
     db_question.subject = question_update.subject # type: ignore
     db_question.content = question_update.content # type: ignore
     db_question.modify_date = datetime.now() # type: ignore
     db_question.audit_date = question_update.audit_date # type: ignore
     db_question.audit_date_end = question_update.audit_date_end # type: ignore
-    db_question.file_name = question_update.file_name # type: ignore
-    db_question.file_path = question_update.file_path # type: ignore
+    if question_update.file_name != None:
+        db_question.file_name = question_update.file_name # type: ignore
+    if question_update.file_path != None:
+        db_question.file_path = question_update.file_path # type: ignore
     db_question.auditor1 = question_update.auditor1 # type: ignore
     db_question.auditor2 = question_update.auditor2 # type: ignore
     db_question.auditor3 = question_update.auditor3 # type: ignore
     db_question.audit_type = question_update.audit_type # type: ignore
+    db_question.company = question_update.company # type: ignore
     db_question.region = question_update.region # type: ignore
     db_question.production = question_update.production # type: ignore
     
