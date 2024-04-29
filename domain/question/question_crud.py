@@ -53,6 +53,8 @@ def create_question(db: Session, question_create: QuestionCreate, user: User):
         audit_date_end=question_create.audit_date_end,
         file_name=question_create.file_name,
         file_path=question_create.file_path,
+        pdf_file_name=question_create.pdf_file_name,
+        pdf_file_path=question_create.pdf_file_path,
         user=user,
         auditor1 = question_create.auditor1,
         auditor2 = question_create.auditor2,
@@ -69,7 +71,7 @@ def create_question(db: Session, question_create: QuestionCreate, user: User):
 def update_question(db: Session, db_question: Question,
                     question_update: QuestionUpdate):
     
-    """ 수정이 작동 안됨
+    """ 작동 안됨
     db_question = Question(
         subject = question_update.subject,
         content = question_update.content,
@@ -77,10 +79,12 @@ def update_question(db: Session, db_question: Question,
     )
     """
     
-    # 오류 수정 필요
     if ( question_update.file_path != None ) and (question_update.file_path != db_question.file_path) :  #type: ignore
-        if os.path.exists(db_question.file_path): #type: ignore
-            os.remove(db_question.file_path) # type: ignore , 진단보고서 삭제        
+        if os.path.exists(str(db_question.file_path)): #type: ignore
+            os.remove(db_question.file_path) # type: ignore , 진단보고서 삭제      
+    if ( question_update.pdf_file_path != None ) and (question_update.pdf_file_path != db_question.pdf_file_path) :  #type: ignore
+        if os.path.exists(str(db_question.pdf_file_path)): #type: ignore
+            os.remove(db_question.pdf_file_path) # type: ignore , 진단보고서 삭제     
              #print({"remove ----> db_quesiton:": db_question.file_path, "question_update:": question_update.file_path})
 
     db_question.subject = question_update.subject # type: ignore
@@ -92,6 +96,10 @@ def update_question(db: Session, db_question: Question,
         db_question.file_name = question_update.file_name # type: ignore
     if question_update.file_path != None:
         db_question.file_path = question_update.file_path # type: ignore
+    if question_update.pdf_file_name != None:
+        db_question.pdf_file_name = question_update.pdf_file_name # type: ignore
+    if question_update.pdf_file_path != None:
+        db_question.pdf_file_path = question_update.pdf_file_path # type: ignore
     db_question.auditor1 = question_update.auditor1 # type: ignore
     db_question.auditor2 = question_update.auditor2 # type: ignore
     db_question.auditor3 = question_update.auditor3 # type: ignore
@@ -105,8 +113,10 @@ def update_question(db: Session, db_question: Question,
     
 def delete_question(db: Session, db_question: Question):
     
-    if os.path.exists(db_question.file_path): #type: ignore
+    if os.path.exists(str(db_question.file_path)): #type: ignore
         os.remove(db_question.file_path) # type: ignore , 진단보고서 삭제
+    if os.path.exists(str(db_question.pdf_file_path)): #type: ignore
+        os.remove(db_question.pdf_file_path) # type: ignore , 진단보고서 삭제
     
     db.delete(db_question)
     db.commit()

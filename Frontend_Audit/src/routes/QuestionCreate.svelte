@@ -10,6 +10,8 @@
     let audit_date_end = (new Date()).toJSON().slice(0, 10);
     let file_name = ''  
     let file_path = ''
+    let pdf_file_name = ''  
+    let pdf_file_path = ''
     let auditor1 = ''
     let auditor2 = ''
     let auditor3 = ''
@@ -19,11 +21,12 @@
     let production = ''
     let return_value =[]
     let file
+    let file_pdf
     let audit_type_list = ["품질체제(한국)", "품질체제(해외)", "품질체제(O/S)", "품질체제(사내도급)", "이슈품질", "생산지승인"]
     let company_list = ["LGE", "신성델타", "성철사", "고모텍", "청호", "ACE-TEC", "동인테크", "금원테크", "(주)원현","송기업",
                         "성진테크", "대남테크", "하성기업"]
     let region_list = ["창원", "평택", "구미", "TR(태주)", "PN(남경)", "TA(천진)", "QA(청도)", "VH(하이퐁)",
-                       "TA(태국)", "IN(땅그랑)", "IL(노이다)", "IL(푸네)", "SR(사우디)", "AT(터키)", "WR(폴란드)",
+                       "TH(태국)", "IN(땅그랑)", "IL(노이다)", "IL(푸네)", "SR(사우디)", "AT(터키)", "WR(폴란드)",
                        "EG(이집트)", "RA(러시아)", "MN(몬테레이)", "SP(브라질)","TN(테네시)", "협력사"]
     let production_list = ["냉장고", "세탁기","건조기", "에어컨", "RAC", "SAC", "오븐", "식세기", "청소기", "정수기", "공청기", 
                            "컴프", "컴프(냉장고)","컴프(에어컨)", "실내기", "실외기", "모터", "TV", "모니터", "사이니지", "PC", 
@@ -42,6 +45,8 @@
             audit_date_end: audit_date_end,
             file_name: file_name,
             file_path: file_path,
+            pdf_file_name: pdf_file_name,
+            pdf_file_path: pdf_file_path,
             auditor1: auditor1,
             auditor2: auditor2,
             auditor3: auditor3,
@@ -56,10 +61,14 @@
         //params.file_name, params.file_path = await upload()
         
         //params.file_name = await upload()
-        return_value = await upload()
+        return_value = await upload(file)
         params.file_name = return_value[0]
         params.file_path = return_value[1]
 
+        return_value = await upload(file_pdf)
+        params.pdf_file_name = return_value[0]
+        params.pdf_file_path = return_value[1]
+        
         //console.log({"params": params})
 
         fastapi('post', url, params, 
@@ -74,11 +83,11 @@
     //upload 함수를 post_question 안에 넣어야 하나?????
 
     //async function upload() {
-    async function upload() {
+    async function upload(temp_file) {
         console.log("Upload 시작");
 
         const formData = new FormData();
-        formData.append('file', file);
+        formData.append('file', temp_file);
     
         const response = await fetch('http://10.182.32.155:8000/api/question/upload', 
         {
@@ -102,10 +111,16 @@
     <h5 class="my-3 border-bottom pb-2">진단결과 등록</h5>
     <Error error={error} />
     
-    <div>
-        <h6>보고서 업로드</h6>    
-        <input type="file" on:change="{(event) => (file = event.target.files[0])}" /> 
+    <div class="row mb-3">
+        <div class = "col-6">
+            <h6>진단 보고서 업로드</h6>    
+            <input type="file" on:change="{(event) => (file = event.target.files[0])}" /> 
+        </div>
+        <div class = "col-6">
         <!--<button on:click="{upload}">업로드</button>-->
+            <h6>진단 결재 pdf 업로드</h6>    
+            <input type="file" on:change="{(event) => (file_pdf = event.target.files[0])}" /> 
+        </div>
     </div>
 
     <form method="post" class="my-3">

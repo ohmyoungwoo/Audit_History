@@ -1,5 +1,6 @@
 <script>
     import fastapi from "../lib/api"
+    import download from "../lib/download"
     import { link } from 'svelte-spa-router'
     import { page, keyword, is_login } from "../lib/store"
     
@@ -28,21 +29,21 @@
         
     }
 
-    async function download(file_name) {
+    //async function download(file_name) {
 
         //console.log(file_name)
-        let _url = 'http://10.182.32.155:8000/api/question/download/' + file_name
+    //    let _url = 'http://10.182.32.155:8000/api/question/download/' + file_name
         
-        const response = await fetch(_url);
-        const blob = await response.blob();
-        const downloadUrl = window.URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = downloadUrl;
-        link.download = file_name;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
+    //    const response = await fetch(_url);
+    //    const blob = await response.blob();
+    //    const downloadUrl = window.URL.createObjectURL(blob);
+    //    const link = document.createElement('a');
+    //    link.href = downloadUrl;
+    //    link.download = file_name;
+    //    document.body.appendChild(link);
+    //    link.click();
+    //    document.body.removeChild(link);
+    //}
    
 
     $: $page, $keyword, get_question_list()    // 함수 앞의 $: 는 $page가 변경되면 함수도 다시 호출하라는 의미임
@@ -63,6 +64,9 @@
                 </button>
             </div>
         </div>
+    </div>
+    <div>
+        ※참조: 이슈품질만 결재이력 등록하시면 됩니다.
     </div>
 
     <table class="table">
@@ -99,7 +103,13 @@
             <td>
                 <!--<a download href={question.file_path}> {question.file_name}</a>-->
                 {#if question.file_path !== null && question.file_path !== undefined }
-                    <button on:click={download(question.file_name)}>보고서</button>
+                    <button class="btn btn-sm btn-outline-secondary"
+                        on:click={download(question.file_name)}>보고서</button>
+                {/if}
+                <br>
+                {#if question.pdf_file_path !== null && question.pdf_file_path !== undefined }
+                    <button class="btn btn-sm btn-outline-secondary"
+                        on:click={download(question.pdf_file_name)}>결재이력</button>
                 {/if}
                 <!--{ question.file_name }-->
             </td>

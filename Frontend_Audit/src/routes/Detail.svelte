@@ -45,7 +45,7 @@
 <div vlass="container my-3">
     <!--질문-->
     <h2 class="border-bottom py-2">{question.subject}</h2>   <!--진단제목-->
-    <h6 class="py-2">{question.audit_type} / {question.region} / {question.production} / [{question.file_name}]</h6>
+    <h6 class="py-2">{question.audit_type} / {question.region} / {question.production} / [{question.file_name}] / [{question.pdf_file_name}]</h6>
     <div class="card my-3">
         <div class="card-body">
             <div class="card-text" style="white-space: pre-line;">{question.content}</div>   <!--진단상세-->
