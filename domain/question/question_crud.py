@@ -17,9 +17,9 @@ def get_question_list(db: Session, skip: int = 0, limit: int = 10, keyword: str 
             .outerjoin(User) \
             .filter(Question.subject.ilike(search)|   # 진단 제목
                     Question.content.ilike(search)|   # 진단 상세 내용
-                    Question.auditor1.ilike(search)|    # 진단자 이름
-                    Question.auditor2.ilike(search)|    # 진단자 이름
-                    Question.auditor3.ilike(search)|    # 진단자 이름
+                    Question.auditor1.ilike(search)|    # 진단자 이름1
+                    Question.auditor2.ilike(search)|    # 진단자 이름2
+                    Question.auditor3.ilike(search)|    # 진단자 이름3
                     Question.company.ilike(search)|     # 회사 (ex) LGE, 신성델타 ...
                     Question.region.ilike(search)|      # 사업장 
                     Question.production.ilike(search)|  # 제품군
@@ -79,10 +79,10 @@ def update_question(db: Session, db_question: Question,
     )
     """
     
-    if ( question_update.file_path != None ) and (question_update.file_path != db_question.file_path) :  #type: ignore
+    if ( question_update.file_path != None ) and (question_update.file_path != db_question.file_path):
         if os.path.exists(str(db_question.file_path)): #type: ignore
             os.remove(db_question.file_path) # type: ignore , 진단보고서 삭제      
-    if ( question_update.pdf_file_path != None ) and (question_update.pdf_file_path != db_question.pdf_file_path) :  #type: ignore
+    if ( question_update.pdf_file_path != None ) and (question_update.pdf_file_path != db_question.pdf_file_path):
         if os.path.exists(str(db_question.pdf_file_path)): #type: ignore
             os.remove(db_question.pdf_file_path) # type: ignore , 진단보고서 삭제     
              #print({"remove ----> db_quesiton:": db_question.file_path, "question_update:": question_update.file_path})

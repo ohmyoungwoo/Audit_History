@@ -103,14 +103,15 @@
             <td>
                 <!--<a download href={question.file_path}> {question.file_name}</a>-->
                 {#if question.file_path !== null && question.file_path !== undefined }
-                    <button class="btn btn-sm btn-outline-secondary"
+                    <button class="btn btn-sm btn-outline-secondary my-1"
                         on:click={download(question.file_name)}>보고서</button>
                 {/if}
-                <br>
+                <!--<br>
                 {#if question.pdf_file_path !== null && question.pdf_file_path !== undefined }
-                    <button class="btn btn-sm btn-outline-secondary"
+                    <button class="btn btn-sm btn-secondary"
                         on:click={download(question.pdf_file_name)}>결재이력</button>
                 {/if}
+                -->
                 <!--{ question.file_name }-->
             </td>
             <td>{ question.user ? question.user.username : "" }</td>
