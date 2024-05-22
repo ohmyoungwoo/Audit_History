@@ -39,6 +39,9 @@ def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(),
 
     # check user and password
     user = user_crud.get_user(db, form_data.username)
+    #print("**** dB ID: {}, PW:{}".format(user.username, user.password)) # type: ignore # dB의 ID와 PW
+    #print("**** 입력된 ID: {}, PW: {}".format(form_data.username, form_data.password))   # 입력받은 ID와 PW
+    
     if not user or not pwd_context.verify(form_data.password, user.password): # type: ignore
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
