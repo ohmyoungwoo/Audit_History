@@ -28,9 +28,9 @@
                         }}>로그아웃 ({$username})</a>
                     </li>
                 {:else}
-                    <li class="nav-item">
+                    <!--<li class="nav-item">
                         <a use:link class="nav-link" href="/user-create">회원가입</a>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                         <a use:link class="nav-link" href="/user-login">로그인</a>
                     </li>

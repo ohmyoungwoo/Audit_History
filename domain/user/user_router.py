@@ -10,6 +10,7 @@ from starlette import status
 from database.database import get_db
 from domain.user import user_crud, user_schema
 from domain.user.user_crud import pwd_context
+from domain.user.user_ldap import ldap_auth
 
 import secrets
 
@@ -38,20 +39,29 @@ def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(),
                            db: Session = Depends(get_db)):
 
     # check user and password
+    
     user = user_crud.get_user(db, form_data.username)
+    
     #print("**** dB ID: {}, PW:{}".format(user.username, user.password)) # type: ignore # dB의 ID와 PW
     #print("**** 입력된 ID: {}, PW: {}".format(form_data.username, form_data.password))   # 입력받은 ID와 PW
     
-    if not user or not pwd_context.verify(form_data.password, user.password): # type: ignore
+    user_ldap = ldap_auth(form_data.username, form_data.password)
+    
+    print("------> user_ldap{}".format(user_ldap))
+    
+    #if not user or not pwd_context.verify(form_data.password, user.password): # type: ignore
+    if user_ldap['username'] != form_data.username :
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
+            #detail="Incorrect username or password",
+            detail="Incorrect username",
             headers={"WWW-Authenticate": "Bearer"},
         )
 
     # make access token
     data = {
-        "sub": user.username,
+        #"sub": user.username,
+        "sub": user_ldap['username'],
         "exp": datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     }
     access_token = jwt.encode(data, SECRET_KEY, algorithm=ALGORITHM)
@@ -59,7 +69,8 @@ def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(),
     return {
         "access_token": access_token,
         "token_type": "bearer",
-        "username": user.username
+        #"username": user.username
+        "username": user_ldap['username']
     }
 
 def get_current_user(token: str = Depends(oauth2_scheme),

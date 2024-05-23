@@ -27,3 +27,10 @@ def get_db():
         yield db
     finally:
         db.close()
+        
+def get_db_return():
+    db = SessionLocal()
+    try:
+        return db
+    finally:
+        db.close()
