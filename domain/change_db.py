@@ -6,7 +6,7 @@ import sys, os
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 
 from database import database
-from model.models import User
+from model.models import User, Question
 
 id_dict = {
     '오명우': 'myoungou.oh',
@@ -18,14 +18,21 @@ id_dict = {
 
 db:Session = database.get_db_return() # type: ignore
 
-#q = db.get(User, 1)
+"""
+#dB 지우기 모듈
+q = db.get(Question, 33)  
+db.delete(q)
+"""
 
-user_db_list = db.query(User).all()
 
+"""
+#dB 값 변경 모듈
+#user_db_list = db.query(User).all()
 for i in range(len(id_dict)):
     q = db.get(User, i+1) 
-    print("ID: {},  db: {}".format(i+1, q.username)) # type: ignore
-    #q.username = id_dict[q.username] # type: ignore   # dB의 username을 변경하는 부분
+    #print("ID: {},  db: {}".format(i+1, q.username)) # type: ignore
+    q.username = id_dict[q.username] # type: ignore   # dB의 username을 변경하는 부분
     
+"""
 
-#db.commit()    # dB를 변경하는 문장
+db.commit()    # dB를 변경하는 문장
