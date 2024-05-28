@@ -71,12 +71,18 @@ def question_delete(_question_delete: question_schema.QuestionDelete,
 async def store_file(file: UploadFile = File(...)):
     #currentTime = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     #saved_file_name = ''.join([file.filename, currentTime]) # type: ignore
+    
+    #try:
     file_location = os.path.join(SAVE_DIR, file.filename) # type: ignore
     print (file_location, "is uploaded")
+    contents = await file.read()
     
     with open(file_location, "wb+") as file_object:
-        file_object.write(file.file.read())
-    
+        #file_object.write(file.file.read())
+        file_object.write(contents)
+    #except:
+    #    raise HTTPException(status_code=400, detail="Upload failed.")
+
     return [file.filename, file_location]
 
 @router.get("/download/{file_name}")

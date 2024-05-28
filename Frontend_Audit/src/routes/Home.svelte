@@ -77,7 +77,7 @@
             <th>회사</th>
             <th>사업장</th>
             <th>제품군</th>
-            <th style="width:35%">진단 제목</th>
+            <th style="width:25%">진단 제목</th>
             <th>진단일자</th>
             <th>진단자</th>
             <th>진단보고서</th>
