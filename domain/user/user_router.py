@@ -6,6 +6,7 @@ from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from jose import jwt, JWTError
 from sqlalchemy.orm import Session
 from starlette import status
+from starlette.config import Config
 
 from database.database import get_db
 from domain.user import user_crud, user_schema
@@ -14,10 +15,13 @@ from domain.user.user_ldap import ldap_auth
 
 import secrets
 
+#ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24
+#SECRET_KEY = "4ab2fce7a6bd79e1c014396315ed322dd6edb1c5d975c6b74a2904135172c03c"
 
-ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24
-SECRET_KEY = "4ab2fce7a6bd79e1c014396315ed322dd6edb1c5d975c6b74a2904135172c03c"
-#SECRET_KEY = secrets.token_hex(32)
+config = Config('.env')
+ACCESS_TOKEN_EXPIRE_MINUTES = int(config('ACCESS_TOKEN_EXPIRE_MINUTES'))
+SECRET_KEY = config('SECRET_KEY')
+
 ALGORITHM = "HS256"
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/user/login")
 

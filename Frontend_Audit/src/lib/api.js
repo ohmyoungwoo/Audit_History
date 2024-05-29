@@ -20,12 +20,11 @@ const fastapi = (operation, url, params, success_callback, failure_callback) => 
         body = qs.stringify(params)
     }
 
-    let _url = 'http://10.182.32.155:8000'+ url
-    //let _url = 'http://qaudit.lge.com:8000'+ url
-
-    
     //let _url = import.meta.env.VITE_SERVER_URL + url  // 작동 안함 (이유를 모르겠음 ????)
     //alert(import.meta.env.VITE_SERVER_URL)
+    let _url = 'http://10.182.32.155:8000'+ url
+    //let _url = 'http://qams.lge.com:8000'+ url (이렇게 바꾸면 안됨)
+    
 
     if(method === 'get') {
         _url += "?" + new URLSearchParams(params) // 파라미터를 GET 방식에 맞게끔 URLSearchParams를 사용하여 파라미터를 조립

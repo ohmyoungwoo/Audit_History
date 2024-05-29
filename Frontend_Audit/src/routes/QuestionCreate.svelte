@@ -89,8 +89,8 @@
         const formData = new FormData();
         formData.append('file', temp_file);
     
-        const response = await fetch('http://10.182.32.155:8000/api/question/upload', 
-        //const response = await fetch('http://qaudit.lge.com:8000/api/question/upload', 
+        //const response = await fetch('http://10.182.32.155:8000/api/question/upload', 
+        const response = await fetch('http://qams.lge.com:8000/api/question/upload', 
         {
             method: 'POST',
             body: formData,

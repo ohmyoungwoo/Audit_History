@@ -12,8 +12,8 @@ from domain.user import user_router
 app = FastAPI()
 
 origins = [
-    "http://10.182.32.155:8000",    # Svelte Frontend 서버 주소 업데이트 해야 정상 작동함
-    #"http://qaudit.lge.com:8000",
+    #"http://10.182.32.155:8000",    # Svelte Frontend 서버 주소 업데이트 해야 정상 작동함
+    "http://qams.lge.com:8000",
 ]
 
 app.add_middleware(
