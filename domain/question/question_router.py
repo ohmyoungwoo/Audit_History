@@ -78,13 +78,11 @@ async def store_file(file: UploadFile = File(...)):
         contents = await file.read()
     
         with open(file_location, "wb+") as file_object:
-        #file_object.write(file.file.read())
+            #file_object.write(file.file.read())
             file_object.write(contents)
         return [file.filename, file_location]
     except:
         raise HTTPException(status_code=400, detail="Upload failed.")
-
-    
 
 @router.get("/download/{file_name}")
 async def download_file(file_name:str):
@@ -94,5 +92,5 @@ async def download_file(file_name:str):
     #if not os.path.exists(file_path):
     #    raise HTTPException(status_code=404, detail="저장된 파일이 없습니다")
     
-    print(f"Backend_download_File path: {file_path} ")
+    #print(f"Backend_download_File path: {file_path} ")
     return FileResponse(file_path, media_type='application/octet-stream', filename=file_name)

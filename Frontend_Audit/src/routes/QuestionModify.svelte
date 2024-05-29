@@ -1,7 +1,7 @@
 <script>
     import { push } from 'svelte-spa-router'
     import fastapi from "../lib/api"
-    import upload_modify from "../lib/upload_modify"
+    import upload_modify from "../lib/no_use_upload_modify"
     import Error from "../components/Error.svelte"
 
     export let params = {}
@@ -110,20 +110,6 @@
         )
     }
 
-    //async function upload_modify() {
-        //console.log("Upload 변경");
-
-    //    const formData = new FormData();
-    //    formData.append('file', file);
-
-    //    const response = await fetch('http://10.182.32.155:8000/api/question/upload', 
-    //    {
-    //        method: 'POST',
-    //        body: formData,
-    //    });
-
-    //    return await response.json()
-    //}
 
 </script>
 

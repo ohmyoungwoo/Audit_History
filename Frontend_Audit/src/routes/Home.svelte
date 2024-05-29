@@ -1,6 +1,6 @@
 <script>
     import fastapi from "../lib/api"
-    import download from "../lib/download"
+    import download from "../lib/no_use_download"
     import { link } from 'svelte-spa-router'
     import { page, keyword, is_login } from "../lib/store"
     
@@ -28,23 +28,6 @@
         })
         
     }
-
-    //async function download(file_name) {
-
-        //console.log(file_name)
-    //    let _url = 'http://10.182.32.155:8000/api/question/download/' + file_name
-        
-    //    const response = await fetch(_url);
-    //    const blob = await response.blob();
-    //    const downloadUrl = window.URL.createObjectURL(blob);
-    //    const link = document.createElement('a');
-    //    link.href = downloadUrl;
-    //    link.download = file_name;
-    //    document.body.appendChild(link);
-    //    link.click();
-    //    document.body.removeChild(link);
-    //}
-   
 
     $: $page, $keyword, get_question_list()    // 함수 앞의 $: 는 $page가 변경되면 함수도 다시 호출하라는 의미임
     //console.log({"question_list": question_list})
