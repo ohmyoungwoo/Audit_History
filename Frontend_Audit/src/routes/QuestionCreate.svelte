@@ -104,8 +104,10 @@
 
             return return_value
             
-        } catch (e) {
-            console.log("Upload 실패")
+        } catch(e) {
+            //console.log("Upload 실패")
+            //alert(JSON.stringify(e))
+            alert("Upload 실패")
         }
 
     }
