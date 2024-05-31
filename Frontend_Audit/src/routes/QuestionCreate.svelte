@@ -61,13 +61,15 @@
         //params.file_name, params.file_path = await upload()
         
         //params.file_name = await upload()
-        return_value = await upload(file)
-        params.file_name = return_value[0]
-        params.file_path = return_value[1]
+        if (file)
+            return_value = await upload(file)
+            params.file_name = return_value[0]
+            params.file_path = return_value[1]
 
-        return_value = await upload(file_pdf)
-        params.pdf_file_name = return_value[0]
-        params.pdf_file_path = return_value[1]
+        if (file_pdf)
+            return_value = await upload(file_pdf)
+            params.pdf_file_name = return_value[0]
+            params.pdf_file_path = return_value[1]
         
         //console.log({"params": params})
 
