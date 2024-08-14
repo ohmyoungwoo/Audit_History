@@ -34,7 +34,7 @@
     <Error error={error} />
     <form method="post">
         <div class="mb-3">
-            <label for="username">사용자 이름</label>
+            <label for="username">EP ID</label>
             <input type="text" class="form-control" id="username" bind:value="{login_username}">
         </div>
         <div class="mb-3">
