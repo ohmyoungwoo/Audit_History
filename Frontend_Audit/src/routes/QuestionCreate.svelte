@@ -57,19 +57,27 @@
         }
 
         //console.log({"post_file_name": params.file_name,"post_file_path": params.file_path})
-        
         //params.file_name, params.file_path = await upload()
-        
         //params.file_name = await upload()
-        if (file)
-            return_value = await upload(file)
-            params.file_name = return_value[0]
-            params.file_path = return_value[1]
+        console.log("-------------------시작---------------")
 
-        if (file_pdf)
-            return_value = await upload(file_pdf)
-            params.pdf_file_name = return_value[0]
-            params.pdf_file_path = return_value[1]
+        if (file){
+            console.log("보고서 Upload 호출 시작");
+            return_value = await upload(file);
+            console.log("보고서 Upload 호출 완료");
+            
+            params.file_name = return_value[0];
+            params.file_path = return_value[1];
+        }
+
+        if (file_pdf){
+            console.log("결재문서 Upload 호출 시작");
+            return_value = await upload(file_pdf);
+            console.log("결재문서 Upload 호출 완료");
+
+            params.pdf_file_name = return_value[0];
+            params.pdf_file_path = return_value[1];
+        }
         
         //console.log({"params": params})
 
@@ -86,19 +94,21 @@
 
     //async function upload() {
     async function upload(temp_file) {
-        console.log("Upload 시작");
+        console.log("-Upload 함수 시작");
 
         try {
             const formData = new FormData();
             formData.append('file', temp_file);
-        
+
+            console.log("-Upload Back end 시작");        
             const response = await fetch('http://10.182.32.155:8000/api/question/upload', 
             //const response = await fetch('http://qams.lge.com:8000/api/question/upload', 
             {
                 method: 'POST',
                 body: formData,
             });
-        
+            console.log("-Upload Back end 완료");
+
             return_value = await response.json();
             
             //console.log({"Upload 완료/ 파일명:": return_value[0]});

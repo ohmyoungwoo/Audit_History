@@ -18,6 +18,7 @@
     function get_question() {
         fastapi("get", "/api/question/detail/" + question_id, {}, (json) => {
             question = json
+            console.log(question)
         })
     }
 
@@ -45,9 +46,10 @@
 <div vlass="container my-3">
     <!--질문-->
     <h2 class="border-bottom py-2">{question.subject}</h2>   <!--진단제목-->
-    <h6 class="py-2">{question.audit_type} / {question.region} / {question.production} / [{question.file_name}] / [{question.pdf_file_name}]</h6>
+    <h5 class="py-1">{question.audit_type} / {question.region} / {question.production} </h5>
+    <h6 class="py-1">보고서: {question.file_name} / 결재문서: {question.pdf_file_name} </h6>
     <div class="card my-3">
-        <div class="card-body">
+        <div class="card-body h-75">   <!-- h-75 작동안됨-->
             <div class="card-text" style="white-space: pre-line;">{question.content}</div>   <!--진단상세-->
             <div class="d-flex justify-content-end"> <!--진단수정일자-->
                 {#if question.modify_date }  
@@ -57,7 +59,7 @@
                 </div>
                 {/if}
                 
-                <div class="badge bg-light text-dark p-2 text-start">   <!--진단실시일자-->
+                <div class="badge bg-light text-dark p-2 text-start">   <!--진단실시일자, 진단자 이름-->
                     <div>{moment(question.audit_date).format("YYYY년 MM월 DD일")}
                         <br>
                          {moment(question.audit_date_end).format("YYYY년 MM월 DD일")}

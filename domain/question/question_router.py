@@ -74,12 +74,15 @@ async def store_file(file: UploadFile = File(...)):
     
     try:
         file_location = os.path.join(SAVE_DIR, file.filename) # type: ignore
-        print (file_location, "is uploaded")
+        print ("file upload start: ", file_location)
+        
         contents = await file.read()
-    
+        print ("file read complete")
+        
         with open(file_location, "wb+") as file_object:
             #file_object.write(file.file.read())
             file_object.write(contents)
+            print ("file write at ", SAVE_DIR)
         return [file.filename, file_location]
     except:
         raise HTTPException(status_code=400, detail="Upload failed.")

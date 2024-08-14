@@ -44,14 +44,14 @@ def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(),
 
     # check user and password
     
-    user = user_crud.get_user(db, form_data.username)
+    #user = user_crud.get_user(db, form_data.username)
     
     #print("**** dB ID: {}, PW:{}".format(user.username, user.password)) # type: ignore # dB의 ID와 PW
     #print("**** 입력된 ID: {}, PW: {}".format(form_data.username, form_data.password))   # 입력받은 ID와 PW
     
     user_ldap = ldap_auth(form_data.username, form_data.password)
     
-    print("------> user_ldap{}".format(user_ldap))
+    #print("------> user_ldap{}".format(user_ldap))
     
     #if not user or not pwd_context.verify(form_data.password, user.password): # type: ignore
     if user_ldap['username'] != form_data.username :
@@ -67,6 +67,7 @@ def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(),
         #"sub": user.username,
         "sub": user_ldap['username'],
         "exp": datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+        #"exp": datetime.now() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     }
     access_token = jwt.encode(data, SECRET_KEY, algorithm=ALGORITHM)
 
