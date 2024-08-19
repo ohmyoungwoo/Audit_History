@@ -1,5 +1,5 @@
 import qs from "qs"
-import { access_token, username, is_login } from "./store"
+import { access_token, username, is_login } from "./store"    // Store 변수 생성
 import { get } from 'svelte/store'
 import { push } from 'svelte-spa-router'
 

@@ -90,26 +90,24 @@
             }
         )
     }
-    //upload 함수를 post_question 안에 넣어야 하나?????
 
     //async function upload() {
-    async function upload(temp_file) {
-        console.log("-Upload 함수 시작");
+    async function upload(upload_file) {
+        let url = "/api/question/upload"
+        let _url = 'http://10.182.32.155:8000' + url
+
+        console.log("-Upload 함수 시작")
 
         try {
-            const formData = new FormData();
-            formData.append('file', temp_file);
+            const formData = new FormData()
+            formData.append('file', upload_file)
 
             console.log("-Upload Back end 시작");        
-            const response = await fetch('http://10.182.32.155:8000/api/question/upload', 
             //const response = await fetch('http://qams.lge.com:8000/api/question/upload', 
-            {
-                method: 'POST',
-                body: formData,
-            });
-            console.log("-Upload Back end 완료");
+            const response = await fetch(_url, {method: 'post', body: formData})
+            console.log("-Upload Back end 완료")
 
-            return_value = await response.json();
+            return_value = await response.json()
             
             //console.log({"Upload 완료/ 파일명:": return_value[0]});
             //console.log({"upload--> file_name": file_name, "file_path": file_path});

@@ -1,6 +1,6 @@
 audit.db
 alembic.ini
 *.pyc
-migrations/__pycache__
-file_dir/
-file_dir_backup/
+__pycache__
+domain/file_dir/
+domain/file_dir_backup/
