@@ -20,6 +20,7 @@ def ldap_parser(data):
         "en_name": data["displayNamePrintable"][0].decode()
         if "displayNamePrintable" in data
         else data["description"][0].decode(),
+        
         "title": data["title"][0].decode(),
         "employeeNumber": data["employeeNumber"][0].decode() if "employeeNumber" in data else None,
         "department": data["department"][0].decode(),

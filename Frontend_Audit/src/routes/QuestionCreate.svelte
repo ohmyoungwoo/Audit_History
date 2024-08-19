@@ -102,11 +102,10 @@
             const formData = new FormData()
             formData.append('file', upload_file)
 
-            console.log("-Upload Back end 시작");        
+            console.log("-Upload Back end 시작")
             //const response = await fetch('http://qams.lge.com:8000/api/question/upload', 
             const response = await fetch(_url, {method: 'post', body: formData})
             console.log("-Upload Back end 완료")
-
             return_value = await response.json()
             
             //console.log({"Upload 완료/ 파일명:": return_value[0]});
@@ -117,7 +116,7 @@
         } catch(e) {
             //console.log("Upload 실패")
             //alert(JSON.stringify(e))
-            alert("Upload 실패")
+            alert("Upload 실패");
         }
 
     }
