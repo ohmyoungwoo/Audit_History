@@ -38,7 +38,7 @@
             <input type="text" class="form-control" id="username" bind:value="{login_username}">
         </div>
         <div class="mb-3">
-            <label for="password">비밀번호</label>
+            <label for="password">AD 비밀번호</label>
             <input type="password" class="form-control" id="password" bind:value="{login_password}">
         </div>
         <button type="submit" class="btn btn-primary" on:click="{login}">로그인</button>
