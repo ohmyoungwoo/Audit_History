@@ -85,8 +85,8 @@
             return_value = await upload(file_pdf);
             console.log("결재문서 Upload 호출 완료");
 
-            params.pdf_file_name = return_value[0];
-            params.pdf_file_path = return_value[1];
+            params.file_name = return_value['file_name'];
+            params.file_path = return_value['file_path'];
         }
         
         //console.log({"params": params})
