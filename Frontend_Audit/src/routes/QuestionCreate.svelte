@@ -11,6 +11,8 @@
     let content = ''
     let audit_date = (new Date()).toJSON().slice(0, 10);
     let audit_date_end = (new Date()).toJSON().slice(0, 10);
+    //let audit_year = (new Date()).toJSON().slice(0, 4)
+    //let audit_year_end = (new Date()).toJSON().slice(0, 4)
     let file_name = ''  
     let file_path = ''
     let pdf_file_name = ''  
@@ -46,6 +48,8 @@
             content: content,
             audit_date: audit_date,
             audit_date_end: audit_date_end,
+            audit_year_start: audit_date.slice(0, 4),  //audit_date 의 year 추가
+            audit_year_end: audit_date_end.slice(0, 4),  // audit_date_end 의 year 추가
             file_name: file_name,
             file_path: file_path,
             pdf_file_name: pdf_file_name,
@@ -58,6 +62,7 @@
             region: region,
             production: production,
         }
+        //console.log('audit_date',audit_date, ' / audit_year', audit_date.slice(0, 4))
 
         //console.log({"post_file_name": params.file_name,"post_file_path": params.file_path})
         //params.file_name, params.file_path = await upload()
@@ -107,52 +112,38 @@
         let _url = 'http://10.182.32.155:8000' + url
         //let content_type = 'application/json'
 
-        // 추가 시작 #1
         let options = { 
             method: 'post',
             //headers: { "Content-Type": content_type },
             headers: {},
         }
-        // 추가 종료 #1
 
         console.log("-Upload 함수 시작", _url)
 
         try {
 
-            // 추가 시작 #2
             const _access_token = get(access_token)
             if (_access_token) {
                 options.headers["Authorization"] = "Bearer " + _access_token
             }
-            // 추가 종료 #2
 
             const formData = new FormData()
             formData.append('file', upload_file)
 
-            // 추가 시작 #3
             options['body'] = formData
-            // 추가 종료 #3
 
             console.log("-Upload Back end 시작")
-            console.log(options)
-            //const response = await fetch('http://qams.lge.com:8000/api/question/upload', 
+            //console.log(options)
+
             //const response = await fetch(_url, {method: 'post', body: formData})
-            //const response = await fetch(_url, {
-            //    method: 'post', 
-            //    body: formData, 
-            //    headers: {"Content-Type": content_type, "Authorization": "Bearer " + _access_token}})
             const response = await fetch(_url, options)
 
             console.log("-Upload Back end 완료")
             return_value = await response.json()
             
-            //console.log({"Upload 완료/ 파일명:": return_value[0]});
-            //console.log({"upload--> file_name": file_name, "file_path": file_path});
-
             return return_value
             
         } catch(e) {
-            //console.log("Upload 실패")
             //alert(JSON.stringify(e))
             alert("Upload 실패");
         }

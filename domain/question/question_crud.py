@@ -39,6 +39,27 @@ def get_question_list(db: Session, skip: int = 0, limit: int = 10, keyword: str 
         
     return total, question_list
 
+def get_question_list_year(db: Session, skip: int = 0, limit: int = 10, year:int = 0):
+    question_list = db.query(Question)
+    if year:
+        search = '%%{}%%'.format(year)  # keyword는 화면에서 전달 받은 값
+        #sub_query = db.query(Answer.question_id, Answer.content, User.username)\
+        #    .outerjoin(User, and_(Answer.user_id == User.id)).subquery()
+        question_list = question_list \
+            .outerjoin(User) \
+            .filter(Question.audit_year_start.ilike(search)|
+                    Question.audit_year_end.ilike(search)
+            )
+            # sub_query.c.question_id 에서 c 는 서브쿼리의 조회 항목이며, 
+            # sub_query.c.question_id 는 서브쿼리의 조회 항목 중 question_id를 의미함
+            # and_ 는 sqlalchemy 의 특이한 함수???
+            
+    total = question_list.distinct().count()
+    question_list = question_list.order_by(Question.audit_date.desc()) \
+        .offset(skip).limit(limit).distinct().all() # 리스트 정렬 (진단일자 기준)
+        
+    return total, question_list
+
 
 def get_question(db: Session, question_id: int):
     question = db.query(Question).get(question_id)
@@ -51,6 +72,8 @@ def create_question(db: Session, question_create: QuestionCreate, user: User):
         create_date=datetime.now(),
         audit_date=question_create.audit_date,
         audit_date_end=question_create.audit_date_end,
+        audit_year_start=question_create.audit_year_start,
+        audit_year_end=question_create.audit_year_end,
         file_name=question_create.file_name,
         file_path=question_create.file_path,
         pdf_file_name=question_create.pdf_file_name,

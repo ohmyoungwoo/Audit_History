@@ -15,6 +15,8 @@ class Question(BaseModel):
     modify_date: datetime.datetime | None = None
     audit_date: datetime.datetime | None = None
     audit_date_end: datetime.datetime | None = None
+    audit_year_start: int | None = None
+    audit_year_end: int | None = None    
     file_name: str | None = None
     file_path: str | None = None
     pdf_file_name: str | None = None
@@ -35,6 +37,8 @@ class QuestionCreate(BaseModel):
     content: str
     audit_date: datetime.datetime | None = None
     audit_date_end: datetime.datetime | None = None
+    audit_year_start: int | None = None
+    audit_year_end: int | None = None  
     pdf_file_name: str | None = None
     pdf_file_path: str | None = None
     file_name: str | None = None

@@ -17,6 +17,8 @@ class Question(Base):
     modify_date = Column(DateTime, nullable=True) # 변경날자
     audit_date = Column(DateTime, nullable=True) # 진단날자 시작
     audit_date_end = Column(DateTime, nullable=True) # 진단날자 종료
+    audit_year_start = Column(Integer, nullable=True) # 등록 년
+    audit_year_end = Column(Integer, nullable=True) # 등록 년
     file_name = Column(String, nullable=True) # 진단보고서 파일이름
     file_path = Column(String, nullable=True) # 진단보고서 저장위치 + 파일이름
     pdf_file_name = Column(String, nullable=True) # 진단 승인 이력 pdf 파일이름

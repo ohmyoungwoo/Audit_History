@@ -1,8 +1,8 @@
 <script>
     import fastapi from "../lib/api"
-    import download from "../lib/no_use_download"
+    import download from "../lib/download"
     import { link } from 'svelte-spa-router'
-    import { page, keyword, is_login } from "../lib/store"
+    import { page, keyword, year, is_login } from "../lib/store"
     
     import moment from 'moment/min/moment-with-locales'
 
@@ -11,6 +11,7 @@
     let question_list = []
     let size = 10
     let total = 0
+    let yr = 0
     let kw ='' //검색 keyword
     $: total_page = Math.ceil(total/size)  // 스벨트에서 변수앞에 $: 기호를 붙이면 해당 변수는 반응형 변수, 
                                            // total 변수의 값이 API 호출로 인해 그 값이 변하면 total_page 변수의 값도 실시간으로 재 계산된다
@@ -29,24 +30,50 @@
         
     }
 
-    $: $page, $keyword, get_question_list()    // 함수 앞의 $: 는 $page가 변경되면 함수도 다시 호출하라는 의미임
+    function get_question_list_year(_page) {
+        let params ={
+            page: $page,
+            size: size,
+            year: $year,
+        }
+        fastapi('get', '/api/question/list-year', params, (json) => {
+            question_list = json.question_list
+            total = json.total
+            yr = $year
+        })
+        
+    }
+
+    $: $page, $keyword, $year, get_question_list() //get_question_list_year() // 함수 앞의 $: 는 $page가 변경되면 함수도 다시 호출하라는 의미임
     //console.log({"question_list": question_list})
 </script>
 
 <div class="container my-3">
-    <div class="row my-3">   
-        <div class="col-6">
+    <div class="row my-3"> 
+        <!--<div class="col-6">-->  
+        <div class="col-4">
             <a use:link href="/question-create" 
                 class="btn btn-primary {$is_login ? '' : 'disabled'}">진단 등록하기</a>
         </div>
+        <!--
+        <div class="col-2">
+            <div class="input-group">
+                <input type="text" class="form-control" name="search_year" bind:value="{yr}">  
+                <button class="btn btn-outline-secondary" on:click={() => {$year = yr, $page = 0}}> 
+                    년도
+                </button>
+            </div>
+        </div> 
+        -->
         <div class="col-6">
             <div class="input-group">
-                <input type="text" class="form-control" bind:value="{kw}">  <!-- 검색 창 -->
+                <input type="text" class="form-control" name="search_input" bind:value="{kw}">  <!-- 검색 창 -->
                 <button class="btn btn-outline-secondary" on:click={() => {$keyword = kw, $page = 0}}> 
                     찾기
                 </button>
             </div>
         </div>
+        
     </div>
     <div>
         ※참조: 이슈품질만 결재이력 등록하시면 됩니다.
