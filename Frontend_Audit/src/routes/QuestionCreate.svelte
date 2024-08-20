@@ -1,7 +1,10 @@
 <script>
     import { push } from 'svelte-spa-router'
     import fastapi from "../lib/api"
+    //import fastapi from "../lib/api"
     import Error from "../components/Error.svelte"
+    import { access_token, username, is_login } from "../lib/store"    // Store 변수 생성
+    import { get } from 'svelte/store'
 
     let error = {detail:[]}
     let subject = ''
@@ -64,10 +67,17 @@
         if (file){
             console.log("보고서 Upload 호출 시작");
             return_value = await upload(file);
+            //fastapi('upload', '/api/question/upload', file, 
+            //    (json) => {
+            //        params.file_name = json.file_name
+            //        params.file_path = json.file_path},
+            //    (json_error) => {
+            //        error = json_error}
+            //)
             console.log("보고서 Upload 호출 완료");
             
-            params.file_name = return_value[0];
-            params.file_path = return_value[1];
+            params.file_name = return_value['file_name'];
+            params.file_path = return_value['file_path'];
         }
 
         if (file_pdf){
@@ -95,16 +105,41 @@
     async function upload(upload_file) {
         let url = "/api/question/upload"
         let _url = 'http://10.182.32.155:8000' + url
+        //let content_type = 'application/json'
 
-        console.log("-Upload 함수 시작")
+        // 추가 시작 #1
+        // let options = { 
+        //    method: 'post',
+        //    headers: { "Content-Type": content_type }}
+        // 추가 종료 #1
+
+        console.log("-Upload 함수 시작", _url)
 
         try {
+
+            // 추가 시작 #2
+            //const _access_token = get(access_token)
+            //if (_access_token) {
+            //    options.headers["Authorization"] = "Bearer " + _access_token
+            //}
+            // 추가 종료 #2
+
             const formData = new FormData()
             formData.append('file', upload_file)
+
+            // 추가 시작 #3
+            //options['body'] = formData
+            // 추가 종료 #3
 
             console.log("-Upload Back end 시작")
             //const response = await fetch('http://qams.lge.com:8000/api/question/upload', 
             const response = await fetch(_url, {method: 'post', body: formData})
+            //const response = await fetch(_url, {
+            //    method: 'post', 
+            //    body: formData, 
+            //    headers: {"Content-Type": content_type, "Authorization": "Bearer " + _access_token}})
+            //const response = await fetch(_url, options)
+
             console.log("-Upload Back end 완료")
             return_value = await response.json()
             

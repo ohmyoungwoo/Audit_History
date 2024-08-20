@@ -83,7 +83,8 @@ async def store_file(file: UploadFile = File(...)):
             #file_object.write(file.file.read())
             file_object.write(contents)
             print ("file write at ", SAVE_DIR)
-        return [file.filename, file_location]
+        #return [file.filename, file_location]
+        return {"file_name":file.filename, "file_path":file_location}
     except:
         raise HTTPException(status_code=400, detail="Upload failed.")
 
