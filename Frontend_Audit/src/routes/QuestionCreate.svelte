@@ -108,9 +108,11 @@
         //let content_type = 'application/json'
 
         // 추가 시작 #1
-        // let options = { 
-        //    method: 'post',
-        //    headers: { "Content-Type": content_type }}
+        let options = { 
+            method: 'post',
+            //headers: { "Content-Type": content_type },
+            headers: {},
+        }
         // 추가 종료 #1
 
         console.log("-Upload 함수 시작", _url)
@@ -118,27 +120,28 @@
         try {
 
             // 추가 시작 #2
-            //const _access_token = get(access_token)
-            //if (_access_token) {
-            //    options.headers["Authorization"] = "Bearer " + _access_token
-            //}
+            const _access_token = get(access_token)
+            if (_access_token) {
+                options.headers["Authorization"] = "Bearer " + _access_token
+            }
             // 추가 종료 #2
 
             const formData = new FormData()
             formData.append('file', upload_file)
 
             // 추가 시작 #3
-            //options['body'] = formData
+            options['body'] = formData
             // 추가 종료 #3
 
             console.log("-Upload Back end 시작")
+            console.log(options)
             //const response = await fetch('http://qams.lge.com:8000/api/question/upload', 
-            const response = await fetch(_url, {method: 'post', body: formData})
+            //const response = await fetch(_url, {method: 'post', body: formData})
             //const response = await fetch(_url, {
             //    method: 'post', 
             //    body: formData, 
             //    headers: {"Content-Type": content_type, "Authorization": "Bearer " + _access_token}})
-            //const response = await fetch(_url, options)
+            const response = await fetch(_url, options)
 
             console.log("-Upload Back end 완료")
             return_value = await response.json()
