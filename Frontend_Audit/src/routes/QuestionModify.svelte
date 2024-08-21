@@ -92,8 +92,8 @@
             console.log("보고서 Upload 호출 시작");
             return_value = await upload_modify(file);
             console.log("보고서 Upload 호출 완료");
-            console.log("return_value: ", return_value)
-            console.log("return_value[file_name]:", return_value['file_name'])
+            //console.log("return_value: ", return_value)
+            //console.log("return_value[file_name]:", return_value['file_name'])
 
             params.file_name = return_value['file_name'];
             params.file_path = return_value['file_path'];
@@ -105,7 +105,7 @@
             params.pdf_file_path = return_value['file_path'];
         }
 
-        console.log({"params": params, "url": url})
+        //console.log({"params": params, "url": url})
 
         fastapi('put', url, params, 
             (json) => {
@@ -150,11 +150,11 @@
             const response = await fetch(_url, options)
 
             console.log("-Upload Back end 완료")
-            console.log("--resopnse:", response)
+            //console.log("--resopnse:", response)
 
             return_value = await response.json()    // return_value is not defined
             //return_value = response.json()
-            console.log("--resopnse.json:", return_value)
+            //console.log("--resopnse.json:", return_value)
 
             return return_value
             

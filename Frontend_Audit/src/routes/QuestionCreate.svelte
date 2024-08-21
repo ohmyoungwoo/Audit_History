@@ -139,9 +139,9 @@
             
 
             console.log("-Upload Back end 완료")
-            console.log("--resopnse:", response)
+            //console.log("--resopnse:", response)
             return_value = await response.json()
-            console.log("--resopnse.json:", return_value)
+            //console.log("--resopnse.json:", return_value)
 
             return return_value
             
