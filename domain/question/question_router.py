@@ -96,7 +96,7 @@ async def store_file(file: UploadFile = File(...)):
         with open(file_location, "wb+") as file_object:
             #file_object.write(file.file.read())
             file_object.write(contents)
-            print ("file write at ", SAVE_DIR)
+            print ("file write at ", SAVE_DIR, "& file_name :", file.filename)
         #return [file.filename, file_location]
         return {"file_name":file.filename, "file_path":file_location}
     except:

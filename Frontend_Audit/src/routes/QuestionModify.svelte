@@ -1,8 +1,11 @@
 <script>
     import { push } from 'svelte-spa-router'
     import fastapi from "../lib/api"
-    import upload_modify from "../lib/upload_modify"
+    //import upload_modify from "../lib/upload_modify"
+    //import upload from "QuestionCreate.svelte"   글로벌 변수 지정 필요함
     import Error from "../components/Error.svelte"
+    import { access_token, username, is_login } from "../lib/store"    // Store 변수 생성
+    import { get } from 'svelte/store'
 
     export let params = {}
     const question_id = params.question_id
@@ -25,6 +28,7 @@
     let company = ''
     let region = ''
     let production = ''
+    let return_value =[]
     //let myDate = (new Date()).toJSON().slice(0, 10);
     let file
     let file_pdf
@@ -81,22 +85,24 @@
             region: region,
             production: production,
         }
-        console.log('--audit_date', audit_date, '--audit_date_slice04',audit_date.slice(0,4))
 
-        let return_value
+        //let return_value = {}
 
-        //console.log({"file at modify: " : file})
-        
         if (file !== undefined){
-            return_value = await upload_modify(file)
-            params.file_name = return_value[0]
-            params.file_path = return_value[1]
-        }
+            console.log("보고서 Upload 호출 시작");
+            return_value = await upload_modify(file);
+            console.log("보고서 Upload 호출 완료");
+            console.log("return_value: ", return_value)
+            console.log("return_value[file_name]:", return_value['file_name'])
 
+            params.file_name = return_value['file_name'];
+            params.file_path = return_value['file_path'];
+        }
+        
         if (file_pdf !== undefined){
-            return_value = await upload_modify(file_pdf)
-            params.pdf_file_name = return_value[0]
-            params.pdf_file_path = return_value[1]
+            return_value = await upload_modify(file_pdf);
+            params.pdf_file_name = return_value['file_name'];
+            params.pdf_file_path = return_value['file_path'];
         }
 
         console.log({"params": params, "url": url})
@@ -111,6 +117,52 @@
         )
     }
 
+    //async function upload() {
+    async function upload_modify(upload_file) {
+        let url = "/api/question/upload"
+        let _url = 'http://10.182.32.155:8000' + url
+        //let content_type = 'application/json'
+
+        let options = { 
+            method: 'post',
+            //headers: { "Content-Type": content_type },
+            headers: {},
+        }
+
+        console.log("-Upload 함수 시작", _url)
+
+        try {
+
+            const _access_token = get(access_token)
+            if (_access_token) {
+                options.headers["Authorization"] = "Bearer " + _access_token
+            }
+
+            const formData = new FormData()
+            formData.append('file', upload_file)
+
+            options['body'] = formData
+
+            console.log("-Upload Back end 시작")
+            //console.log(options)
+
+            //const response = await fetch(_url, {method: 'post', body: formData})
+            const response = await fetch(_url, options)
+
+            console.log("-Upload Back end 완료")
+            console.log("--resopnse:", response)
+
+            return_value = await response.json()    // return_value is not defined
+            //return_value = response.json()
+            console.log("--resopnse.json:", return_value)
+
+            return return_value
+            
+        } catch(e) {
+            //alert(JSON.stringify(e))
+            alert("Upload 실패");
+        }
+    }
 
 </script>
 

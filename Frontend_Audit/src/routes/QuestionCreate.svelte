@@ -1,7 +1,6 @@
 <script>
     import { push } from 'svelte-spa-router'
     import fastapi from "../lib/api"
-    //import fastapi from "../lib/api"
     import Error from "../components/Error.svelte"
     import { access_token, username, is_login } from "../lib/store"    // Store 변수 생성
     import { get } from 'svelte/store'
@@ -90,8 +89,8 @@
             return_value = await upload(file_pdf);
             console.log("결재문서 Upload 호출 완료");
 
-            params.file_name = return_value['file_name'];
-            params.file_path = return_value['file_path'];
+            params.pdf_file_name = return_value['file_name'];
+            params.pdf_file_path = return_value['file_path'];
         }
         
         //console.log({"params": params})
@@ -137,10 +136,13 @@
 
             //const response = await fetch(_url, {method: 'post', body: formData})
             const response = await fetch(_url, options)
+            
 
             console.log("-Upload Back end 완료")
+            console.log("--resopnse:", response)
             return_value = await response.json()
-            
+            console.log("--resopnse.json:", return_value)
+
             return return_value
             
         } catch(e) {
@@ -150,8 +152,9 @@
 
     }
 
-</script>
 
+
+</script>
 
 <div class="container">
     <h5 class="my-3 border-bottom pb-2">진단결과 등록</h5>
