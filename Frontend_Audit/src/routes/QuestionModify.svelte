@@ -1,7 +1,7 @@
 <script>
     import { push } from 'svelte-spa-router'
     import fastapi from "../lib/api"
-    import upload_modify from "../lib/no_use_upload_modify"
+    import upload_modify from "../lib/upload_modify"
     import Error from "../components/Error.svelte"
 
     export let params = {}
@@ -10,6 +10,10 @@
     let error = {detail:[]}
     let subject = ''
     let content = ''
+    let audit_date = (new Date()).toJSON().slice(0, 10);
+    let audit_date_end = (new Date()).toJSON().slice(0, 10);
+    let audit_year_start = (new Date()).toJSON().slice(0, 4);
+    let audit_year_end = (new Date()).toJSON().slice(0, 4);
     let file_name = ''  
     let file_path = ''
     let pdf_file_name = ''  
@@ -21,9 +25,7 @@
     let company = ''
     let region = ''
     let production = ''
-    let audit_date = (new Date()).toJSON().slice(0, 10);
-    let audit_date_end = (new Date()).toJSON().slice(0, 10);
-    let myDate = (new Date()).toJSON().slice(0, 10);
+    //let myDate = (new Date()).toJSON().slice(0, 10);
     let file
     let file_pdf
     let audit_type_list = ["품질체제(한국)", "품질체제(해외)", "품질체제(O/S)", "품질체제(사내도급)", "이슈품질", "생산지승인"]
@@ -36,12 +38,13 @@
                            "컴프", "컴프(냉장고)","컴프(에어컨)", "실내기", "실외기", "모터", "TV", "모니터", "사이니지", "PC", 
                            "IVI", "로봇", "EV충전", "뷰티"]
 
-
     fastapi("get", "/api/question/detail/" + question_id, {}, (json) => {
         subject = json.subject
         content = json.content
         audit_date = json.audit_date.slice(0,10)
         audit_date_end = json.audit_date_end.slice(0,10)
+        audit_year_start = json.audit_date.slice(0,4)
+        audit_year_end = json.audit_date_end.slice(0,4)
         file_name = json.file_name
         file_path = json.file_path
         pdf_file_name = json.pdf_file_name
@@ -55,8 +58,6 @@
         production = json.production
     })
 
-    //console.log({"audit_date":audit_date.slice(0,10)})
-
     async function update_question(event) {
         event.preventDefault()
         let url = "/api/question/update"
@@ -66,6 +67,8 @@
             content: content,
             audit_date: audit_date,
             audit_date_end: audit_date_end,
+            audit_year_start: audit_date.slice(0,4),    // 추가됨
+            audit_year_end: audit_date_end.slice(0,4),  // 추가됨
             file_name: file_name,
             file_path: file_path,
             pdf_file_name: pdf_file_name,
@@ -78,15 +81,13 @@
             region: region,
             production: production,
         }
+        console.log('--audit_date', audit_date, '--audit_date_slice04',audit_date.slice(0,4))
 
         let return_value
 
         //console.log({"file at modify: " : file})
         
         if (file !== undefined){
-            //let return_value = await upload_modify()
-            //console.log({"upload_modify": return_value})
-
             return_value = await upload_modify(file)
             params.file_name = return_value[0]
             params.file_path = return_value[1]

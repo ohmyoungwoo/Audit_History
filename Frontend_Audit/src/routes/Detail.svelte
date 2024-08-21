@@ -18,10 +18,9 @@
     function get_question() {
         fastapi("get", "/api/question/detail/" + question_id, {}, (json) => {
             question = json
-            console.log(question)
+            //console.log(question)
         })
     }
-
     get_question()
 
     function delete_question(_question_id) {

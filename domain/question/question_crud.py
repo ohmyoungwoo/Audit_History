@@ -125,6 +125,8 @@ def update_question(db: Session, db_question: Question,
     db_question.modify_date = datetime.now() # type: ignore
     db_question.audit_date = question_update.audit_date # type: ignore
     db_question.audit_date_end = question_update.audit_date_end # type: ignore
+    db_question.audit_year_start = question_update.audit_year_start # type: ignore
+    db_question.audit_year_end = question_update.audit_year_end # type: ignore
     if question_update.file_name != None:
         db_question.file_name = question_update.file_name # type: ignore
     if question_update.file_path != None:
