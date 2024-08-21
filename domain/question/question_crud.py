@@ -2,17 +2,28 @@ from datetime import datetime
 import os
 
 from domain.question.question_schema import QuestionCreate, QuestionUpdate
-from model.models import Question, User#, Answer
+from model.models import Question, User, Answer
 from sqlalchemy.orm import Session
 from sqlalchemy import and_
+from domain.question.query_list import get_query_list
 
 
 def get_question_list(db: Session, skip: int = 0, limit: int = 10, keyword: str = ''):
     question_list = db.query(Question)
     if keyword:
-        search = '%%{}%%'.format(keyword)  # keyword는 화면에서 전달 받은 값
+        question_list = get_query_list(db, keyword)
+        #search = keyword.split()
+        #search = '%%{}%%'.format(keyword_list)  # keyword는 화면에서 전달 받은 값
+        ##search = '%%{}%%'.format(keyword)  # keyword는 화면에서 전달 받은 값
+        #search =[]
+        #search = keyword.split() 
+        #for key in keyword_list:
+        #    search.append('%%{}%%'.format(key))
+        
+        #print(search)
         #sub_query = db.query(Answer.question_id, Answer.content, User.username)\
         #    .outerjoin(User, and_(Answer.user_id == User.id)).subquery()
+        """
         question_list = question_list \
             .outerjoin(User) \
             .filter(Question.subject.ilike(search)|   # 진단 제목
@@ -23,8 +34,9 @@ def get_question_list(db: Session, skip: int = 0, limit: int = 10, keyword: str 
                     Question.company.ilike(search)|     # 회사 (ex) LGE, 신성델타 ...
                     Question.region.ilike(search)|      # 사업장 
                     Question.production.ilike(search)|  # 제품군
-                    Question.audit_type.ilike(search)   # 진단유형
-                    
+                    Question.audit_type.ilike(search)|   # 진단유형
+                    Question.audit_year_start.ilike(search)|   # Year_start
+                    Question.audit_year_end.ilike(search)   # Year_end
                     #sub_query.c.content.ilike(search) | # 답변내용, 
                     #sub_query.c.username.ilike(search) # 답변 작성자
             #.outerjoin(sub_query, and_ (sub_query.c.question_id == Question.id)) \
@@ -32,7 +44,10 @@ def get_question_list(db: Session, skip: int = 0, limit: int = 10, keyword: str 
             # sub_query.c.question_id 에서 c 는 서브쿼리의 조회 항목이며, 
             # sub_query.c.question_id 는 서브쿼리의 조회 항목 중 question_id를 의미함
             # and_ 는 sqlalchemy 의 특이한 함수???
-            
+        """
+    
+    #question_list = get_query_list(db, keyword)    
+    
     total = question_list.distinct().count()
     question_list = question_list.order_by(Question.audit_date.desc()) \
         .offset(skip).limit(limit).distinct().all() # 리스트 정렬 (진단일자 기준)
@@ -43,16 +58,11 @@ def get_question_list_year(db: Session, skip: int = 0, limit: int = 10, year:int
     question_list = db.query(Question)
     if year:
         search = '%%{}%%'.format(year)  # keyword는 화면에서 전달 받은 값
-        #sub_query = db.query(Answer.question_id, Answer.content, User.username)\
-        #    .outerjoin(User, and_(Answer.user_id == User.id)).subquery()
         question_list = question_list \
             .outerjoin(User) \
             .filter(Question.audit_year_start.ilike(search)|
                     Question.audit_year_end.ilike(search)
             )
-            # sub_query.c.question_id 에서 c 는 서브쿼리의 조회 항목이며, 
-            # sub_query.c.question_id 는 서브쿼리의 조회 항목 중 question_id를 의미함
-            # and_ 는 sqlalchemy 의 특이한 함수???
             
     total = question_list.distinct().count()
     question_list = question_list.order_by(Question.audit_date.desc()) \
