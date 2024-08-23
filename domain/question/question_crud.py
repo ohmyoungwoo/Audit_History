@@ -7,13 +7,21 @@ from sqlalchemy.orm import Session
 from sqlalchemy import and_
 #from domain.question.query_list import get_query_list
 
+#def get_question_list(db: Session, skip: int = 0, limit: int = 10, keyword: str = '', year = None):
 def get_question_list(db: Session, skip: int = 0, limit: int = 10, keyword: str = ''):
-    question_list = db.query(Question)
+    query_list = db.query(Question)
     if keyword:
-        question_list = get_query_list(db, keyword)
+        query_list = get_query_list(db, keyword)
         
-    total = question_list.distinct().count()
-    question_list = question_list.order_by(Question.audit_date.desc()) \
+    #if year:
+    #    search = '%%{}%%'.format(year)
+    #    question_list = question_list \
+    #        .filter(Question.audit_year_start.ilike(search)|
+    #                Question.audit_year_end).ilike(search)
+    #        )
+        
+    total = query_list.distinct().count()
+    question_list = query_list.order_by(Question.audit_date.desc()) \
         .offset(skip).limit(limit).distinct().all() # 리스트 정렬 (진단일자 기준)
         
     return total, question_list

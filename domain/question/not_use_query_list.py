@@ -1,7 +1,5 @@
 from sqlalchemy.orm import Session
 from model.models import Question, User, Answer
-from database import database
-
 
 def get_query_list(db: Session, keyword: str = ''):
    
