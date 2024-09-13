@@ -30,19 +30,18 @@
         
     }
 
-    function get_question_list_year(_page) {
-        let params ={
-            page: $page,
-            size: size,
-            year: $year,
-        }
-        fastapi('get', '/api/question/list-year', params, (json) => {
-            question_list = json.question_list
-            total = json.total
-            yr = $year
-        })
-        
-    }
+    //function get_question_list_year(_page) {
+    //    let params ={
+    //        page: $page,
+    //        size: size,
+    //        year: $year,
+    //    }
+    //    fastapi('get', '/api/question/list-year', params, (json) => {
+    //        question_list = json.question_list
+    //        total = json.total
+    //        yr = $year
+    //    })
+    //}
 
     $: $page, $keyword, $year, get_question_list() //get_question_list_year() // 함수 앞의 $: 는 $page가 변경되면 함수도 다시 호출하라는 의미임
     //console.log({"question_list": question_list})

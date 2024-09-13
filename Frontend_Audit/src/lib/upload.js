@@ -27,11 +27,11 @@ async function upload(upload_file) {
 
         options['body'] = formData
 
-        console.log("-Upload Back end 시작")
+        console.log("-Upload Back end 시작", options)
         //console.log(options)
 
         //const response = await fetch(_url, {method: 'post', body: formData})
-        const response = await fetch(_url, options)
+        const response = await fetch(_url, options)   // 여기서 문제가 생기네 -__-;;;
         
 
         console.log("-Upload Back end 완료")
