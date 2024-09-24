@@ -82,10 +82,11 @@ def question_delete(_question_delete: question_schema.QuestionDelete,
     question_crud.delete_question(db=db, db_question=db_question)
     
 @router.post("/upload")
-async def store_file(file: UploadFile = File(...)):
+#async def store_file(file: UploadFile = File(...)):
+async def store_file(file: UploadFile):
     #currentTime = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     #saved_file_name = ''.join([file.filename, currentTime]) # type: ignore
-    
+
     try:
         file_location = os.path.join(SAVE_DIR, file.filename) # type: ignore
         print ("file upload start: ", file_location)
@@ -96,11 +97,50 @@ async def store_file(file: UploadFile = File(...)):
         with open(file_location, "wb+") as file_object:
             #file_object.write(file.file.read())
             file_object.write(contents)
-            print ("file write at ", SAVE_DIR, "& file_name :", file.filename)
-        #return [file.filename, file_location]
+            #print ("file write at ", SAVE_DIR, "file_name :", file.filename)
+        
+        #os.replace(contents, file_location) (안됨)
+        
         return {"file_name":file.filename, "file_path":file_location}
     except:
         raise HTTPException(status_code=400, detail="Upload failed.")
+    
+""" 임태우 파일 만들기
+@router.post("/penalty")
+async def create_penalty(
+    penalty: schemas.PenaltyCreate,
+    user: models.User = Depends(get_current_active_user),
+    db: Session = Depends(get_db),
+):
+    db_history = models.Penalty(
+        **penalty.dict(exclude={"files"}), created_by=user.username
+    )
+    db.add(db_history)
+    db.commit()
+    db.refresh(db_history)
+
+    for file in penalty.files:
+        if file["status"] == "done":
+            path = os.path.join("./uploads/penalty/", file["uid"])
+            os.replace(file["response"]["path"], path)
+            db_attach = models.PenaltyAttach(
+                name=file["name"],
+                status="uploaded",
+                file_path=path,
+                file_type=file["type"],
+                file_size=file["size"],
+                last_modified_date=datetime.datetime.strptime(
+                    file["lastModifiedDate"], "%Y-%m-%dT%H:%M:%S.%fZ"
+                ),
+                created_by=user.username,
+                history_id=db_history.id,
+            )
+            db.add(db_attach)
+            db.commit()
+
+    db.refresh(db_history)
+    return db_history
+"""
 
 @router.get("/download/{file_name}")
 async def download_file(file_name:str):
@@ -112,3 +152,10 @@ async def download_file(file_name:str):
     
     #print(f"Backend_download_File path: {file_path} ")
     return FileResponse(file_path, media_type='application/octet-stream', filename=file_name)
+
+""" 임태우 다운로드
+@router.get("/penalty/file/{item_id}")
+async def download_file(item_id: int, db: Session = Depends(get_db)):
+    file = read_attach_by_id(db, item_id)
+    return FileResponse(path=os.path.join(file.file_path))
+"""

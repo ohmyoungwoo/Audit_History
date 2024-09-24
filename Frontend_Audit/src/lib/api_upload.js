@@ -33,12 +33,9 @@ const upload = async (upload_file) => {
         //const response = await fetch(_url, {method: 'post', body: formData})
         //const response = await fetch(_url, options)   // 여기서 문제가 생기네 -__-;;;
         const response = await fetch(_url, options)
-
-        console.log("-Upload Back end 완료")
-        //console.log("--resopnse:", response)
-        return_value = await response.json()
         //return_value = response.json()
-        //console.log("--resopnse.json:", return_value)
+        return_value = await response.json()
+        console.log("--resopnse.json:", return_value)
         return return_value
 
     } catch (e) {
