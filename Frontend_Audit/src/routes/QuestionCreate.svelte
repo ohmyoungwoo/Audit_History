@@ -4,7 +4,7 @@
     import Error from "../components/Error.svelte"
     import { access_token, username, is_login } from "../lib/store"    // Store 변수 생성
     import { get } from 'svelte/store'
-    import upload from "../lib/upload"
+    import upload from "../lib/api_upload"
 
     let error = {detail:[]}
     let subject = ''

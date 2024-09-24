@@ -1,7 +1,7 @@
 <script>
     import { push } from 'svelte-spa-router'
     import fastapi from "../lib/api"
-    import upload from "../lib/upload"
+    import upload from "../lib/api_upload"
     //import upload from "QuestionCreate.svelte"   글로벌 변수 지정 필요함
     import Error from "../components/Error.svelte"
     import { access_token, username, is_login } from "../lib/store"    // Store 변수 생성

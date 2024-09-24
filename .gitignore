@@ -1,6 +1,9 @@
+.idea
 audit.db
-alembic.ini
 *.pyc
 __pycache__
+migrations
+alembic.ini
+.env
 domain/file_dir/
 domain/file_dir_backup/
