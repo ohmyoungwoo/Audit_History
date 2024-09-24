@@ -5,7 +5,7 @@ import { get } from 'svelte/store'
 const upload = async (upload_file) => { 
     let url = "/api/question/upload"
     let _url = 'http://10.182.32.155:8000' + url
-    //let content_type = 'application/json'
+    //let content_type = 'multipart/form-data' 
     let return_value = {}
 
     let options = {
@@ -14,27 +14,26 @@ const upload = async (upload_file) => {
         headers: {},
     }
 
+    const _access_token = get(access_token)
+    if (_access_token) {
+        options.headers["Authorization"] = "Bearer " + _access_token
+    }
+
     console.log("-Upload 함수 시작", _url)
 
-    try {
+    const formData = new FormData()
+    formData.append('file', upload_file)
+    
+    options['body'] = formData
 
-        const _access_token = get(access_token)
-        if (_access_token) {
-            options.headers["Authorization"] = "Bearer " + _access_token
-        }
-
-        const formData = new FormData()
-        formData.append('file', upload_file)
-
-        options['body'] = formData
-
-        console.log("-Upload Back end 시작", options)
+    console.log("-Upload Back end 시작", options)
         //console.log(options)
         //const response = await fetch(_url, {method: 'post', body: formData})
         //const response = await fetch(_url, options)   // 여기서 문제가 생기네 -__-;;;
+    try {
         const response = await fetch(_url, options)
-        //return_value = response.json()
         return_value = await response.json()
+        //console.log("--resopnse.json:", return_value.message)
         console.log("--resopnse.json:", return_value)
         return return_value
 

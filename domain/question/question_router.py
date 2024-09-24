@@ -1,10 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException, File, UploadFile
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from starlette import status
 from starlette.responses import FileResponse
 import os
 import datetime
 import secrets
+import shutil
 
 from database.database import get_db
 from domain.question import question_schema
@@ -80,10 +82,12 @@ def question_delete(_question_delete: question_schema.QuestionDelete,
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail="삭제 권한이 없습니다.")
     question_crud.delete_question(db=db, db_question=db_question)
-    
+
+# GCP Storage 클라이언트 초기화 (자신의 프로젝트 ID 및 인증 정보 설정)
+
 @router.post("/upload")
-#async def store_file(file: UploadFile = File(...)):
-async def store_file(file: UploadFile):
+async def store_file(file: UploadFile = File(...)):
+#async def store_file(file: UploadFile):
     #currentTime = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     #saved_file_name = ''.join([file.filename, currentTime]) # type: ignore
 
@@ -91,19 +95,24 @@ async def store_file(file: UploadFile):
         file_location = os.path.join(SAVE_DIR, file.filename) # type: ignore
         print ("file upload start: ", file_location)
         
-        contents = await file.read()
-        print ("file read complete")
+        #contents = await file.read()
+        #print ("file read complete")
         
         with open(file_location, "wb+") as file_object:
             #file_object.write(file.file.read())
-            file_object.write(contents)
+            #file_object.write(contents)
+            shutil.copyfileobj(file.file, file_object)
             #print ("file write at ", SAVE_DIR, "file_name :", file.filename)
         
         #os.replace(contents, file_location) (안됨)
         
-        return {"file_name":file.filename, "file_path":file_location}
-    except:
-        raise HTTPException(status_code=400, detail="Upload failed.")
+        #return {"file_name":file.filename, "file_path":file_location}
+        return JSONResponse(status_code=200, content={"file_name":file.filename, "file_path":file_location})
+    
+    #except:
+    #    raise HTTPException(status_code=400, detail="Upload failed.")
+    except Exception as e:
+        return JSONResponse(status_code=500, content={"message": str(e)})
     
 """ 임태우 파일 만들기
 @router.post("/penalty")

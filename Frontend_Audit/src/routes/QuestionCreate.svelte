@@ -25,7 +25,7 @@
     let region = ''
     let production = ''
     let return_value =[]
-    let file
+    let file = null
     let file_pdf
     let audit_type_list = ["품질체제(한국)", "품질체제(해외)", "품질체제(O/S)", "품질체제(사내도급)", "이슈품질", "생산지승인"]
     let company_list = ["LGE", "신성델타", "성철사", "고모텍", "청호", "ACE-TEC", "동인테크", "금원테크", "(주)원현","송기업",
@@ -72,13 +72,6 @@
         if (file){
             console.log("보고서 Upload 호출 시작");
             return_value = await upload(file);
-            //fastapi('upload', '/api/question/upload', file, 
-            //    (json) => {
-            //        params.file_name = json.file_name
-            //        params.file_path = json.file_path},
-            //    (json_error) => {
-            //        error = json_error}
-            //)
             console.log("보고서 Upload 호출 완료");
             
             params.file_name = return_value['file_name'];
@@ -115,7 +108,7 @@
     <div class="row mb-3">
         <div class = "col-6">
             <h6>진단 보고서 업로드</h6>    
-            <input type="file" on:change="{(event) => (file = event.target.files[0])}" /> 
+            <input type="file" accept=".pptx" on:change="{(event) => (file = event.target.files[0])}" /> 
         </div>
         <div class = "col-6">
         <!--<button on:click="{upload}">업로드</button>-->
