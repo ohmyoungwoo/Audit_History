@@ -12,7 +12,7 @@ from database.database import get_db
 from domain.question import question_schema
 from domain.question import question_schema, question_crud
 from domain.user.user_router import get_current_user
-from model.models import User
+from model.models import User, Question
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SAVE_DIR = os.path.join(BASE_DIR,'file_dir/')
@@ -54,7 +54,15 @@ def question_detail(question_id: int, db: Session = Depends(get_db)):
 def question_create(_question_create: question_schema.QuestionCreate,
                     db: Session = Depends(get_db),
                     current_user: User = Depends(get_current_user)):
+                    #file: UploadFile = File(...)
+                    
+    
+    #if _question_create.file_name :
+    #    print("file_name: ", _question_create.file_name)
+    #    result = store_file2( _question_create.file_name )
+    
     question_crud.create_question(db=db, question_create=_question_create, user=current_user)
+    
     
 @router.put("/update", status_code=status.HTTP_204_NO_CONTENT)
 def question_update(_question_update: question_schema.QuestionUpdate,
@@ -90,67 +98,30 @@ async def store_file(file: UploadFile = File(...)):
 #async def store_file(file: UploadFile):
     #currentTime = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     #saved_file_name = ''.join([file.filename, currentTime]) # type: ignore
-
+    
+    #print(file)
+    
     try:
         file_location = os.path.join(SAVE_DIR, file.filename) # type: ignore
         print ("file upload start: ", file_location)
         
         #contents = await file.read()
-        #print ("file read complete")
         
         with open(file_location, "wb+") as file_object:
-            #file_object.write(file.file.read())
-            #file_object.write(contents)
             shutil.copyfileobj(file.file, file_object)
-            #print ("file write at ", SAVE_DIR, "file_name :", file.filename)
+            #file_object.write(contents)
+            print ("file write at ", SAVE_DIR, file.filename)
         
-        #os.replace(contents, file_location) (안됨)
+            #os.replace(contents, file_location) (안됨)
         
-        #return {"file_name":file.filename, "file_path":file_location}
-        return JSONResponse(status_code=200, content={"file_name":file.filename, "file_path":file_location})
+        return {"file_name":file.filename, "file_path":file_location}
+        #return JSONResponse(status_code=200, content={"file_name":file.filename, "file_path":file_location})
     
     #except:
     #    raise HTTPException(status_code=400, detail="Upload failed.")
     except Exception as e:
         return JSONResponse(status_code=500, content={"message": str(e)})
     
-""" 임태우 파일 만들기
-@router.post("/penalty")
-async def create_penalty(
-    penalty: schemas.PenaltyCreate,
-    user: models.User = Depends(get_current_active_user),
-    db: Session = Depends(get_db),
-):
-    db_history = models.Penalty(
-        **penalty.dict(exclude={"files"}), created_by=user.username
-    )
-    db.add(db_history)
-    db.commit()
-    db.refresh(db_history)
-
-    for file in penalty.files:
-        if file["status"] == "done":
-            path = os.path.join("./uploads/penalty/", file["uid"])
-            os.replace(file["response"]["path"], path)
-            db_attach = models.PenaltyAttach(
-                name=file["name"],
-                status="uploaded",
-                file_path=path,
-                file_type=file["type"],
-                file_size=file["size"],
-                last_modified_date=datetime.datetime.strptime(
-                    file["lastModifiedDate"], "%Y-%m-%dT%H:%M:%S.%fZ"
-                ),
-                created_by=user.username,
-                history_id=db_history.id,
-            )
-            db.add(db_attach)
-            db.commit()
-
-    db.refresh(db_history)
-    return db_history
-"""
-
 @router.get("/download/{file_name}")
 async def download_file(file_name:str):
     #print("Call download router"+file_name)
@@ -167,4 +138,31 @@ async def download_file(file_name:str):
 async def download_file(item_id: int, db: Session = Depends(get_db)):
     file = read_attach_by_id(db, item_id)
     return FileResponse(path=os.path.join(file.file_path))
+"""
+
+"""
+async def store_file2(file_name):
+#async def store_file(file: UploadFile):
+    #currentTime = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    #saved_file_name = ''.join([file.filename, currentTime]) # type: ignore
+    #file 
+    #content = await file.read()
+
+    try:
+        file_location = os.path.join(SAVE_DIR, file_name) # type: ignore
+        print ("file upload start: ", file_location)
+        
+        with open(file_location, "wb+") as file_object:
+            shutil.copyfileobj(file, file_object)
+            #print ("file write at ", SAVE_DIR, "file_name :", file.filename)
+        
+        #os.replace(contents, file_location) (안됨)
+        
+        return {"file_name":file.filename, "file_path":file_location}
+        #return JSONResponse(status_code=200, content={"file_name":file.filename, "file_path":file_location})
+    
+    #except:
+    #    raise HTTPException(status_code=400, detail="Upload failed.")
+    except Exception as e:
+        return JSONResponse(status_code=500, content={"message": str(e)})
 """

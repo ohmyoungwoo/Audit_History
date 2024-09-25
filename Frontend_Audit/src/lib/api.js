@@ -46,6 +46,8 @@ const fastapi = (operation, url, params, success_callback, failure_callback) => 
         options['body'] = body
     }
 
+    //console.log({"body": body})
+
     fetch(_url, options)
         .then(response => {
             if(response.status === 204) {

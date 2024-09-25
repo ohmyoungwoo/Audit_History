@@ -50,10 +50,11 @@
             audit_date_end: audit_date_end,
             audit_year_start: audit_date.slice(0, 4),  //audit_date 의 year 추가
             audit_year_end: audit_date_end.slice(0, 4),  // audit_date_end 의 year 추가
-            file_name: file_name,
-            file_path: file_path,
-            pdf_file_name: pdf_file_name,
-            pdf_file_path: pdf_file_path,
+            //file: file,
+            file_name: file.name,
+            //file_path: file.file_path,
+            //pdf_file_name: file_pdf.name,
+            //pdf_file_path: pdf_file_path,
             auditor1: auditor1,
             auditor2: auditor2,
             auditor3: auditor3,
@@ -67,27 +68,28 @@
         //console.log({"post_file_name": params.file_name,"post_file_path": params.file_path})
         //params.file_name, params.file_path = await upload()
         //params.file_name = await upload()
-        console.log("-------------------시작---------------")
+
+        //console.log("-------------------시작---------------")
 
         if (file){
-            console.log("보고서 Upload 호출 시작");
+            console.log({"file": file})
             return_value = await upload(file);
-            console.log("보고서 Upload 호출 완료");
             
+
             params.file_name = return_value['file_name'];
             params.file_path = return_value['file_path'];
         }
 
         if (file_pdf){
-            console.log("결재문서 Upload 호출 시작");
             return_value = await upload(file_pdf);
-            console.log("결재문서 Upload 호출 완료");
 
             params.pdf_file_name = return_value['file_name'];
             params.pdf_file_path = return_value['file_path'];
         }
         
         //console.log({"params": params})
+        //console.log({"file": file.name})
+        console.log({"params.file_name": params.file_name})
 
         fastapi('post', url, params, 
             (json) => {

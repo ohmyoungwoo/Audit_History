@@ -21,8 +21,10 @@ class Question(Base):
     audit_year_end = Column(Integer, nullable=True) # 등록 년
     file_name = Column(String, nullable=True) # 진단보고서 파일이름
     file_path = Column(String, nullable=True) # 진단보고서 저장위치 + 파일이름
+    file = Column(String, nullable=True) # 진단보고서 파일 전달, UploadFile, File 형태가 안됨
     pdf_file_name = Column(String, nullable=True) # 진단 승인 이력 pdf 파일이름
     pdf_file_path = Column(String, nullable=True) # 진단 승인 이력 pdf 저장위치 + 파일이름
+    pdf_file = Column(String, nullable=True) # 진단 승인 이력진단보고서 파일 전달
     auditor1 = Column(String, nullable=True) # 진단자1
     auditor2 = Column(String, nullable=True) # 진단자2
     auditor3 = Column(String, nullable=True) # 진단자3

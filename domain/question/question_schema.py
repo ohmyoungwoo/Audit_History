@@ -5,6 +5,8 @@ from pydantic import BaseModel, field_validator
 from domain.answer.answer_schema import Answer
 from domain.user.user_schema import User
 
+from fastapi import APIRouter, Depends, HTTPException, File, UploadFile
+
 class Question(BaseModel):
     id: int
     subject: str
@@ -19,8 +21,10 @@ class Question(BaseModel):
     audit_year_end: int | None = None    
     file_name: str | None = None
     file_path: str | None = None
+    file: UploadFile | None = None
     pdf_file_name: str | None = None
     pdf_file_path: str | None = None
+    pdf_file: UploadFile | None = None
     auditor1: str  | None = None
     auditor2: str  | None = None
     auditor3: str  | None = None
@@ -41,8 +45,10 @@ class QuestionCreate(BaseModel):
     audit_year_end: int | None = None  
     pdf_file_name: str | None = None
     pdf_file_path: str | None = None
+    pdf_file: UploadFile | None = None
     file_name: str | None = None
     file_path: str | None = None
+    file: UploadFile | None = None
     auditor1: str  | None = None
     auditor2: str  | None = None
     auditor3: str  | None = None
