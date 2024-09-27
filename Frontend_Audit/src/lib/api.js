@@ -12,12 +12,18 @@ const fastapi = (operation, url, params, success_callback, failure_callback) => 
 
     let method = operation
     let content_type = 'application/json'
+    //let file = params['file']
+    //delete params.file
+    //let params_except_file = params
+    //let body = JSON.stringify(params_except_file)   
+
     let body = JSON.stringify(params)   // params를 JSON으로 변경해서 body에 입력
     
     //let _url = import.meta.env.VITE_SERVER_URL + url  // 작동 안함 (이유를 모르겠음 ????)
     //alert(import.meta.env.VITE_SERVER_URL)
     let _url = 'http://10.182.32.155:8000'+ url
     //let _url = 'http://qams.lge.com:8000'+ url (이렇게 바꾸면 안됨)
+    
     
 
     if(operation === 'login') {
@@ -42,11 +48,23 @@ const fastapi = (operation, url, params, success_callback, failure_callback) => 
         options.headers["Authorization"] = "Bearer " + _access_token
     }
 
+    
+
     if (method !== 'get') {
+        //console.log('params', params)
+        //console.log('file', file)
+        //if (file) {
+        //    console.log('변경전 body', body)
+        //    body['file'] = file
+        //    console.log('변경후 body', body)
+        //}
+        //console.log('변경후 body', body)
         options['body'] = body
+
     }
 
-    //console.log({"body": body})
+    
+    //console.log("body", body)
 
     fetch(_url, options)
         .then(response => {

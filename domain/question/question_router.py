@@ -14,8 +14,10 @@ from domain.question import question_schema, question_crud
 from domain.user.user_router import get_current_user
 from model.models import User, Question
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SAVE_DIR = os.path.join(BASE_DIR,'file_dir/')
+#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # 잘못될 가능성 있음
+#SAVE_DIR = os.path.join(BASE_DIR,'file_dir/')
+SAVE_DIR = os.path.join(os.getcwd(), 'domain/file_dir/')
+print ("SAVE_DIR", SAVE_DIR)
 
 router = APIRouter(
     prefix="/api/question",
@@ -56,7 +58,7 @@ def question_create(_question_create: question_schema.QuestionCreate,
                     current_user: User = Depends(get_current_user)):
                     #file: UploadFile = File(...)
                     
-    
+    #print('_question_create', _question_create)
     #if _question_create.file_name :
     #    print("file_name: ", _question_create.file_name)
     #    result = store_file2( _question_create.file_name )
@@ -103,14 +105,14 @@ async def store_file(file: UploadFile = File(...)):
     
     try:
         file_location = os.path.join(SAVE_DIR, file.filename) # type: ignore
-        print ("file upload start: ", file_location)
+        #print ("file upload start: ", file_location)
         
         #contents = await file.read()
         
         with open(file_location, "wb+") as file_object:
             shutil.copyfileobj(file.file, file_object)
             #file_object.write(contents)
-            print ("file write at ", SAVE_DIR, file.filename)
+        #    print ("file write at ", SAVE_DIR, file.filename)
         
             #os.replace(contents, file_location) (안됨)
         

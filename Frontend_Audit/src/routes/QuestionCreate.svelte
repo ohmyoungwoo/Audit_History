@@ -13,8 +13,10 @@
     let audit_date_end = (new Date()).toJSON().slice(0, 10);
     //let audit_year = (new Date()).toJSON().slice(0, 4)
     //let audit_year_end = (new Date()).toJSON().slice(0, 4)
+    let file = null
     let file_name = ''  
     let file_path = ''
+    let file_pdf = null
     let pdf_file_name = ''  
     let pdf_file_path = ''
     let auditor1 = ''
@@ -25,8 +27,6 @@
     let region = ''
     let production = ''
     let return_value =[]
-    let file = null
-    let file_pdf
     let audit_type_list = ["품질체제(한국)", "품질체제(해외)", "품질체제(O/S)", "품질체제(사내도급)", "이슈품질", "생산지승인"]
     let company_list = ["LGE", "신성델타", "성철사", "고모텍", "청호", "ACE-TEC", "동인테크", "금원테크", "(주)원현","송기업",
                         "성진테크", "대남테크", "하성기업"]
@@ -41,6 +41,8 @@
     // event 에 무언가 있네 ㅠㅠ ????
 
     async function post_question(event) {
+        const formData = new FormData()
+        
         event.preventDefault()
         let url = "/api/question/create"
         let params = {
@@ -50,11 +52,11 @@
             audit_date_end: audit_date_end,
             audit_year_start: audit_date.slice(0, 4),  //audit_date 의 year 추가
             audit_year_end: audit_date_end.slice(0, 4),  // audit_date_end 의 year 추가
-            //file: file,
-            file_name: file.name,
-            //file_path: file.file_path,
-            //pdf_file_name: file_pdf.name,
-            //pdf_file_path: pdf_file_path,
+            //file: new FormData(),
+            file_name: file_name,
+            file_path: file_path,
+            pdf_file_name: pdf_file_name,
+            pdf_file_path: pdf_file_path,
             auditor1: auditor1,
             auditor2: auditor2,
             auditor3: auditor3,
@@ -72,10 +74,16 @@
         //console.log("-------------------시작---------------")
 
         if (file){
-            console.log({"file": file})
-            return_value = await upload(file);
-            
+            //console.log({"file": file})
+            //const formData = new FormData()
+            //formData.append('file', file)
+            //console.log({"file": formData})
 
+            return_value = await upload(file);
+            //params.file.append('file', file);
+
+            //console.log('questionCreate.svelte의 params', params.file)
+            //params.file = formData
             params.file_name = return_value['file_name'];
             params.file_path = return_value['file_path'];
         }
@@ -89,7 +97,8 @@
         
         //console.log({"params": params})
         //console.log({"file": file.name})
-        console.log({"params.file_name": params.file_name})
+        //console.log({"params.file_name": params.file_name})
+        //console.log('questionCreate.svelte의 params', params)
 
         fastapi('post', url, params, 
             (json) => {
